@@ -1,0 +1,69 @@
+To compile the stock kernel from source without errors:
+----------------------------------------------------------------
+place the kernelsource in:
+kernel/huawei/kernel
+I placed it there because it has to be named "kernel"
+otherwise it does not build for some reason
+
+It is refered as:
+TARGET_KERNEL_SOURCE := kernel/huawei/kernel
+TARGET_KERNEL_CONFIG := merge_hi3635_defconfig
+in the BoardConfig.mk
+
+Change this line in kernel/huawei/kernel/Makefile
+from
+BALONG_TOPDIR = $(CURDIR)/../kernel/drivers/vendor/hisi
+to
+BALONG_TOPDIR = $(srctree)/drivers/vendor/hisi
+
+This line causes that the flag O=../output must be set!
+Otherwise it fails due to missing vendor headers and we
+dont want this
+
+
+Black Screen on TWRP 3.0.2
+--------------------------
+Apply this it definitely fixes it!
+https://github.com/TeamWin/Team-Win-Recovery-Project/pull/641/commits/63ff59c354e9a04b4faa5f9f8c12142752d94609
+file: minuitwrp/graphics_fbdev.cpp
+diff:
+-    displayed_buffer = n;
++/* This is needed for newer Huawei HiSilicon based SoC or otherwise screen is black. Thanks to @jniklast and @XePeleato */
++    if (ioctl(fb_fd, FBIOPAN_DISPLAY, &vi) < 0) {
++      perror("pan failed");
++    }    
++        displayed_buffer = n;
+
+
+
+Causes crash on my twrp
+-----------------------
+file_contexts
+sepolicy
+----------
+The line "/init u:object_r:rootfs:s0" in "file_contexts" changed to "/init u:object_r:init_exec:s0"
+causes no freeze anymore with the stock sepolicy binary and the generated+merged file_contexts
+--> reading the seplicy's with setools result in fail for the generated and success for the stock
+it seems that the generated sepolicy is broken
+Edit: well now I use different selinux stuff anyway not sure if it works with the recovery
+but I guess it does.
+
+
+SEPolicy fix
+------------
+Set the POLICYVERS in the BoardConfig.mk to 26 or 28. Oficially the kernel 3.10.61 supports up to v26.
+Cyanogenmod13 uses v30.... 
+However this will throw an build error
+-->THX dolorespark@xda!
+[Edit 'external/sepolicy/ioctl_macros' - comment-out all the lines within the macro (i.e. between the braces), 
+then insert a line in the macro with the word "ioctl" - this will allow all ioctls, the same as in Lollipop]
+solves this. However if you're brave patch the kernel or wait until huawei releases the latest kernel source.
+
+
+The mali kernel driver and the 6.0 blob
+---------------------------------------
+had to patch the kernel source from mali (8p0~) into
+the kernel. Took the depending folder from p8 lite 6.0 kernel since I had to rewrite a few
+paths in my first try where I used the one from p9. Optionally it shouldn't be a big deal
+to use the official one although it's a (miiiinor) different version. Any kernel source
+for midgard series 8p0~ should work for the 6.0 blob... ok except the one from p9 (it's modified)

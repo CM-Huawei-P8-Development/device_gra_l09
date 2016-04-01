@@ -1,0 +1,53 @@
+on early-init
+
+on init
+
+on early-fs
+
+on fs
+
+on post-fs
+
+on post-fs-data
+
+    mkdir /data/gps
+    mkdir /data/gps/log
+    chown root system /data/gps
+    chmod 775 /data/gps
+    chmod 770 /data/gps/log
+
+    mkdir /data/hwzd_logs
+    mkdir /data/hwzd_logs/gps_log
+    chown root system /data/hwzd_logs
+    chmod 775 /data/hwzd_logs
+    chmod 775 /data/hwzd_logs/gps_log
+on early-boot
+
+on boot
+
+    chmod 660 /dev/ttyAMA3
+
+    service gpsdaemon /system/bin/gpsdaemon
+    class late_start
+    oneshot
+
+    service gpsd_47531  /system/bin/glgps47531 -c /data/gps/gpsconfig.xml
+    socket gps seqpacket 660 root root
+    class late_start
+    user root
+    group system inet sdcard_rw
+    disabled
+
+    service gpsdcl_47531  /system/bin/glgps47531cl -c /data/gps/gpsconfig.xml
+    socket gps seqpacket 660 root root
+    class late_start
+    user root
+    group system inet sdcard_rw
+    disabled
+
+    service gpsd_4752  /system/bin/glgps4752 -c /data/gps/gpsconfig.xml
+    socket gps seqpacket 660 root root
+    class late_start
+    user root
+    group system inet sdcard_rw
+    disabled

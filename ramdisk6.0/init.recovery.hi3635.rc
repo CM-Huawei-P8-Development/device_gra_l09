@@ -1,0 +1,4 @@
+on init
+    write /sys/module/block2mtd/parameters/block2mtd /dev/block/mmcblk0p7
+    wait /dev/nve0
+    chmod 0640 /dev/nve0

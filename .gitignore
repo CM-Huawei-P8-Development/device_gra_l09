@@ -1,0 +1,13 @@
+build
+boottest
+recoverytest
+cmtest
+cmtest2
+vendor6.0/system/*
+vendor/system/*
+origin/boot
+origin/boot6.0
+origin/kernelsource
+origin/recovery
+rescue
+kernel

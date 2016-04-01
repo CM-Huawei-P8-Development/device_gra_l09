@@ -1,0 +1,54 @@
+/dev/ion                0664    system  system
+/dev/mali0              0666    system  system
+/dev/graphics/fb2       0660    system  system
+/dev/memory_throughput	0660	system	system
+/dev/memory_throughput_up_threshold	0660	system	system
+
+/dev/ttySPI0 		0660 	root radio
+/dev/ttySPI1 		0660 	root system
+/dev/ttySPI2 		0660 	root radio
+/dev/ttySPI3 		0660 	root system
+/dev/ttySPI4 		0440 	root root
+/dev/ttySPI5 		0660 	root system
+/dev/ttySPI6 		0660 	root system
+/dev/ttySPI7 		0660 	root radio
+/dev/ttySPI8 		0440 	root root
+/dev/ttySPI9 		0660 	root radio
+/dev/ttySPI10 	0660 	root radio
+/dev/ttySPI11 	0660 	root system
+/dev/ttySPI12 	0440 	root root
+/dev/ttySPI13 	0440 	root root
+/dev/ttySPI14 	0440 	root root
+
+/dev/video0					0660  system 	camera
+/dev/video1					0660  system 	camera
+/dev/video2					0660  system 	camera
+/dev/video3					0660  system 	camera
+/dev/video4					0660  system 	camera
+/dev/video5					0660  system 	camera
+/dev/video6					0660  system 	camera
+/dev/video7					0660  system 	camera
+
+/dev/media0					0660  system 	camera
+/dev/media1					0660  system 	camera
+/dev/media2					0660  system 	camera
+/dev/media3					0660  system 	camera
+/dev/media4					0660  system 	camera
+/dev/media5					0660  system 	camera
+/dev/media6					0660  system 	camera
+/dev/media7					0660  system 	camera
+
+/dev/v4l-subdev0					0660  system 	camera
+/dev/v4l-subdev1					0660  system 	camera
+/dev/v4l-subdev2					0660  system 	camera
+/dev/v4l-subdev3					0660  system 	camera
+/dev/v4l-subdev4					0660  system 	camera
+/dev/v4l-subdev5					0660  system 	camera
+/dev/v4l-subdev6					0660  system 	camera
+/dev/v4l-subdev7					0660  system 	camera
+
+/dev/dsm							0660  system	dsm
+/dev/block/mmcblk0p4                0660  system    system
+/dev/block/mmcblk0p19					0660  system 	system
+/dev/hifi_misc                                          0660  root      audio
+/dev/tspdrv               0660   system       system

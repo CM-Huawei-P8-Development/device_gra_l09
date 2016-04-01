@@ -1,0 +1,149 @@
+Productname: 		HUAWEI ASCEND P8 
+Codename:			GRA-L09 / hwgra
+Device Platform:	hi3635
+
+
+Microprocessor, Chipset
+--------------------------------------------------------------------------------------------------
+Chipset:								HiSilicon Kirin 930/935
+GPU:									Mali-T628 MP4
+CPU:									Huawei Honor KIRIN930 Hi3635
+CPU Clock:								2000 MHz
+CPU Structure (complexity):				RISC
+Width of Machine Word:					64 bit
+Primary (RAM) Data bus:					64 bit
+Supported Instruction Set(s):			ARMv8-A (A32, A64)
+CPU Core:								4x ARM Cortex-A57 MPcore + 4x ARM Cortex-A53 MPcore
+Recommended Minimum Clock Frequency:	403 MHz
+Recommended Maximum Clock Frequency:	2000 MHz
+Semiconductor Technology:				CMOS
+Minimum Feature Size:					16 nm
+Special Features:			
+	quad ARM Cortex-A57 (up to 2.0 GHz) + 
+	quad ARM Cortex-A53 (up to 1.52 GHz) Harvard Superscalar 
+	processor cores, ARM big.LITTLE, HMP, 64-bit dual-channel 
+	LP-DDR3 SDRAM interface (up to 12.8 Gbyte/sec), 
+	GSM / GPRS Class 33 / EDGE / W-CDMA / HSPA+ 42.2 Mbps / 
+	HSUPA 5.76 / TD-SCDMA / LTE-TDD / 
+	LTE-FDD Cat. 6 baseband modem, 
+	dual SIM support (DSDA, DSDS), Tensilica HiFi 4 DSP, 
+	32 MP ISP, 1080p video encode, 2160p video decode, 
+	ARM Mali-T624 GPU
+
+Devices based on this CPU:		
+	Huawei Mediapad M2 10.0 Premium Edition TD-LTE M2-A01L
+	Huawei Mediapad M2 10.0 Standard Edition WiFi M2-A01W
+	Huawei dtab Compact d-02H / Mediapad M2 8.0 LTE
+	Huawei dtab d-01H / Mediapad M2 10.1 LTE M2-A04L (Huawei Liszt)
+	Huawei Mediapad M2 8.0 Standard Edition TD-LTE M2-801L
+	Huawei Mediapad M2 8.0 Standard Edition WiFi M2-801w
+	Huawei Mediapad M2 8.0 Premium Edition WiFi M2-801w
+	Huawei Mediapad M2 8.0 Premium Edition TD-LTE M2-801L
+	Huawei Mediapad M2 8.0 Standard EditionTD-LTE M2-802L
+	Huawei Mediapad M2 8.0 Standard Edition TD-LTE M2-803L
+	Huawei Mediapad X2 GEM-702L Dual SIM TD-LTE 32GB
+	Huawei Mediapad X2 GEM-702L Dual SIM TD-LTE 32GB
+	Huawei Mediapad X2 GEM-702L Dual SIM TD-LTE 16GB
+	Huawei Mediapad X2 GEM-703L Dual SIM TD-LTE 32GB
+	Huawei Mediapad X2 GEM-703LT TD-LTE 16GB
+	Huawei P8 Standard Edition GRA-CL00 Dual SIM TD-LTE
+	Huawei P8 Standard Edition GRA-UL00 Dual SIM TD-LTE
+	Huawei P8 Standard Edition GRA-TL00 Dual SIM TD-LTE
+	Huawei P8 Standard Edition GRA-L09 TD-LTE
+
+
+
+Memory, Storage capacity
+--------------------------------------------------------------------------------------------------
+RAM capacity:		3 GiB
+ROM capacity:		14.9 GiB (accessible: 10.3 GiB)
+
+
+
+Display
+--------------------------------------------------------------------------------------------------
+Display Technology:	color IPS TFT , 16777216 scales
+Display Diagonal:	5.2 "
+Display Resolution:	1080 x 1920
+
+
+
+Sound
+--------------------------------------------------------------------------------------------------
+Microphone(s):		stereo
+Loudspeaker(s):		mono
+Audio Output:		3.5mm
+
+
+Cellular Phone
+--------------------------------------------------------------------------------------------------
+Cellular Networks:	
+	GSM850, GSM900, GSM1800, GSM1900, UMTS800 (B6), UMTS850 (B5), 
+	UMTS900 (B8), UMTS1700/2100 (B4), UMTS1900 (B2), UMTS2100 (B1), 
+	UMTS800 (B19), LTE2100 (B1), LTE700 (B17), LTE850 (B5), 
+	LTE1700/2100 (B4), LTE1800 (B3), LTE2600 (B7), LTE1900 (B2), 
+	LTE800 (B18), LTE900 (B8), LTE800 (B20), LTE1900 (B25), LTE700 (B12), 
+	LTE800 (B26), LTE800 (B19), TD-LTE2300 (B40), LTE700 (B28)
+Cellular Data Links:	GPRS, EDGE, UMTS, HSDPA, HSUPA, HSPA+, LTE, LTE-A
+Call Alert:				64 -chord melody
+Vibrating Alert:		Supported
+Speakerphone :			Supported
+
+
+
+Control Peripherals
+--------------------------------------------------------------------------------------------------
+Positioning Device:	Multi-touch screen
+Primary Keyboard:	Not supported
+Directional Pad:	Not supported
+Scroll Wheel:		Not supported
+
+
+
+Interfaces
+--------------------------------------------------------------------------------------------------
+Expansion Slots:	microSD, microSDHC, TransFlash, microSDXC
+USB:				USB 2.0 host/client, 480Mbit/s, OTG 1.3, micro-USB
+Bluetooth:			Bluetooth 4.1
+Wireless LAN:		802.11b, 802.11g, 802.11n
+Infrared Gate:		Not supported
+
+
+
+Multimedia Broadcast
+--------------------------------------------------------------------------------------------------
+Analog Radio Receiver:			FM radio (88-108 MHz) with RDS
+Digital Media Broadcast Tuner:	Not supported
+
+
+
+Satellite Navigation
+--------------------------------------------------------------------------------------------------
+Built-in GPS module:		Supported
+Complementary GPS Services:	Assisted GPS, QuickGPS, Geotagging, Simultaneous GPS (S-GPS)
+
+
+
+Built-in Digital Camera
+--------------------------------------------------------------------------------------------------
+Primary Camera:		13 MP
+Autofocus (AF):		Supported
+Optical Zoom:		1 x
+Macro Mode:			Supported
+Built-in Flash:		dual LED
+Secondary Camera:	8 MP
+
+
+
+Additional Details
+--------------------------------------------------------------------------------------------------
+Built-in accelerometer:	Supported
+Battery:				built-in
+Battery Capacity:		2680 mAh
+
+
+
+
+
+
+
