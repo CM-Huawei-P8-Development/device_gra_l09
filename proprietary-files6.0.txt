@@ -853,6 +853,46 @@ framework/arm/boot.oat
 framework/hwcustEmui.jar
 framework/hwcustServices.jar
 framework/hwcustwifi-service.jar
+#Ok had no luck... But I was lucky by patching the frameworkbase. Had to fork all the stuff and create a manifest for it.
+#gabry3795 made some fixes for a similar device and they worked. Got a basic understanding of whats going on thx to her.
+#
+#power log dlopen err:dlopen failed: library "libpowergenie_native3.so" not found
+lib64/libpowergenie_native3.so
+lib/libpowergenie_native3.so
+#... and now I have to deal with that again:
+#Failed to register native method com.android.internal.os.Zygote.ctrlSockets(II)I in /system/framework/framework.jar:classes2.dex
+#and
+#Failed to register native method com.android.internal.os.Zygote.procCtrlSockets(III)I
+#Now it complains about camera stuff plus:
+#Failed to register native method android.hardware.Camera.native_setup(Ljava/lang/Object;IILjava/lang/String;Z)I
+#... This function was there but without a boolean. I "tried" to overload it - no I don't know anything about jni.
+#seems to work. now it complains:
+#Failed to register native method android.hardware.Camera.native_getFocusValue()I
+#srsly.. now:
+#Failed to register native method android.hardware.Camera.native_getFocusContrast()I
+#ghee I don't wanna know what these dirty fixes will break....
+#Failed to register native method android.hardware.Camera.native_cancelTakePicture()V
+#Ahh now it seems to be done but:
+#Failed to register native method android.media.AudioSystem.setLowPowerApk(Z)I
+#one day... Don't tell me that there are 100x of those pls.
+#Failed to register native method android.media.AudioSystem.getLowPowerApk(Z)I
+#
+#ok well it starts to complain about too much
+#I don't have the source nor could I decompile it. but lets continue to fix it dirty
+#KeyEvent-JNI: Unable to find static method obtain & Unable to find static field mHwFlags
+#...now:
+#JNI FatalError called: Native registration unable to find class 'android/hardware/fmradio/FmReceiverJNI';
+#well this doesn't exist indeed... I will take it from here https://github.com/gp-b2g/frameworks_base/tree/master/core/java/android/hardware/fmradio
+#It doesn't load completely but for the moment I don't care it doesn't seem to break the boot process anymore.
+#...
+#~Class android.until.Jlog not found
+#Failed to register native method android.util.Jlog.print_janklog_native(IILjava/lang/String;)I
+#I have no source for whatever this is. summy seems to be enough
+#..
+#JNI FatalError called: Native registration unable to find class 'com/huawei/hwextdevice/HWExtDeviceManager';
+#stop it pls...
+#ok I have enough I will make a different branch and try to get the native libandroidruntime.so to run!
+
 
 #only in vendor
 #lib/libstagefrighthw.so
