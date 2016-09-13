@@ -1,40 +1,25 @@
 import /vendor.init.balong_modem.rc
 import /vendor.init.tee.rc
 
-on early-init
-    export SECONDARY_STORAGE /storage/sdcard1
-    mkdir /mnt/shell 0700 shell shell
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage 0555 root sdcard_r
-    mkdir /storage/emulated 0555 root root
+on early-boot
+    symlink /sdcard /mnt/sdcard
+    symlink /storage/self/primary /storage/sdcard0
 
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
+    mkdir /mnt/media_rw 0750 media_rw media_rw
 
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /storage/emulated/legacy /storage/emulated/0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-
-    mkdir /mnt/media_rw 0700 media_rw media_rw
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /mnt/media_rw/usbotg 0700 media_rw media_rw
-    mkdir /storage/usbotg 0755 root root
-    symlink /storage/sdcard1 /mnt/ext_sdcard
-    symlink /storage/sdcard1 /mnt/sdcard2
-
-on init
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+    chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
     chmod 664 /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
     chmod 664 /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies
+    chmod 444 /sys/devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies
 
     chown system system /sys/class/devfreq/gpufreq/max_freq
     chmod 664 /sys/class/devfreq/gpufreq/max_freq
@@ -61,19 +46,122 @@ on init
     chmod 664 /sys/class/devfreq/ddrfreq/available_frequencies
     chown system system /sys/kernel/set_hmp_thresholds/policy
     chmod 0664 /sys/kernel/set_hmp_thresholds/policy	
+    chown system system /sys/class/graphics/fb0/lcd_cabc_mode
+    chmod 664 /sys/class/graphics/fb0/lcd_cabc_mode
+
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
+    chown system system /sys/kernel/hmp/task_fork_on_bigcluster
+    chmod 0664 /sys/kernel/hmp/task_fork_on_bigcluster
+
+    chown system system /sys/kernel/hmp/boost
+    chmod 0664 /sys/kernel/hmp/boost
+
+    chown system system /sys/kernel/perfhub/cpuaffinity
+    chmod 0660 /sys/kernel/perfhub/cpuaffinity
 
 on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     restorecon_recursive /sys/devices/system/cpu/cpu0/cpufreq/interactive
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1209600
     chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads 70:604800:75:806400:90:1209600:95
-
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load ${persist.sys.go_hispeed_load}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq ${persist.sys.hispeed_freq}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration ${persist.sys.boostpulse_duration}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads ${persist.sys.target_loads}
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_down_factor ${persist.sys.sampling_down_facto}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate ${persist.sys.sampling_rate}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/up_threshold ${persist.sys.up_threshold}
     write /sys/kernel/set_hmp_thresholds/enable 0
-    write /sys/kernel/hmp/up_threshold 978
-    write /sys/kernel/hmp/down_threshold 672
+    write /sys/kernel/hmp/up_threshold ${persist.sys.hmp_up}
+    write /sys/kernel/hmp/down_threshold ${persist.sys.hmp_down}
+    write /sys/kernel/set_hmp_thresholds/enable 1
+    setprop persist.sys.smart_power ${persist.sys.smart_power}
+
+on property:persist.sys.smart_power=2 && property:sys.boot_completed=1
+    setprop persist.sys.go_hispeed_load 99
+    setprop persist.sys.hispeed_freq 1209600
+    setprop persist.sys.io_is_busy 1
+    setprop persist.sys.boostpulse_duration 80000
+    setprop persist.sys.target_loads 70:604800:75:806400:90:1209600:95
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load ${persist.sys.go_hispeed_load}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq ${persist.sys.hispeed_freq}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration ${persist.sys.boostpulse_duration}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads ${persist.sys.target_loads}
+    setprop persist.sys.sampling_down_facto 1
+    setprop persist.sys.sampling_rate 10000
+    setprop persist.sys.up_threshold 99
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_down_factor ${persist.sys.sampling_down_facto}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate ${persist.sys.sampling_rate}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/up_threshold ${persist.sys.up_threshold}
+    setprop persist.sys.hmp_up 978
+    setprop persist.sys.hmp_down 672
+    setprop persist.sys.hmp_prio 140
+    write /sys/kernel/set_hmp_thresholds/enable 0
+    write /sys/kernel/hmp/up_threshold ${persist.sys.hmp_up}
+    write /sys/kernel/hmp/down_threshold ${persist.sys.hmp_down}
+    write /sys/kernel/hmp/up_prio ${persist.sys.hmp_prio}
+    write /sys/kernel/set_hmp_thresholds/enable 1
+
+on property:persist.sys.smart_power=3 && property:sys.boot_completed=1
+    setprop persist.sys.go_hispeed_load 95
+    setprop persist.sys.hispeed_freq 1516800
+    setprop persist.sys.io_is_busy 1
+    setprop persist.sys.boostpulse_duration 160000
+    setprop persist.sys.target_loads 30:604800:40:806400:50:1209600:85
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load ${persist.sys.go_hispeed_load}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq ${persist.sys.hispeed_freq}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration ${persist.sys.boostpulse_duration}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads ${persist.sys.target_loads}
+    setprop persist.sys.sampling_down_facto 4
+    setprop persist.sys.sampling_rate 50000
+    setprop persist.sys.up_threshold 85
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_down_factor ${persist.sys.sampling_down_facto}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate ${persist.sys.sampling_rate}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/up_threshold ${persist.sys.up_threshold}
+    setprop persist.sys.hmp_up 500
+    setprop persist.sys.hmp_down 200
+    setprop persist.sys.hmp_prio 140
+    write /sys/kernel/set_hmp_thresholds/enable 0
+    write /sys/kernel/hmp/up_threshold ${persist.sys.hmp_up}
+    write /sys/kernel/hmp/down_threshold ${persist.sys.hmp_down}
+    write /sys/kernel/hmp/up_prio ${persist.sys.hmp_prio}
+    write /sys/kernel/set_hmp_thresholds/enable 1
+
+on property:persist.sys.smart_power=4 && property:sys.boot_completed=1
+    setprop persist.sys.go_hispeed_load 99
+    setprop persist.sys.hispeed_freq 1209600
+    setprop persist.sys.io_is_busy 0
+    setprop persist.sys.boostpulse_duration 80000
+    setprop persist.sys.target_loads 95
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load ${persist.sys.go_hispeed_load}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq ${persist.sys.hispeed_freq}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration ${persist.sys.boostpulse_duration}
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads ${persist.sys.target_loads}
+    setprop persist.sys.sampling_down_facto 1
+    setprop persist.sys.sampling_rate 10000
+    setprop persist.sys.up_threshold 99
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/io_is_busy ${persist.sys.io_is_busy}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_down_factor ${persist.sys.sampling_down_facto}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate ${persist.sys.sampling_rate}
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/up_threshold ${persist.sys.up_threshold}
+    setprop persist.sys.hmp_up 1008
+    setprop persist.sys.hmp_down 768
+    setprop persist.sys.hmp_prio 140
+    write /sys/kernel/set_hmp_thresholds/enable 0
+    write /sys/kernel/hmp/up_threshold ${persist.sys.hmp_up}
+    write /sys/kernel/hmp/down_threshold ${persist.sys.hmp_down}
+    write /sys/kernel/hmp/up_prio ${persist.sys.hmp_prio}
     write /sys/kernel/set_hmp_thresholds/enable 1
 
 on property:persist.sys.fingersense=1
@@ -81,13 +169,13 @@ on property:persist.sys.fingersense=1
 on property:persist.sys.fingersense=0
     write /sys/devices/platform/huawei_sensor/set_fingersense_enable 0
 on charger
-    mount ext4 /dev/block/mmcblk0p38 /system ro
-    mount ext4 /dev/block/mmcblk0p40 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=ordered
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     restorecon_recursive /sys/devices/system/cpu/cpu0/cpufreq/interactive
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1209600
     chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
+    start hw_ueventd
+    start oeminfo_nvm
 
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
     write /sys/kernel/set_hmp_thresholds/enable 0
@@ -108,23 +196,30 @@ on fs
     wait /dev/block/mmcblk0p38
     mount ext4 /dev/block/mmcblk0p38 /system ro
 
-    wait /dev/block/mmcblk0p40
-    exec /system/bin/e2fsck -p /dev/block/mmcblk0p40
-    mount ext4 /dev/block/mmcblk0p40 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=ordered
+    mount_all /fstab.hi3635
 
     setprop ro.crypto.fuse_sdcard true
 
 
 on post-fs
-    mkdir /data/offlinelogs 0775 root system
-    write  data/offlinelogs/balong_modem1_simoffline.txt  0
-    write  data/offlinelogs/balong_modem2_simoffline.txt  0
+    mkdir /splash2/sim 0775 root system
+    mkdir /splash2/sim/offlinelogs 0775 root system
+    write /splash2/sim/offlinelogs/balong_modem1_simoffline.txt  0
+    write /splash2/sim/offlinelogs/balong_modem2_simoffline.txt  0
+    write /splash2/sim/sim_pin_file.bin  "000000"
 
-    chmod 0664 data/offlinelogs/balong_modem1_simoffline.txt
-    chmod 0664 data/offlinelogs/balong_modem2_simoffline.txt
+    chmod 0664 /splash2/sim/offlinelogs/balong_modem1_simoffline.txt
+    chmod 0664 /splash2/sim/offlinelogs/balong_modem2_simoffline.txt
+    chmod 0664 /splash2/sim/sim_pin_file.bin
 
-    chown radio system data/offlinelogs/balong_modem1_simoffline.txt
-    chown radio system data/offlinelogs/balong_modem2_simoffline.txt
+    chown radio system /splash2/sim/offlinelogs/balong_modem1_simoffline.txt
+    chown radio system /splash2/sim/offlinelogs/balong_modem2_simoffline.txt
+    write /splash2/sim/offlinelogs/slot1_simoffline.txt 0
+    chown root  radio  /splash2/sim/sim_pin_file.bin
+
+    chmod 0664 /splash2/sim/offlinelogs/slot1_simoffline.txt
+
+    chown radio system /splash2/sim/offlinelogs/slot1_simoffline.txt
 
     mkdir /modem_log
     mkdir /modem_log/log
@@ -135,16 +230,17 @@ on post-fs
     chmod 0665 /modem_log/DrvLog/Sim0
     mkdir /modem_log/DrvLog/Sim1
     chmod 0665 /modem_log/DrvLog/Sim1
+    restorecon_recursive /modem_log
+    restorecon_recursive /splash2
 
-    mkdir /data/hisi_logs 0774 root system
-    mkdir /data/hisi_logs/hifi_log 0774 root system
-    mkdir /data/hisi_logs/hifi_log/coredump 0774 root system
-    mkdir /data/hisi_logs/memorydump 0774 root system
+    wait /dev/block/mmcblk0p37
+    chown system system /dev/block/mmcblk0p37
+    chmod 0660 /dev/block/mmcblk0p37
 
 on post-fs
-
-
+     modem_fs_chk
 on post-fs-data
+
     mkdir /data/pstorelog 0750 root log
     copy /sys/fs/pstore/console-ramoops-0 /data/pstorelog/console-ramoops-0
     chown root log /data/pstorelog/console-ramoops-0
@@ -156,6 +252,8 @@ on post-fs-data
     chown root log /data/pstorelog/dmesg-ramoops-1
     chmod 0640 /data/pstorelog/dmesg-ramoops-1
 
+    mkdir /data/media 0770 media_rw media_rw
+
     mkdir /data/camera 0770 system camera
     write  data/camera/hisi_sensor0  0
     write  data/camera/hisi_sensor1  0
@@ -164,11 +262,22 @@ on post-fs-data
     chmod 664 /data/camera/hisi_sensor0
     chmod 664 /data/camera/hisi_sensor1
 
+    mkdir /data/hisi_logs 0774 root system
+    mkdir /data/hisi_logs/hifi_log 0774 root system
+    mkdir /data/hisi_logs/hifi_log/coredump 0774 root system
+    mkdir /data/hisi_logs/memorydump 0774 root system
+
+    symlink /splash2/sim/offlinelogs /data/offlinelogs
 on early-boot
 
 on boot
-    mkdir /data/offlinelogs
-    chmod 770 /data/offlinelogs
+    mount debugfs /sys/kernel/debug /sys/kernel/debug mode=0755 
+    
+
+    write /splash2/sim/sim_pin_file.bin  "000000"
+
+    chown root radio /sys/kernel/sim/sim0_hotplug_state
+    chown root radio /sys/kernel/sim/sim1_hotplug_state
 
     chown system system /sys/class/leds/torch/brightness
     chmod 664 /sys/class/leds/torch/brightness
@@ -195,7 +304,8 @@ on boot
     chmod 664 /sys/bus/platform/drivers/huawei,altek6045/test_ois
     chown system system /sys/bus/platform/drivers/huawei,altek6045/check_ois
     chmod 664 /sys/bus/platform/drivers/huawei,altek6045/check_ois
-
+    chown system system /sys/bus/platform/drivers/huawei,altek6045/test_pipe
+    chmod 664 /sys/bus/platform/drivers/huawei,altek6045/test_pipe
 
     chmod 660 /proc/hifidsp/hifi
     chown root audio /proc/hifidsp/hifi
@@ -264,6 +374,7 @@ on boot
 	chown system system /sys/devices/platform/huawei_sensor/gyro_selfTest
 	chown system system /sys/devices/platform/huawei_sensor/mag_selfTest
 	chown system system /sys/devices/platform/huawei_sensor/acc_calibrate
+	chown system system /sys/devices/platform/huawei_sensor/ps_calibrate
 	chown system system /sys/devices/platform/huawei_sensor/acc_enable
 	chown system system /sys/devices/platform/huawei_sensor/acc_setdelay
 	chown system system /sys/devices/platform/huawei_sensor/acc_selfTest
@@ -297,6 +408,51 @@ on boot
 	chown system system /sys/devices/platform/huawei_sensor/handpress_setdelay
 	chown system system /sys/devices/platform/huawei_sensor/read_airpress
 	chown system system /sys/devices/platform/huawei_sensor/read_temperature
+	chown system system /sys/devices/platform/huawei_sensor/handpress_data
+	chown system system /sys/devices/platform/huawei_sensor/handpress_switch
+	chown system system /sys/devices/platform/huawei_sensor/airpress_set_calidata
+
+	chown system system /sys/class/sensors/sensorhub_dbg
+	chown system system /sys/class/sensors/acc_sensor/enable
+	chown system system /sys/class/sensors/acc_sensor/set_delay
+	chown system system /sys/class/sensors/acc_sensor/info
+	chown system system /sys/class/sensors/acc_sensor/get_data
+	chown system system /sys/class/sensors/acc_sensor/self_test
+	chown system system /sys/class/sensors/acc_sensor/self_test_timeout
+	chown system system /sys/class/sensors/acc_sensor/calibrate
+	chown system system /sys/class/sensors/acc_sensor/calibrate_timeout
+	chown system system /sys/class/sensors/gyro_sensor/enable
+	chown system system /sys/class/sensors/gyro_sensor/set_delay
+	chown system system /sys/class/sensors/gyro_sensor/info
+	chown system system /sys/class/sensors/gyro_sensor/get_data
+	chown system system /sys/class/sensors/gyro_sensor/self_test
+	chown system system /sys/class/sensors/gyro_sensor/self_test_timeout
+	chown system system /sys/class/sensors/mag_sensor/enable
+	chown system system /sys/class/sensors/mag_sensor/set_delay
+	chown system system /sys/class/sensors/mag_sensor/info
+	chown system system /sys/class/sensors/mag_sensor/get_data
+	chown system system /sys/class/sensors/mag_sensor/self_test
+	chown system system /sys/class/sensors/mag_sensor/self_test_timeout
+	chown system system /sys/class/sensors/als_sensor/enable
+	chown system system /sys/class/sensors/als_sensor/set_delay
+	chown system system /sys/class/sensors/als_sensor/info
+	chown system system /sys/class/sensors/als_sensor/get_data
+	chown system system /sys/class/sensors/ps_sensor/enable
+	chown system system /sys/class/sensors/ps_sensor/set_delay
+	chown system system /sys/class/sensors/ps_sensor/info
+	chown system system /sys/class/sensors/ps_sensor/get_data
+	chown system system /sys/class/sensors/ps_sensor/calibrate
+	chown system system /sys/class/sensors/ps_sensor/calibrate_timeout
+	chown system system /sys/class/sensors/hall_sensor/enable
+	chown system system /sys/class/sensors/hall_sensor/set_delay
+	chown system system /sys/class/sensors/hall_sensor/info
+	chown system system /sys/class/sensors/hall_sensor/get_data
+	chown system system /sys/class/sensors/airpress_sensor/enable
+	chown system system /sys/class/sensors/airpress_sensor/set_delay
+	chown system system /sys/class/sensors/airpress_sensor/info
+	chown system system /sys/class/sensors/airpress_sensor/get_data
+	chown system system /sys/class/sensors/airpress_sensor/read_airpress
+	chown system system /sys/class/sensors/airpress_sensor/set_calidata
 
     chown system system /sys/devices/platform/huawei_sensor/set_fingersense_enable
     chmod 0660 /sys/devices/platform/huawei_sensor/set_fingersense_enable
@@ -317,12 +473,11 @@ on boot
 	chown system system /sys/class/hall/hall/report_count
 	chown system system /sys/class/hall/hall/value
 
-    mkdir /data/media 0770 media_rw media_rw
-    wait /data/media/0
-    mount sdcardfs /data/media /mnt/shell/emulated nosuid nodev derive=legacy,reserved_mb=20
     chown system system /sys/class/leds/lcd_backlight0/brightness
     chmod 644 /sys/class/leds/lcd_backlight0/brightness
-    
+
+
+
 
     chown system camera /dev/imgsysbrg_vdec0
     chmod 660 /dev/imgsysbrg_vdec0
@@ -335,7 +490,24 @@ on boot
     write /proc/sys/kernel/hung_task_timeout_secs 120
     write /sys/kernel/hungtask/monitorlist "whitelist,system_server,surfaceflinger"
     write /sys/kernel/hungtask/enable "on"
+
+    write /sys/block/zram0/disksize 268435456
+    swapon_all fstab.hi3635
 	
+     write /proc/sys/net/core/rps_sock_flow_entries 0
+     write /sys/class/net/rmnet0/queues/rx-0/rps_flow_cnt 0
+     write /sys/class/net/rmnet0/queues/rx-0/rps_cpus f
+     write /sys/class/net/rmnet1/queues/rx-0/rps_flow_cnt 0
+     write /sys/class/net/rmnet1/queues/rx-0/rps_cpus f
+     write /sys/class/net/rmnet2/queues/rx-0/rps_flow_cnt 0
+     write /sys/class/net/rmnet2/queues/rx-0/rps_cpus f
+     write /sys/class/net/rmnet3/queues/rx-0/rps_flow_cnt 0
+     write /sys/class/net/rmnet3/queues/rx-0/rps_cpus f
+     write /sys/class/net/rmnet4/queues/rx-0/rps_flow_cnt 0
+     write /sys/class/net/rmnet4/queues/rx-0/rps_cpus f
+     write /sys/class/net/rmnet_ims/queues/rx-0/rps_flow_cnt 0
+     write /sys/class/net/rmnet_ims/queues/rx-0/rps_cpus f
+
 service kerneldump /system/etc/kerneldump.sh 
     class main
     user root
@@ -347,9 +519,29 @@ service kmsgcat_cp /sbin/kmsgcat -r 4096 -n 25 -i /dev/cshell_log -f /data/hwzd_
     user root
     group system
     disabled
-#seclabel u:r:hisilogcat:s0
+#    seclabel u:r:hisilogcat:s0
+
+service defragd /system/bin/defragd
+    class late_start
 
 service himreg /system/bin/himreg
     class main
     socket himreg stream 600 system system
 
+service audiouartctl /system/bin/audiouartctl on
+    class main
+
+service bugreport /system/bin/dumpstate -d -p -z -B \
+        -o /data/data/com.android.shell/files/bugreports/bugreport
+    class main
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1 && property:ro.config.hw_perfhub=true
+    start perfhub
+
+service perfhub /system/bin/perfhub
+    class late_start
+    user system
+    group system
+    disabled

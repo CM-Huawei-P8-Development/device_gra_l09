@@ -110,7 +110,7 @@ bin/hwpged
 bin/bastetd
 
 #init.5844.rc - copied every config file not mentioned there  (5.0)
-bin/HwCamCfgSvr
+#bin/HwCamCfgSvr
 bin/chargemonitor
 miniisp/TBM_Latour2.bin
 miniisp/TBM_Latour.bin
@@ -135,8 +135,8 @@ bin/gpslogd
 
 #Some vendor blobs - reported in logs
 #Camera related
-lib/libHWCamCfgSvr.so
-lib64/libHWCamCfgSvr.so
+#lib/libHWCamCfgSvr.so
+#lib64/libHWCamCfgSvr.so
 lib/libjpegenchw.so
 lib64/libjpegenchw.so
 lib/libjpu.so
@@ -165,6 +165,10 @@ lib/liboeminfo.so
 lib64/liboeminfo.so
 lib/liboeminfo_jni.so
 lib64/liboeminfo_jni.so
+#        : rmt_oeminfo_read, connection fail
+lib/lib_oeminfo_interface.so
+lib64/lib_oeminfo_interface.so
+
 
 
 #Some vendor blobs seems that there is more in lib/hw lib64/hw than just the hwcomposer
@@ -172,7 +176,7 @@ lib64/hw/audio.a2dp.default.so
 lib64/hw/audio.primary.hi3635.so
 lib64/hw/audio.r_submix.default.so
 lib64/hw/bastet.hi3635.so
-lib64/hw/camera.hi3635.so
+#lib64/hw/camera.hi3635.so
 lib64/hw/copybit.hi3635.so
 lib64/hw/flp.default.so
 lib64/hw/gps4752.default.so
@@ -187,7 +191,7 @@ lib64/hw/sensorhub.default.so
 lib/hw/audio.a2dp.default.so
 lib/hw/audio.primary.hi3635.so
 lib/hw/audio.r_submix.default.so
-lib/hw/camera.hi3635.so
+#lib/hw/camera.hi3635.so
 lib/hw/copybit.hi3635.so
 lib/hw/gralloc.hi3635.so
 lib/hw/keystore.hi3635.so
@@ -331,17 +335,66 @@ etc/audio/mbdrc/mbdrc_hi3635_normal.xml
 etc/audio/modem/modem_hi3635cs_normal.xml
 etc/audio/modem/modem_hi3635_normal.xml
 
+#For keystore stuff
+#lib/libteec.so
+#lib64/libteec.so
 
 
 #This one worked after I made some changes to the surfaceflinger :)
 lib/hw/hwcomposer.hi3635.so
 lib64/hw/hwcomposer.hi3635.so
 
+#Wow I missed that "libgralloc_ext.default.so" dependency in Surfaceflinger. It doesn't exist in my build
+lib/libgralloc_ext.default.so
+lib64/libgralloc_ext.default.so
+
+#Well this works!
+lib/libui.so
+lib64/libui.so
+#lib/libsync.so
+#lib64/libsync.so
+lib/libion.so
+lib64/libion.so
+#plus editing the props
+#ro.hwui.layer_cache_size=32
+#ro.hwui.r_buffer_cache_size=4
+#ro.hwui.path_cache_size=24
+#ro.hwui.gradient_cache_size=1
+#ro.hwui.drop_shadow_cache_size=5
+#ro.hwui.texture_cache_flushrate=0.5
+#ro.hwui.text_small_cache_width=1024
+#ro.hwui.text_small_cache_height=1024
+#ro.hwui.text_large_cache_width=2048
+#ro.hwui.text_large_cache_height=1024
+#lib/libgui.so
+#lib64/libgui.so
+#lib/libGLESv1_CM.so
+#lib64/libGLESv1_CM.so
+#lib/libEGL.so
+#lib64/libEGL.so
+lib/libhwgl.so
+lib64/libhwgl.so
+lib/libGLES_trace.so
+lib64/libGLES_trace.so
+lib/libGLESv2.so
+lib64/libGLESv2.so
+#maybe not required
+lib/libGLESv3.so
+lib64/libGLESv3.so
+#At this point i've seen the welcome screen...
+
+
+#sync_merge("BootAnimation:0", 0, 46) returned an error: Bad file descriptor (-9)
+#native/libs/gui/Surface.cpp:        ALOGE("dequeueBuffer_DEPRECATED: Fence::wait returned an error: %d",
+#native/libs/ui/Fence.cpp:        ALOGE("merge: sync_merge(\"%s\", %d, %d) returned an error: %s (%d)",
+
+
 #No idea if really required
 lib64/libbastet.so
 
 #WVMExtractor: Failed to open libwvm.so: dlopen failed: library "libwvm.so" not found
 #--This is located in the vendor folder not sure why it is not found.
+#--I will try to copy it in each lib folder
 
 #/system/bin/device_monitor --> libdmd.so not found
 lib/libdmd.so
@@ -354,24 +407,6 @@ lib64/liblog.so
 #/system/bin/hwpged
 #--library "libcgroup.so" not found
 lib/libcgroup.so
-
-#DexFile_getDexOptNeeded file '/system/framework/org.apache.http.legacy.jar' does not exist
-
-#SurfaceFlinger: getDefaultDisplay: id=2 is not a valid default display id
-
-#SensorService: couldn't load sensors module (No such file or directory)
-
-#KernelUidCpuTimeReader: Failed to read uid_cputime: /proc/uid_cputime/show_uid_stat: open failed: ENOENT (No such file or directory)
-
-#EventHub: could not get driver version for /dev/input/mouse0, Not a typewriter
-
-#EventHub: could not get driver version for /dev/input/mice, Not a typewriter
-
-#IpConfigStore: Error parsing configuration: java.io.FileNotFoundException: /data/misc/ethernet/ipconfig.txt: open failed: ENOENT (No such file or directory)
-
-#APM::AudioPolicyEngine: getDeviceForStrategy() speaker device not found for STRATEGY_SONIFICATION
-
-#E PackageManager: Unable to find icon pack: system
 
 #only in vendor
 #The files in vendor folder are preffered

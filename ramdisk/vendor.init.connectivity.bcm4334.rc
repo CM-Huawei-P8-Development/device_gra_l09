@@ -21,25 +21,25 @@ on post-fs-data
 on early-boot
 on property:bluetooth.log.file.create=true
    mkdir /data/hwzd_logs/bt
-   chown bluetooth bluetooth /data/hwzd_logs/bt
+   chown bluetooth net_bt_stack /data/hwzd_logs/bt
    chmod 775 /data/hwzd_logs/bt
 
    setprop bluetooth.log.file.create false
 
 on boot
     chmod 660 /dev/ttyAMA4
-    chown bluetooth bluetooth /dev/ttyAMA4
+    chown bluetooth net_bt_stack /dev/ttyAMA4
 
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chmod 0774 /sys/class/rfkill/rfkill0/state
 
 
-     chown bluetooth bluetooth /proc/bluetooth/sleep/proto
+     chown bluetooth net_bt_stack /proc/bluetooth/sleep/proto
      chmod 664 /proc/bluetooth/sleep/proto
-     chown bluetooth bluetooth /proc/bluetooth/sleep/btwrite
+     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
      chmod 664 /proc/bluetooth/sleep/btwrite
-     chown bluetooth bluetooth /proc/bluetooth/sleep/btwake
+     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwake
      chmod 664 /proc/bluetooth/sleep/btwake
 
     setprop wifi.interface wlan0
