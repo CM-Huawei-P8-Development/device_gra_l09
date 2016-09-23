@@ -6,6 +6,10 @@ DEVICE_FOLDER = device/huawei/hwgra
 TARGET_BUILD_VARIANT = eng
 TARGET_BUILD_TYPE = debug
 
+#Debug may be heavy:
+LOG_NDEBUG := false
+VALIDATE_REGIONS := true
+
 
 #Bootloader
 TARGET_NO_BOOTLOADER := true
@@ -31,11 +35,15 @@ DEVICE_RESOLUTION := 1080x1920
 BOARD_HAS_FLIPPED_SCREEN := false
 
 
+#It may complain about a missing font without this but I fixed it somehow else:
+#PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+
+
 #GPU
 TARGET_BOARD_GPU := mali-t628
 TARGET_HARDWARE_3D := true
 ANDROID_ENABLE_RENDERSCRIPT := true
-#USE_OPENGL_RENDERER := true
+USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/huawei/hwgra/gpu/egl.cfg
 BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += libc_huawei_symbols
 
@@ -118,7 +126,7 @@ BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_USES_UNCOMPRESSED_KERNEL := true
 
 #TARGET_KERNEL_CONFIG := malimerge_hi3635_defconfig
-TARGET_KERNEL_CONFIG := merge_hi3635_defconfig
+TARGET_KERNEL_CONFIG :=merge_hi3635_defconfig
 #VARIANT_DEFCONFIG := hisi_3635_defconfig
 #TARGET_KERNEL_CONFIG := morph_hi3635_defconfig
 HAVE_SELINUX := true
@@ -193,7 +201,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.hwui.text_small_cache_width=1024 \
 	ro.hwui.r_buffer_cache_size=8 \
 	debug.hwui.render_dirty_regions=false \
-	sys.refresh.dirty=1 \
 	ro.config.hw_music_lp=true \
 	keyguard.no_require_sim=true \
 	hw.enterinto.imm_chat.scene=false \
@@ -249,7 +256,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
 
 #TWRP
 RECOVERY_VARIANT := twrp
-TWHAVE_SELINUX := true
+TWHAVE_SELINUX := false
 BOARD_TOUCH_RECOVERY := true
 TW_THEME := portrait_hdpi
 TW_NO_BATT_PERCENT := false
