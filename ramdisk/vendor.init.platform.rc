@@ -121,9 +121,9 @@ on property:vold.decrypt=trigger_restart_framework
     trigger start_other_action
     trigger data_ready
 
-on property:vold.decrypt=trigger_default_encryption
-    start surfaceflinger
-    start defaultcrypto
+#on property:vold.decrypt=trigger_default_encryption
+#    start surfaceflinger
+#    start defaultcrypto
 
 on property:vold.decrypt=trigger_shutdown_framework
     trigger data_not_ready
@@ -154,8 +154,8 @@ on data_not_ready
     write /proc/post-fs-data 0
 
 
-on property:bastet.service.enable=true
-    start bastetd
+#on property:bastet.service.enable=true
+#    start bastetd
 
 service jankservice /system/bin/jankservice
     class late_start
@@ -297,21 +297,21 @@ service thermal-daemon /system/bin/thermal-daemon
     user system 
     group system
 
-service hwpged /system/bin/hwpged
-    class main
-    socket MsgHubSock stream 0660 root system
-    user root
+#service hwpged /system/bin/hwpged
+#    class main
+#    socket MsgHubSock stream 0660 root system
+#    user root
 
-service powerlogd /system/bin/powerlogd
-    class core
-    socket powerlogd stream 0600 system system
-    socket powerlogdr seqpacket 0600 system system
-    socket powerlogdw dgram 0220 system system
+#service powerlogd /system/bin/powerlogd
+#    class core
+#    socket powerlogd stream 0600 system system
+#    socket powerlogdr seqpacket 0600 system system
+#    socket powerlogdw dgram 0220 system system
 
-service chargemonitor /system/bin/chargemonitor
-    class late_start
-    user root
-    group system
+#service chargemonitor /system/bin/chargemonitor
+#    class late_start
+#    user root
+#    group system
 #    seclabel u:r:hisilogcat:s0
 
 on property:debug.rt.ddr.test=1
@@ -336,8 +336,8 @@ on property:persist.sys.huawei.debug.on=*
 on property:ro.logsystem.usertype=*
     write /proc/log-usertype ${ro.logsystem.usertype}
 
-service bastetd /system/bin/bastetd
-    class main
-    user root
-    group root
+#service bastetd /system/bin/bastetd
+#    class main
+#    user root
+#    group root
 

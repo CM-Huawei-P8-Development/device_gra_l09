@@ -1,14 +1,24 @@
 # inherit from the proprietary version
 -include vendor/huawei/hwgra/BoardConfigVendor.mk
 
+
+#Assert
+TARGET_OTA_ASSERT_DEVICE := hwgra,gra_l09,huawei_p8,ascend_p8,p8,grace
+
+#Xtras
+#TARGET_SPECIFIC_HEADER_PATH := device/huawei/include
+#BOARD_HARDWARE_CLASS += device/huawei/cmhw
+
+#Lights
+TARGET_PROVIDES_LIBLIGHT := true
+
 #Build
 DEVICE_FOLDER = device/huawei/hwgra
 TARGET_BUILD_VARIANT = eng
 TARGET_BUILD_TYPE = debug
 
-#Debug may be heavy:
-LOG_NDEBUG := false
-VALIDATE_REGIONS := true
+#Debug:
+BOARD_EGL_NEEDS_HANDLE_VALUE=true
 
 
 #Bootloader
@@ -175,6 +185,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 	sys.init_log_level=3
 
 ADDITIONAL_BUILD_PROPERTIES += \
+	qemu.hw.mainkeys=0 \
 	ro.config.mmu_en=1 \
 	dalvik.vm.heapsize=256m \
 	ro.opengles.version=196609 \
@@ -226,7 +237,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.switchPrimaryVolume=true \
 	ro.huawei.cust.oma=false \
 	ro.huawei.cust.oma_drm=false \
-	ro.config.hwtheme=1 \
+	ro.config.hwtheme=0 \
 	ro.config.hw_allow_rs_mms=true \
 	ro.config.hw_hungtasklist=whitelist,system_server,SurfaceFlinger \
 	ro.config.fm_type=libbcmfm_if \
@@ -245,7 +256,21 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.hw_useCtrlSocket=true \
 	ro.config.updatelocation=true \
 	ro.networkstatus.delaytimer=6 \
-	ro.check.modem_network=true
+	ro.check.modem_network=true \
+	ro.config.dsds_mode=cdma_gsm \
+	ro.config.hw_device_mode=clg_mode \
+	rild.libargs2=-m modem1 \
+	persist.dsds.enabled=true \
+	rild.rild1_ready_to_start=false \
+	rild.libargs1=-m modem0 \
+	rild.libpath=/system/lib64/libvia-ril.so \
+	ro.config.hw_dsda=true \
+	ro.multi.rild=false \
+	rild.libpath1=/system/lib64/libbalong-ril.so \
+	rild.libargs=-d /dev/viacomm_cmux \
+	persist.radio.multisim.config=dsda \
+	ro.telephony.default_network=8 \
+	rild.libpath2=/system/lib64/libbalong-ril-1.so
 
 #ro.boardid.product:
 #eighter 6238 or 5844 both contain "GRACE" which is a code in the origin build.props

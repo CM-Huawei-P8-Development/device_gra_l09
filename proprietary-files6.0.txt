@@ -44,23 +44,23 @@ vendor/media/LMspeed_508.emd
 
 
 #init.rc - edited since a few binaries didn't even exist in the origin rom (5.0)
-bin/powerlogd
-bin/hwpged
-bin/dumptool
-bin/filebackup
-bin/hwnffserver
+#bin/powerlogd
+#bin/hwpged
+#bin/dumptool
+#bin/filebackup
+#bin/hwnffserver
 
 
 #init.environ.rc (5.0)
-framework/hwEmui.jar
-framework/hwTelephony-common.jar
-framework/hwframework.jar
-framework/hwcustframework.jar
-framework/hwcustTelephony-common.jar
-framework/org.simalliance.openmobileapi.jar
-framework/hwaps.jar
-framework/hwServices.jar
-framework/hwWifi-service.jar
+#framework/hwEmui.jar
+#framework/hwTelephony-common.jar
+#framework/hwframework.jar
+#framework/hwcustframework.jar
+#framework/hwcustTelephony-common.jar
+#framework/org.simalliance.openmobileapi.jar
+#framework/hwaps.jar
+#framework/hwServices.jar
+#framework/hwWifi-service.jar
 
 
 #init.hi3635.rc - edited since a few binaries didn't even exist in the origin rom (5.0)
@@ -80,7 +80,7 @@ bin/wifiwakeupsrc
 #etc/wifi/p2p_supplicant_overlay.conf
 
 #init.device.rc  (5.0) 
-bin/device_monitor
+#bin/device_monitor
 
 #init.extmodem.rc - copied every config file not mentioned there (5.0)
 bin/modemlogcat_via
@@ -145,60 +145,51 @@ lib64/libjpu.so
 #Audio related
 lib/libaudioroute.so
 lib64/libaudioroute.so
-lib/libnvme.so
-lib64/libnvme.so
-lib/libtinyalsa.so
-lib64/libtinyalsa.so
-
-
-#Graphics related
-lib/hw/hwcomposer.default.so
-lib64/hw/hwcomposer.default.so
-lib/hw/hwcomposer.hi3635.so
-lib64/hw/hwcomposer.hi3635.so
-lib/libion.so
-lib64/libion.so
-
+#lib/libtinyalsa.so
+#lib64/libtinyalsa.so
+lib/libaudiopolicymanager.so
+lib64/libaudiopolicymanager.so
+lib/libaudiopolicyservice.so
+lib64/libaudiopolicyservice.so
+etc/audio_effects.conf
+etc/audio_policy.conf
 
 #oem
 lib/liboeminfo.so
 lib64/liboeminfo.so
 lib/liboeminfo_jni.so
 lib64/liboeminfo_jni.so
-#        : rmt_oeminfo_read, connection fail
 lib/lib_oeminfo_interface.so
 lib64/lib_oeminfo_interface.so
-
-
 
 #Some vendor blobs seems that there is more in lib/hw lib64/hw than just the hwcomposer
 lib64/hw/audio.a2dp.default.so
 lib64/hw/audio.primary.hi3635.so
 lib64/hw/audio.r_submix.default.so
 lib64/hw/bastet.hi3635.so
-#lib64/hw/camera.hi3635.so
+lib64/hw/camera.hi3635.so
 lib64/hw/copybit.hi3635.so
-lib64/hw/flp.default.so
-lib64/hw/gps4752.default.so
-lib64/hw/gps47531.default.so
-lib64/hw/gps47531cl.default.so
+#lib64/hw/flp.default.so
+#lib64/hw/gps4752.default.so
+#lib64/hw/gps47531.default.so
+#lib64/hw/gps47531cl.default.so
 lib64/hw/gralloc.hi3635.so
 lib64/hw/keystore.hi3635.so
 lib64/hw/memtrack.hi3635.so
-lib64/hw/nfc_nci.pn54x.default.so
+#lib64/hw/nfc_nci.pn54x.default.so
 lib64/hw/power.hi3635.so
-lib64/hw/sensorhub.default.so
+#lib64/hw/sensorhub.default.so
 lib/hw/audio.a2dp.default.so
 lib/hw/audio.primary.hi3635.so
 lib/hw/audio.r_submix.default.so
-#lib/hw/camera.hi3635.so
+lib/hw/camera.hi3635.so
 lib/hw/copybit.hi3635.so
 lib/hw/gralloc.hi3635.so
 lib/hw/keystore.hi3635.so
-lib/hw/lights.default.so
+#lib/hw/lights.default.so
 lib/hw/memtrack.hi3635.so
 lib/hw/power.hi3635.so
-lib/hw/sensorhub.default.so
+#lib/hw/sensorhub.default.so
 
 
 #The drm stuff isnt included in cm
@@ -241,6 +232,35 @@ lib/hwcam/hwcam.hi3635.GRACE.p.imx214.so
 lib/hwcam/hwcam.hi3635.GRACE.p.imx179_udp.so
 lib/hwcam/hwcam.hi3635.GRACE.p.imx179.so
 lib/hwcam/hwcam.ddt.so
+
+
+#Page record errors otherwise:
+lib/libnvme.so
+lib64/libnvme.so
+
+#modem related
+#bin/rild
+#lib/libril.so
+#lib64/libril.so
+#lib/librilutils.so
+#lib64/librilutils.so
+#lib/libvia-ril.so
+#lib64/libvia-ril.so
+#libnvme.so ?
+#lib/libbalong-ril.so
+#lib64/libbalong-ril.so
+#lib/libbalong-ril-1.so
+#lib64/libbalong-ril-1.so
+
+#required?
+#lib/libicuuc.so
+#lib64/libicuuc.so
+#lib/libcrypto.so
+#lib64/libcrypto.so
+#lib/libreference-ril.so
+#lib64/libreference-ril.so
+#
+
 
 #helix? no idea but its not included on cm
 lib/helix/wmvrender.so
@@ -339,70 +359,39 @@ etc/audio/modem/modem_hi3635_normal.xml
 #lib/libteec.so
 #lib64/libteec.so
 
+#That will be not easy to get it working...
+#lib/hw/hwcomposer.hi3635.so
+#lib64/hw/hwcomposer.hi3635.so
 
-#This one worked after I made some changes to the surfaceflinger :)
-lib/hw/hwcomposer.hi3635.so
-lib64/hw/hwcomposer.hi3635.so
-
-#Wow I missed that "libgralloc_ext.default.so" dependency in Surfaceflinger. It doesn't exist in my build
+#I missed that
+lib/libion.so
+lib64/libion.so
 lib/libgralloc_ext.default.so
 lib64/libgralloc_ext.default.so
 
-#Well this works!
-lib/libui.so
-lib64/libui.so
-#lib/libsync.so
-#lib64/libsync.so
-lib/libion.so
-lib64/libion.so
-#plus editing the props
-#ro.hwui.layer_cache_size=32
-#ro.hwui.r_buffer_cache_size=4
-#ro.hwui.path_cache_size=24
-#ro.hwui.gradient_cache_size=1
-#ro.hwui.drop_shadow_cache_size=5
-#ro.hwui.texture_cache_flushrate=0.5
-#ro.hwui.text_small_cache_width=1024
-#ro.hwui.text_small_cache_height=1024
-#ro.hwui.text_large_cache_width=2048
-#ro.hwui.text_large_cache_height=1024
-#lib/libgui.so
-#lib64/libgui.so
-#lib/libGLESv1_CM.so
-#lib64/libGLESv1_CM.so
-#lib/libEGL.so
-#lib64/libEGL.so
+#In vendor rom only
 lib/libhwgl.so
 lib64/libhwgl.so
-lib/libGLES_trace.so
-lib64/libGLES_trace.so
-lib/libGLESv2.so
-lib64/libGLESv2.so
+
 #maybe not required
 lib/libGLESv3.so
 lib64/libGLESv3.so
-#At this point i've seen the welcome screen...
 
-
-#sync_merge("BootAnimation:0", 0, 46) returned an error: Bad file descriptor (-9)
-#native/libs/gui/Surface.cpp:        ALOGE("dequeueBuffer_DEPRECATED: Fence::wait returned an error: %d",
-#native/libs/ui/Fence.cpp:        ALOGE("merge: sync_merge(\"%s\", %d, %d) returned an error: %s (%d)",
-
-
-#No idea if really required
-lib64/libbastet.so
-
-#WVMExtractor: Failed to open libwvm.so: dlopen failed: library "libwvm.so" not found
-#--This is located in the vendor folder not sure why it is not found.
-#--I will try to copy it in each lib folder
 
 #/system/bin/device_monitor --> libdmd.so not found
 lib/libdmd.so
 lib64/libdmd.so
 #cannot locate symbol "__android_log_exception_write" referenced by "/system/lib64/libdmd.so"
-#I hope there are not to many changes
+#It doesn't seem to be a problem to replace it.
 lib/liblog.so
 lib64/liblog.so
+
+#just testing
+#etc/media_codecs.xml
+#etc/media_profiles.xml
+
+#No idea if really required
+lib64/libbastet.so
 
 #/system/bin/hwpged
 #--library "libcgroup.so" not found
@@ -413,16 +402,5 @@ lib/libcgroup.so
 #It's likely that it accesses these libs.
 lib/libstagefrighthw.so
 lib64/libstagefrighthw.so
-
-#lib/libgralloc_ext.so
-#lib64/libgralloc_ext.so
-
-#^same got them caus of libandroid_runtime.so (stock)
-#lib64/libhwextdevice.so
-#lib/libhwextdevice.so
-#lib64/libperfhub_client.so
-#lib/libperfhub_client.so
-#lib64/lib_oeminfo_interface.so
-#lib/lib_oeminfo_interface.so
 
 
