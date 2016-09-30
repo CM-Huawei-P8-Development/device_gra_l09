@@ -14,9 +14,32 @@
  * limitations under the License.
  */
 
-namespace android {
+/*
+void __android_logPower_print(void) {
+}
+*/
 
-int DISPLAY_SIZE_DENSITY_VALUE;
-int DISPLAY_SIZE_DENSITY;
+void __android_logPower_print(int a1, const char *a2, int *a3, int a4) {
+}
 
-}; // namespace android
+void __android_log_exception_write(void){
+}
+
+void __android_log_exception_msg_write(void){
+}
+
+void __android_janklog_print(void) {
+}
+
+void __android_janklog_buf_write(void){
+}
+
+void __android_logPower_buf_write(void){
+}
+
+void __android_log_buf_print(void){
+}
+
+int isLogEnabled(void) {
+    return 0;
+}

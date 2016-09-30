@@ -21,6 +21,9 @@ PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 #This will be used as /etc/recovery.fstab only for twrp
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
 
+#Use the modified wpa_supplicant.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
 #Some files for the boot ramdisk
 BOOT_RAMDISK_SRC = $(LOCAL_PATH)/ramdisk6.0
 BOOT_RAMDISK_DST = root

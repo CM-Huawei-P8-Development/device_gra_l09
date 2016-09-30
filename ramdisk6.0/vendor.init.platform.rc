@@ -121,9 +121,9 @@ on property:vold.decrypt=trigger_restart_framework
     trigger start_other_action
     trigger data_ready
 
-on property:vold.decrypt=trigger_default_encryption
-    start surfaceflinger
-    start defaultcrypto
+#on property:vold.decrypt=trigger_default_encryption
+#    start surfaceflinger
+#    start defaultcrypto
 
 on property:vold.decrypt=trigger_shutdown_framework
     trigger data_not_ready
@@ -154,18 +154,18 @@ on data_not_ready
     write /proc/post-fs-data 0
 
 
-on property:bastet.service.enable=true
-    start bastetd
+#on property:bastet.service.enable=true
+#    start bastetd
 
-service jankservice /system/bin/jankservice
-    class late_start
+#service jankservice /system/bin/jankservice
+#    class late_start
 
-service systeminfo /system/bin/systeminfo
-    class main
-    user root
-    seclabel u:r:systeminfo:s0
-    disabled
-    oneshot
+#service systeminfo /system/bin/systeminfo
+#    class main
+#    user root
+#    seclabel u:r:systeminfo:s0
+#    disabled
+#    oneshot
 
 service fuse_sdcard1rw /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard1 /storage/sdcard1
    class late_start
@@ -179,84 +179,84 @@ service fuse_sdcard1rw /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard1 
    class late_start
    disabled
 
-service preparesdservice /system/bin/vdc volume storagetosd
-   class main
-   disabled
-   oneshot
+#service preparesdservice /system/bin/vdc volume storagetosd
+#   class main
+#   disabled
+#   oneshot
 
-on property:persist.sys.primarysd=*
-   start preparesdservice
+#on property:persist.sys.primarysd=*
+#   start preparesdservice
 
-service logserver /system/bin/logserver
-    class late_start
-    user root
-    group system
-    oneshot
-    seclabel u:r:logserver:s0
+#service logserver /system/bin/logserver
+#    class late_start
+#    user root
+#    group system
+#    oneshot
+#    seclabel u:r:logserver:s0
 
-service logctl_service /sbin/logctl_service -m 1
-    class late_start
-    user root
-    group system
-    oneshot
-    seclabel u:r:hisilogcat:s0
+#service logctl_service /sbin/logctl_service -m 1
+#    class late_start
+#    user root
+#    group system
+#    oneshot
+#    seclabel u:r:hisilogcat:s0
 
-service logcat_service /sbin/logctl_service -m 1 -t 1
-    class late_start
-    user root
-    group system
-    oneshot
-    seclabel u:r:hisilogcat:s0
+#service logcat_service /sbin/logctl_service -m 1 -t 1
+#    class late_start
+#    user root
+#    group system
+#    oneshot
+#    seclabel u:r:hisilogcat:s0
 
-service fac_log_service /system/bin/factory_log_service -m 1
-    class late_start
-    user root
-    group system
-    disabled
-    oneshot
-    seclabel u:r:hisilogcat:s0
+#service fac_log_service /system/bin/factory_log_service -m 1
+#    class late_start
+#    user root
+#    group system
+#    disabled
+#    oneshot
+#    seclabel u:r:hisilogcat:s0
 
-service applogcat /system/bin/logcat -v threadtime -r4096 -z 10 -n 5 -f /data/android_logs/applogcat-log
-    class late_start
-    user root
-    group system
-    disabled
-    seclabel u:r:hisilogcat:s0
+#service applogcat /system/bin/logcat -v threadtime -r4096 -z 10 -n 5 -f /data/android_logs/applogcat-log
+#    class late_start
+#    user root
+#    group system
+#    disabled
+#    seclabel u:r:hisilogcat:s0
 
 service rillogcat /system/bin/logcat -b radio -v threadtime -r4096 -z 5 -n 5 -f /data/android_logs/rillogcat-log
     class late_start
     user root
     group system
     disabled
-    seclabel u:r:hisilogcat:s0
+#    seclabel u:r:hisilogcat:s0
 
 service kmsglogcat /sbin/kmsgcat -l -r 4096 -z 5 -n 5 -f /data/android_logs/kmsgcat-log
     class late_start
     user root
     group system
     disabled
-    seclabel u:r:hisilogcat:s0
+#    seclabel u:r:hisilogcat:s0
 
-service inputlogcat /system/bin/eventcat -lrt -k 1024 -z 5 -m 5 -f /data/android_logs/input-log
-    class late_start
-    user root
-    group system
-    disabled
-    seclabel u:r:hisilogcat:s0
+#service inputlogcat /system/bin/eventcat -lrt -k 1024 -z 5 -m 5 -f /data/android_logs/input-log
+#    class late_start
+#    user root
+#    group system
+#    disabled
+#    seclabel u:r:hisilogcat:s0
 
-service chargelogcat /system/bin/chargelogcat -r 4096 -n 5 -z 4 -t 5 -p /data/android_logs/
-    class late_start
-    user root
-    group system
-    disabled
-    seclabel u:r:hisilogcat:s0
+#service chargelogcat /system/bin/chargelogcat -r 4096 -n 5 -z 4 -t 5 -p /data/android_logs/
+#    class late_start
+#    user root
+#    group system
+#    disabled
+#    seclabel u:r:hisilogcat:s0
 
-service sleeplogcat /system/bin/sleeplogcat -t 2 -p /data/android_logs/ -f /system/etc/pwrlog.cfg
-    class late_start
-    user root
-    group system
-    disabled
-    seclabel u:r:hisilogcat:s0
+#service sleeplogcat /system/bin/sleeplogcat -t 2 -p /data/android_logs/ -f /system/etc/pwrlog.cfg
+#    class late_start
+#    user root
+#    group system
+#    disabled
+#    seclabel u:r:hisilogcat:s0
 
 service modemlogcat /system/bin/modemlogcat_lte -l
     class late_start
@@ -272,71 +272,72 @@ service modematserver /system/bin/modemlogcat_lte -f hidp
     disabled
     oneshot
 
-service dumptool /system/bin/dumptool
-    class late_start
-    seclabel u:r:logserver:s0
+#broken
+#service dumptool /system/bin/dumptool
+#    class late_start
+#    seclabel u:r:logserver:s0
 
 service hw_cdma_service /system/bin/hw_cdmamodem_service /dev/acm_cdma_log /dev/ttySPI3 /dev/ttySPI1
     class main
     user root
     disabled
 
-service ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
+#service ddrtest /system/bin/do_ddrtest
+#    user root
+#    disabled
+#    oneshot
 
-service stop_ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
+#service stop_ddrtest /system/bin/do_ddrtest
+#    user root
+#    disabled
+#    oneshot
 
 service thermal-daemon /system/bin/thermal-daemon
     class main
     user system 
     group system
 
-service hwpged /system/bin/hwpged
-    class main
-    socket MsgHubSock stream 0660 root system
-    user root
+#service hwpged /system/bin/hwpged
+#    class main
+#    socket MsgHubSock stream 0660 root system
+#    user root
 
-service powerlogd /system/bin/powerlogd
-    class core
-    socket powerlogd stream 0600 system system
-    socket powerlogdr seqpacket 0600 system system
-    socket powerlogdw dgram 0220 system system
+#service powerlogd /system/bin/powerlogd
+#    class core
+#    socket powerlogd stream 0600 system system
+#    socket powerlogdr seqpacket 0600 system system
+#    socket powerlogdw dgram 0220 system system
 
-service chargemonitor /system/bin/chargemonitor
-    class late_start
-    user root
-    group system
-    seclabel u:r:hisilogcat:s0
+#service chargemonitor /system/bin/chargemonitor
+#    class late_start
+#    user root
+#    group system
+#    seclabel u:r:hisilogcat:s0
 
-on property:debug.rt.ddr.test=1
-    stop ddrtest
-    start ddrtest
-on property:debug.rt.ddr.test=2
-    start ddrtest
-on property:debug.rt.ddr.test=3
-    start ddrtest
-on property:debug.rt.ddr.test=4
-    start stop_ddrtest
+#on property:debug.rt.ddr.test=1
+#    stop ddrtest
+#    start ddrtest
+#on property:debug.rt.ddr.test=2
+#    start ddrtest
+#on property:debug.rt.ddr.test=3
+#    start ddrtest
+#on property:debug.rt.ddr.test=4
+#    start stop_ddrtest
 
-service mapper /system/bin/sh /system/bin/mappersh
-    class late_start
-    user root
-    group system
-    disabled
+#service mapper /system/bin/sh /system/bin/mappersh
+#    class late_start
+#    user root
+#    group system
+#    disabled
 
-on property:persist.sys.huawei.debug.on=*
-    restart logcat_service
+#on property:persist.sys.huawei.debug.on=*
+#    restart logcat_service
 
-on property:ro.logsystem.usertype=*
-    write /proc/log-usertype ${ro.logsystem.usertype}
+#on property:ro.logsystem.usertype=*
+#    write /proc/log-usertype ${ro.logsystem.usertype}
 
-service bastetd /system/bin/bastetd
-    class main
-    user root
-    group root
+#service bastetd /system/bin/bastetd
+#    class main
+#    user root
+#    group root
 

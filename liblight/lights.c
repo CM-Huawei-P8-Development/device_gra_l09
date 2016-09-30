@@ -32,7 +32,6 @@
 #include <sys/types.h>
 
 #include <hardware/lights.h>
-#include "lights.h"
 
 /* Synchronization primities */
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
@@ -43,6 +42,25 @@ static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 
 static int g_backlight = 255;
+
+char const*const RED_LED_FILE 			= "/sys/class/leds/red/brightness";
+char const*const GREEN_LED_FILE 		= "/sys/class/leds/green/brightness";
+char const*const BLUE_LED_FILE 			= "/sys/class/leds/blue/brightness";
+
+char const*const RED_LED_FILE_TRIGGER	  	= "/sys/class/leds/red/trigger";
+char const*const GREEN_LED_FILE_TRIGGER		= "/sys/class/leds/green/trigger";
+char const*const BLUE_LED_FILE_TRIGGER		= "/sys/class/leds/blue/trigger";
+
+char const*const RED_LED_FILE_DELAYON		= "/sys/class/leds/red/delay_on";
+char const*const GREEN_LED_FILE_DELAYON		= "/sys/class/leds/green/delay_on";
+char const*const BLUE_LED_FILE_DELAYON		= "/sys/class/leds/blue/delay_on";
+
+char const*const RED_LED_FILE_DELAYOFF		= "/sys/class/leds/red/delay_off";
+char const*const GREEN_LED_FILE_DELAYOFF	= "/sys/class/leds/green/delay_off";
+char const*const BLUE_LED_FILE_DELAYOFF		= "/sys/class/leds/blue/delay_off";
+
+char const*const LCD_BACKLIGHT_FILE		= "/sys/class/leds/lcd_backlight0/brightness";
+
 
 /* The leds we have */
 enum {
@@ -61,7 +79,7 @@ enum {
 static int write_int (const char *path, int value) {
 	int fd;
 	static int already_warned = 0;
-
+	ALOGD("write_int");
 	fd = open(path, O_RDWR);
 	if (fd < 0) {
 		if (already_warned == 0) {
@@ -79,14 +97,15 @@ static int write_int (const char *path, int value) {
 	return written == -1 ? -errno : 0;
 }
 
-static int write_string (const char *path, const char *value) {
+static int write_str (const char *path, const char *value) {
+	ALOGD("write_str");
 	int fd;
 	static int already_warned = 0;
 
 	fd = open(path, O_RDWR);
 	if (fd < 0) {
 		if (already_warned == 0) {
-			ALOGE("write_string failed to open %s\n", path);
+			ALOGE("write_str failed to open %s\n", path);
 			already_warned = 1;
 		}
 		return -errno;
@@ -103,10 +122,12 @@ static int write_string (const char *path, const char *value) {
 
 /* Color tools */
 static int is_lit (struct light_state_t const* state) {
+	ALOGD("is_lit");
 	return state->color & 0x00ffffff;
 }
 
 static int rgb_to_brightness (struct light_state_t const* state) {
+	ALOGD("rgb_to_brightness");
 	int color = state->color & 0x00ffffff;
 	return ((77*((color>>16)&0x00ff))
 			+ (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
@@ -114,9 +135,11 @@ static int rgb_to_brightness (struct light_state_t const* state) {
 
 /* The actual lights controlling section */
 static int set_light_backlight (struct light_device_t *dev, struct light_state_t const *state) {
+	ALOGD("set_light_backlight");
 	int brightness = rgb_to_brightness(state);
-	int als_mode;
-
+	//int als_mode;
+	
+	/*
 	switch (state->brightnessMode) {
 		case BRIGHTNESS_MODE_SENSOR:
 			als_mode = AUTOMATIC;
@@ -128,7 +151,7 @@ static int set_light_backlight (struct light_device_t *dev, struct light_state_t
 			als_mode = MANUAL_SENSOR;
 			break;
 	}
-
+	*/
 	ALOGV("%s brightness=%d color=0x%08x", __func__,brightness,state->color);
 	pthread_mutex_lock(&g_lock);
 	g_backlight = brightness;
@@ -139,6 +162,7 @@ static int set_light_backlight (struct light_device_t *dev, struct light_state_t
 }
 
 static int set_light_buttons (struct light_device_t *dev, struct light_state_t const* state) {
+	ALOGD("set_light_buttons");
 	size_t i;
 	int on = is_lit(state);
 	pthread_mutex_lock(&g_lock);
@@ -153,6 +177,7 @@ static int set_light_buttons (struct light_device_t *dev, struct light_state_t c
 }
 
 static void set_shared_light_locked (struct light_device_t *dev, struct light_state_t *state) {
+	ALOGD("set_shared_light_locked");
 	int r, g, b;
 	int delayOn,delayOff;
 
@@ -164,9 +189,9 @@ static void set_shared_light_locked (struct light_device_t *dev, struct light_st
 	delayOff = state->flashOffMS;
 
 	if (state->flashMode != LIGHT_FLASH_NONE) {
-		write_string (RED_LED_FILE_TRIGGER, "timer");
-		write_string (GREEN_LED_FILE_TRIGGER, "timer");
-		write_string (BLUE_LED_FILE_TRIGGER, "timer");
+		write_str (RED_LED_FILE_TRIGGER, "timer");
+		write_str (GREEN_LED_FILE_TRIGGER, "timer");
+		write_str (BLUE_LED_FILE_TRIGGER, "timer");
 
 		write_int (RED_LED_FILE_DELAYON, delayOn);
 		write_int (GREEN_LED_FILE_DELAYON, delayOn);
@@ -176,9 +201,9 @@ static void set_shared_light_locked (struct light_device_t *dev, struct light_st
 		write_int (GREEN_LED_FILE_DELAYOFF, delayOff);
 		write_int (BLUE_LED_FILE_DELAYOFF, delayOff);
 	} else {
-		write_string (RED_LED_FILE_TRIGGER, "none");
-		write_string (GREEN_LED_FILE_TRIGGER, "none");
-		write_string (BLUE_LED_FILE_TRIGGER, "none");
+		write_str (RED_LED_FILE_TRIGGER, "none");
+		write_str (GREEN_LED_FILE_TRIGGER, "none");
+		write_str (BLUE_LED_FILE_TRIGGER, "none");
 	}
 
 	write_int (RED_LED_FILE, r);
@@ -187,6 +212,7 @@ static void set_shared_light_locked (struct light_device_t *dev, struct light_st
 }
 
 static void handle_shared_battery_locked (struct light_device_t *dev) {
+	ALOGD("handle_shared_battery_locked");
 	if (is_lit (&g_notification)) {
 		set_shared_light_locked (dev, &g_notification);
 	} else {
@@ -195,6 +221,7 @@ static void handle_shared_battery_locked (struct light_device_t *dev) {
 }
 
 static int set_light_battery (struct light_device_t *dev, struct light_state_t const* state) {
+	ALOGD("set_light_battery");
 	pthread_mutex_lock (&g_lock);
 	g_battery = *state;
 	handle_shared_battery_locked(dev);
@@ -203,6 +230,7 @@ static int set_light_battery (struct light_device_t *dev, struct light_state_t c
 }
 
 static int set_light_notifications (struct light_device_t *dev, struct light_state_t const* state) {
+	ALOGD("set_light_notifications");
 	pthread_mutex_lock (&g_lock);
 	g_notification = *state;
 	handle_shared_battery_locked(dev);
@@ -212,11 +240,13 @@ static int set_light_notifications (struct light_device_t *dev, struct light_sta
 
 /* Initializations */
 void init_globals () {
+	ALOGD("init_globals");
 	pthread_mutex_init (&g_lock, NULL);
 }
 
 /* Glueing boilerplate */
 static int close_lights (struct light_device_t *dev) {
+	ALOGD("close_lights");
 	if (dev)
 		free(dev);
 
@@ -225,6 +255,7 @@ static int close_lights (struct light_device_t *dev) {
 
 static int open_lights (const struct hw_module_t* module, char const* name,
 						struct hw_device_t** device) {
+	ALOGD("open_lights");
 	int (*set_light)(struct light_device_t* dev,
 					 struct light_state_t const *state);
 

@@ -55,7 +55,7 @@ TARGET_HARDWARE_3D := true
 ANDROID_ENABLE_RENDERSCRIPT := true
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/huawei/hwgra/gpu/egl.cfg
-BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += libc_huawei_symbols
+#BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += shim_libs
 
 
 
@@ -65,32 +65,31 @@ BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_GENERIC_AUDIO := false
 
 #RIL
-#BOARD_RIL_CLASS := src/java/com/android/internal/telephony
+#BOARD_RIL_CLASS := device/huawei/hwgra/
 
 
 #Netowrk
+WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WLAN_DEVICE := bcmdhd
 BOARD_WLAN_DEVICE_REV := bcm4334
-BOARD_WPA_SUPPLICANT_DRIVER := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := private_lib_driver_cmd
 #WPA_SUPPLICANT_VERSION := VER_2_0_X
-WPA_SUPPLICANT_VERSION := VER_0_8_X
+WIFI_DRIVER_NVRAM_PATH := /vendor/firmware/nvram4334_hw.txt
 WIFI_DRIVER_FW_PATH_PARAM := /sys/module/bcmdhd/parameters/firmware_path
 WIFI_DRIVER_FW_PATH_STA := /system/vendor/firmware/fw_bcm4334_hw.bin
 WIFI_DRIVER_FW_PATH_AP := /system/vendor/firmware/fw_bcm4334_apsta_hw.bin
 WIFI_BAND := 802_11_ABGN
-CONFIG_DRIVER_NL80211 := true
-WIFI_DRIVER_MODULE_NAME := bcm4334
+WIFI_DRIVER_MODULE_NAME := bcmdhd
 WIFI_DRIVER_MODULE_PATH := auto
-WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_hw.bin nvram_path=/system/etc/wifi/wpa_supplicant.conf"
-WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_apsta_hw.bin nvram_path=/system/etc/wifi/wpa_supplicant.conf"
+WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw.txt ifname=wlan0"
+WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_apsta_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw.txt ifname=wlan0"
+BOARD_LEGACY_NL80211_STA_EVENTS := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUEDROID_VENDOR_CONF := $(DEVICE_FOLDER)/bluetooth/bt_vendor.conf
-#"/system/etc/bluetooth/bt_vendor.conf"
 
 
 #CPU/ARCH
@@ -122,8 +121,9 @@ TARGET_SUPPORTS_32_BIT_APPS := true
 TARGET_SUPPORTS_64_BIT_APPS := true
 
 
-#Kernelma
-KERNEL_NAME="morphkernel@nexolight"
+#Kernelname
+KERNEL_NAME="nexolight-morphkernel_r001"
+KBUILD_BUILD_VERSION="nexolight-morphkernel_r001"
 #TARGET_PREBUILT_KERNEL := device/huawei/hwgra/kernel #After building it from source to save time
 TARGET_KERNEL_SOURCE := kernel/huawei/kernel
 #TARGET_KERNEL_SOURCE --> Shared source... Well it's not...
@@ -218,9 +218,9 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	bastet.service.enable=true \
 	ro.config.hw_emerg=on \
 	ro.sys.umsdirtyratio=2 \
-	ro.product.cpuinfo.normal=Hisilicon Kirin 930 \
-	ro.product.cpuinfo.high=Hisilicon Kirin 935 \
-	ro.product.cpuinfo.highhigh=Hisilicon Kirin 935 \
+	ro.product.cpuinfo.normal="Hisilicon Kirin 930" \
+	ro.product.cpuinfo.high="Hisilicon Kirin 935" \
+	ro.product.cpuinfo.highhigh="Hisilicon Kirin 935" \
 	ro.config.hw_enable_merge=true \
 	ro.config.helix_enable=true \
 	ro.config.huawei_smallwindow=505,197,1065,1257 \
@@ -259,10 +259,10 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.check.modem_network=true \
 	ro.config.dsds_mode=cdma_gsm \
 	ro.config.hw_device_mode=clg_mode \
-	rild.libargs2=-m modem1 \
+	rild.libargs2="-m modem1" \
 	persist.dsds.enabled=true \
 	rild.rild1_ready_to_start=false \
-	rild.libargs1=-m modem0 \
+	rild.libargs1="-m modem0" \
 	rild.libpath=/system/lib64/libvia-ril.so \
 	ro.config.hw_dsda=true \
 	ro.multi.rild=false \

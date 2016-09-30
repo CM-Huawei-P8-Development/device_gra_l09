@@ -1,5 +1,4 @@
-
-/*
+ /*
  * Copyright (C) 2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +14,31 @@
  * limitations under the License.
  */
 
-void __android_logPower_print(void) {
-}
+#define LOG_TAG "SurfaceControl"
 
-int __android_janklog_print(void) {
-    return 0;
-}
+#include <stdint.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
-int isLogEnabled(void) {
-    return 0;
-}
+#include <android/native_window.h>
 
-int __android_log_exception_write(void) {
-    return 0;
-}
+#include <utils/Errors.h>
+#include <utils/Log.h>
+#include <utils/threads.h>
+
+#include <binder/IPCThreadState.h>
+
+#include <ui/DisplayInfo.h>
+#include <ui/GraphicBuffer.h>
+#include <ui/Rect.h>
+
+#include <gui/ISurfaceComposer.h>
+#include <gui/Surface.h>
+#include <gui/SurfaceComposerClient.h>
+#include <gui/SurfaceControl.h> 
+ 
+namespace android {
+	int DISPLAY_SIZE_DENSITY_VALUE;
+	int DISPLAY_SIZE_DENSITY;
+}; // namespace android

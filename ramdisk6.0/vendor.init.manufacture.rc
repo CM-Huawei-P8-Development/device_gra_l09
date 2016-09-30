@@ -1,5 +1,4 @@
 on early-init
-test
 
 
 on init
@@ -80,51 +79,52 @@ on early-boot
 
 on boot
 
-service atcmdserver  /system/bin/atcmdserver
-    class main
-    disabled
-    seclabel u:r:atcmdserver:s0
+#service atcmdserver  /system/bin/atcmdserver
+#    class main
+#    disabled
+#    seclabel u:r:atcmdserver:s0
 
 service oeminfo_nvm /sbin/oeminfo_nvm_server
     class core
     critical 
     ioprio rt 4
 
-service diagserver /system/bin/diagserver
-    class main
-    user root
+#service diagserver /system/bin/diagserver
+#    class main
+#    user root
 
 service goldeneye /system/bin/goldeneye
     class main
     user root
 
-service check_root /sbin/check_root
-    class main
-    oneshot
-    seclabel u:r:check_root:s0
+#service check_root /sbin/check_root
+#    class main
+#    oneshot
+#    seclabel u:r:check_root:s0
 
-service check_longpress /system/bin/check_longpress
-    class main
-    oneshot
+#service check_longpress /system/bin/check_longpress
+#    class main
+#    oneshot
 
-on property:sys.boot_completed=1
-    start check_root
+#on property:sys.boot_completed=1
+#    start check_root
 
-on property:ro.runmode=factory
-    chmod 0775 /data/media/0/Music
-    chmod 0775 /data/media/0/Pictures
-    chown media_rw media_rw /data/media/0
-    chown media_rw media_rw /data/media/0/Music
-    chown media_rw media_rw /data/media/0/Pictures
+#on property:ro.runmode=factory
+#    chmod 0775 /data/media/0/Music
+#    chmod 0775 /data/media/0/Pictures
+#    chown media_rw media_rw /data/media/0
+#    chown media_rw media_rw /data/media/0/Music
+#    chown media_rw media_rw /data/media/0/Pictures
 
-service hwnffserver  /system/bin/hwnffserver
-    class main
-    socket hwnff stream 0660 root mount
+#broken atm
+#service hwnffserver  /system/bin/hwnffserver
+#    class main
+#    socket hwnff stream 0660 root mount
 
-service data_cleanner /system/bin/data_cleaner
-    class core
-    oneshot
+#service data_cleanner /system/bin/data_cleaner
+#    class core
+#    oneshot
 
-service check_hota /system/bin/sh /system/etc/check_hota.sh
-    class core
-    oneshot
+#service check_hota /system/bin/sh /system/etc/check_hota.sh
+#    class core
+#    oneshot

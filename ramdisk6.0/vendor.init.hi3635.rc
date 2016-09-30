@@ -508,40 +508,40 @@ on boot
      write /sys/class/net/rmnet_ims/queues/rx-0/rps_flow_cnt 0
      write /sys/class/net/rmnet_ims/queues/rx-0/rps_cpus f
 
-service kerneldump /system/etc/kerneldump.sh 
-    class main
-    user root
-    group system
-    oneshot
+#service kerneldump /system/etc/kerneldump.sh 
+#    class main
+#    user root
+#    group system
+#    oneshot
 
 service kmsgcat_cp /sbin/kmsgcat -r 4096 -n 25 -i /dev/cshell_log -f /data/hwzd_logs/cp_log/modemlog/modemkmsg-log
     class late_start
     user root
     group system
     disabled
-    seclabel u:r:hisilogcat:s0
+#    seclabel u:r:hisilogcat:s0
 
-service defragd /system/bin/defragd
-    class late_start
+#service defragd /system/bin/defragd
+#    class late_start
 
-service himreg /system/bin/himreg
-    class main
-    socket himreg stream 600 system system
+#service himreg /system/bin/himreg
+#   class main
+#    socket himreg stream 600 system system
 
-service audiouartctl /system/bin/audiouartctl on
-    class main
+#service audiouartctl /system/bin/audiouartctl on
+#    class main
 
-service bugreport /system/bin/dumpstate -d -p -z -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
+#service bugreport /system/bin/dumpstate -d -p -z -B \
+#        -o /data/data/com.android.shell/files/bugreports/bugreport
+#    class main
+#    disabled
+#    oneshot
 
-on property:sys.boot_completed=1 && property:ro.config.hw_perfhub=true
-    start perfhub
+#on property:sys.boot_completed=1 && property:ro.config.hw_perfhub=true
+#    start perfhub
 
-service perfhub /system/bin/perfhub
-    class late_start
-    user system
-    group system
-    disabled
+#service perfhub /system/bin/perfhub
+#    class late_start
+#    user system
+#    group system
+#    disabled

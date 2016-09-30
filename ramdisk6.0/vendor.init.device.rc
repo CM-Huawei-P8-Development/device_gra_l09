@@ -105,13 +105,13 @@ on boot
     export VIBE_PIPE_PATH /dev/immersion
 
 
+#broken?
+#service device-monitor /system/bin/device_monitor
+#     class main
+#     user root
+#     group system
 
-service device-monitor /system/bin/device_monitor
-     class main
-     user root
-     group system
-
-service immvibed /system/bin/immvibed -p 99 -u 1000
-    class main
-    user root
-    group root
+#service immvibed /system/bin/immvibed -p 99 -u 1000
+#    class main
+#    user root
+#    group root

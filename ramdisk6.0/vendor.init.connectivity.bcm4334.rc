@@ -43,6 +43,8 @@ on boot
      chmod 664 /proc/bluetooth/sleep/btwake
 
     setprop wifi.interface wlan0
+    setprop wlan.driver.status "ok"
+    setprop init.svc.wpa_supplicant "running"
 
     chown system system /sys/module/bcmdhd/parameters/dhd_console_ms
     chown system system /sys/devices/platform/bcmdhd_wlan.1/wifi_arp_timeout

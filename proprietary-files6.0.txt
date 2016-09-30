@@ -64,59 +64,45 @@ vendor/media/LMspeed_508.emd
 
 
 #init.hi3635.rc - edited since a few binaries didn't even exist in the origin rom (5.0)
-etc/kerneldump.sh
+#etc/kerneldump.sh
 
-#init.connectivity.gps.rc (5.0)
+#GPS
 bin/gpsdaemon
+bin/glgps47531
 bin/glgps47531cl
+bin/gps4752logd
+bin/glgps4752
+bin/gpslogd
 
-#init.connectivity.bcm4334.rc - copied every config file not mentioned there (5.0)
+#Wifi related
 bin/mac_addr_normalization
 bin/wifiwakeupsrc
-#one of these make the build fail
-#bin/wpa_supplicant
-#etc/wifi/wpa_supplicant_overlay.conf
+bin/wpa_supplicant
+etc/wifi/wpa_supplicant_overlay.conf
 #etc/wifi/wpa_supplicant.conf
-#etc/wifi/p2p_supplicant_overlay.conf
+etc/wifi/p2p_supplicant_overlay.conf
 
 #init.device.rc  (5.0) 
 #bin/device_monitor
 
-#init.extmodem.rc - copied every config file not mentioned there (5.0)
-bin/modemlogcat_via
-etc/modemConfig/viacbp82d_log.bcfg
-etc/modemConfig/viacbp82d_shutdown_log.bcfg
-etc/modemConfig/hua.cfg
-etc/modemConfig/hids_ue_msg.cfg
-etc/modemConfig/balong/FieldTest.cfg
-etc/modemConfig/balong/basic_name
-
 #init.manufacture.rc - edited since a few binaries didn't even exist in the origin rom  (5.0)
-bin/atcmdserver
-bin/diagserver
+#bin/atcmdserver
+#bin/diagserver
 #bin/hwnffserver - we already got that in init.rc
-bin/data_cleaner
-etc/check_hota.sh
+#bin/data_cleaner
+#etc/check_hota.sh
 
 #init.platform.rc - edited since a few binaries didn't even exist in the origin rom   (5.0)
-bin/preparesd.sh
-bin/eventcat
-bin/chargelogcat
-bin/sleeplogcat
-bin/modemlogcat_lte
-bin/hw_cdmamodem_service
+#bin/preparesd.sh
+#bin/eventcat
+#bin/chargelogcat
+#bin/sleeplogcat
 bin/thermal-daemon
-bin/hwpged
-bin/bastetd
+#bin/hwpged
+#bin/bastetd
 
 #init.5844.rc - copied every config file not mentioned there  (5.0)
-#bin/HwCamCfgSvr
-bin/chargemonitor
-miniisp/TBM_Latour2.bin
-miniisp/TBM_Latour.bin
-miniisp/miniBoot2.bin
-miniisp/miniBoot.bin
-miniisp/chip_det.bin
+#bin/chargemonitor
 
 #Not already listed and found in file_contexts
 #bin/himreg
@@ -128,19 +114,22 @@ miniisp/chip_det.bin
 #bin/check_longpress
 #bin/jankservice
 #bin/ioinfoservice
-bin/gps4752logd	
-bin/gpslogd
 #bin/pmom_cat
-#bin/audiouartctl
 
 #Some vendor blobs - reported in logs
 #Camera related
+#bin/HwCamCfgSvr
+#miniisp/TBM_Latour2.bin
+#miniisp/TBM_Latour.bin
+#miniisp/miniBoot2.bin
+#miniisp/miniBoot.bin
+#miniisp/chip_det.bin
 #lib/libHWCamCfgSvr.so
 #lib64/libHWCamCfgSvr.so
-lib/libjpegenchw.so
-lib64/libjpegenchw.so
-lib/libjpu.so
-lib64/libjpu.so
+#lib/libjpegenchw.so
+#lib64/libjpegenchw.so
+#lib/libjpu.so
+#lib64/libjpu.so
 
 #Audio related
 lib/libaudioroute.so
@@ -169,16 +158,16 @@ lib64/hw/audio.r_submix.default.so
 lib64/hw/bastet.hi3635.so
 lib64/hw/camera.hi3635.so
 lib64/hw/copybit.hi3635.so
-#lib64/hw/flp.default.so
-#lib64/hw/gps4752.default.so
-#lib64/hw/gps47531.default.so
-#lib64/hw/gps47531cl.default.so
+lib64/hw/flp.default.so
+lib64/hw/gps4752.default.so
+lib64/hw/gps47531.default.so
+lib64/hw/gps47531cl.default.so
 lib64/hw/gralloc.hi3635.so
 lib64/hw/keystore.hi3635.so
 lib64/hw/memtrack.hi3635.so
-#lib64/hw/nfc_nci.pn54x.default.so
+lib64/hw/nfc_nci.pn54x.default.so
 lib64/hw/power.hi3635.so
-#lib64/hw/sensorhub.default.so
+lib64/hw/sensorhub.default.so
 lib/hw/audio.a2dp.default.so
 lib/hw/audio.primary.hi3635.so
 lib/hw/audio.r_submix.default.so
@@ -189,7 +178,7 @@ lib/hw/keystore.hi3635.so
 #lib/hw/lights.default.so
 lib/hw/memtrack.hi3635.so
 lib/hw/power.hi3635.so
-#lib/hw/sensorhub.default.so
+lib/hw/sensorhub.default.so
 
 
 #The drm stuff isnt included in cm
@@ -239,18 +228,26 @@ lib/libnvme.so
 lib64/libnvme.so
 
 #modem related
-#bin/rild
-#lib/libril.so
-#lib64/libril.so
-#lib/librilutils.so
-#lib64/librilutils.so
-#lib/libvia-ril.so
-#lib64/libvia-ril.so
-#libnvme.so ?
-#lib/libbalong-ril.so
-#lib64/libbalong-ril.so
-#lib/libbalong-ril-1.so
-#lib64/libbalong-ril-1.so
+bin/rild
+lib/libril.so
+lib64/libril.so
+lib/librilutils.so
+lib64/librilutils.so
+lib/libvia-ril.so
+lib64/libvia-ril.so
+lib/libbalong-ril.so
+lib64/libbalong-ril.so
+lib/libbalong-ril-1.so
+lib64/libbalong-ril-1.so
+bin/modemlogcat_lte
+bin/hw_cdmamodem_service
+bin/modemlogcat_via
+etc/modemConfig/viacbp82d_log.bcfg
+etc/modemConfig/viacbp82d_shutdown_log.bcfg
+etc/modemConfig/hua.cfg
+etc/modemConfig/hids_ue_msg.cfg
+etc/modemConfig/balong/FieldTest.cfg
+etc/modemConfig/balong/basic_name
 
 #required?
 #lib/libicuuc.so
@@ -383,8 +380,10 @@ lib/libdmd.so
 lib64/libdmd.so
 #cannot locate symbol "__android_log_exception_write" referenced by "/system/lib64/libdmd.so"
 #It doesn't seem to be a problem to replace it.
-lib/liblog.so
-lib64/liblog.so
+#--> corrected that with shim_libs
+#there are a few missing symbols left
+#lib/liblog.so
+#lib64/liblog.so
 
 #just testing
 #etc/media_codecs.xml
@@ -395,7 +394,7 @@ lib64/libbastet.so
 
 #/system/bin/hwpged
 #--library "libcgroup.so" not found
-lib/libcgroup.so
+#lib/libcgroup.so
 
 #only in vendor
 #The files in vendor folder are preffered
