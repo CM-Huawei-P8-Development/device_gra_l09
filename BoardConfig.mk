@@ -19,6 +19,7 @@ TARGET_BUILD_TYPE = debug
 
 #Debug:
 BOARD_EGL_NEEDS_HANDLE_VALUE=true
+LOG_NDEBUG=0
 
 
 #Bootloader
@@ -60,8 +61,9 @@ BOARD_EGL_CFG := device/huawei/hwgra/gpu/egl.cfg
 
 
 #Audio
-TARGET_PROVIDES_LIBAUDIO := true
+#TARGET_PROVIDES_LIBAUDIO := true
 BOARD_USES_ALSA_AUDIO := true
+BOARD_USES_TINY_ALSA_AUDIO := true
 BOARD_USES_GENERIC_AUDIO := false
 
 #RIL
@@ -87,6 +89,7 @@ WIFI_DRIVER_MODULE_PATH := auto
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw.txt ifname=wlan0"
 WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_apsta_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw.txt ifname=wlan0"
 BOARD_LEGACY_NL80211_STA_EVENTS := true
+BOARD_NO_APSME_ATTR := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUEDROID_VENDOR_CONF := $(DEVICE_FOLDER)/bluetooth/bt_vendor.conf
@@ -218,9 +221,9 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	bastet.service.enable=true \
 	ro.config.hw_emerg=on \
 	ro.sys.umsdirtyratio=2 \
-	ro.product.cpuinfo.normal="Hisilicon Kirin 930" \
-	ro.product.cpuinfo.high="Hisilicon Kirin 935" \
-	ro.product.cpuinfo.highhigh="Hisilicon Kirin 935" \
+	ro.product.cpuinfo.normal=Hisilicon_Kirin_930 \
+	ro.product.cpuinfo.high=Hisilicon_Kirin_935 \
+	ro.product.cpuinfo.highhigh=Hisilicon_Kirin_935 \
 	ro.config.hw_enable_merge=true \
 	ro.config.helix_enable=true \
 	ro.config.huawei_smallwindow=505,197,1065,1257 \
@@ -259,10 +262,10 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.check.modem_network=true \
 	ro.config.dsds_mode=cdma_gsm \
 	ro.config.hw_device_mode=clg_mode \
-	rild.libargs2="-m modem1" \
+	rild.libargs2=-mmodem1 \
 	persist.dsds.enabled=true \
 	rild.rild1_ready_to_start=false \
-	rild.libargs1="-m modem0" \
+	rild.libargs1=-mmodem0 \
 	rild.libpath=/system/lib64/libvia-ril.so \
 	ro.config.hw_dsda=true \
 	ro.multi.rild=false \
@@ -270,7 +273,42 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	rild.libargs=-d /dev/viacomm_cmux \
 	persist.radio.multisim.config=dsda \
 	ro.telephony.default_network=8 \
-	rild.libpath2=/system/lib64/libbalong-ril-1.so
+	rild.libpath2=/system/lib64/libbalong-ril-1.so \
+	ro.config.attach_apn_enabled=true \
+	ro.config.hw_lte_support=true \
+	ro.config.hw_show_network_icon=true \
+	net.tethering.noprovisioning=true \
+	ro.cofig.onlinemusic.enabled=false \
+	ro.cofig.onlinevideo.enabled=false \
+	ro.config.hw_floatvideo=false \
+	ro.config.hw_ReduceSAR=true \
+	ro.config.hw_use_browser_ua=http://wap1.huawei.com/uaprof/HUAWEI_GRA_L09_UAProfile.xml \
+	ro.setupwizard.mode=DISABLED \
+	ro.config.calendarsound=Step.ogg \
+	ro.config.hw_nfc_on=false \
+	ro.config.hw_nfc_msimce=false \
+	ro.config.hw_hotswap_on=true \
+	ro.dual.sim.phone=false \
+	ro.config.hw_sim2airplane=false \
+	ro.config.show_sim_icon=true \
+	ro.config.soundtrigger_enabled=0 \
+	ro.huawei.flag.oma_reboot=true \
+	ro.config.messagesound=Whisper.ogg \
+	ro.config.linkplus.roaming=false \
+	ro.com.google.clientidbase.am=android-huawei \
+	ro.com.google.clientidbase.gmm=android-huawei \
+	ro.com.google.clientidbase.ms=android-huawei \
+	ro.com.google.clientidbase.yt=android-huawei \
+	ro.config.spare_ntp_server=ntp.sjtu.edu.cn,time.windows.com,time.nist.gov,1.cn.pool.ntp.org \
+	ro.config.hw_channel_info=0,0,0,0 \
+	ro.product.hardwareversion=HL2UGRACEM \
+	ro.config.support_ca=false \
+	ro.product.varprofile.base=L09 \
+	ro.config.hw_cp_showagree=true \
+	ro.product.varprofile.highhigh=L09 \
+	ro.product.varprofile=true \
+	ro.config.hw_ECT=true \
+	ro.config.hw_rcs_product=true
 
 #ro.boardid.product:
 #eighter 6238 or 5844 both contain "GRACE" which is a code in the origin build.props

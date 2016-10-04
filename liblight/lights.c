@@ -32,6 +32,7 @@
 #include <sys/types.h>
 
 #include <hardware/lights.h>
+#include "lights.h"
 
 /* Synchronization primities */
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
@@ -42,25 +43,6 @@ static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 
 static int g_backlight = 255;
-
-char const*const RED_LED_FILE 			= "/sys/class/leds/red/brightness";
-char const*const GREEN_LED_FILE 		= "/sys/class/leds/green/brightness";
-char const*const BLUE_LED_FILE 			= "/sys/class/leds/blue/brightness";
-
-char const*const RED_LED_FILE_TRIGGER	  	= "/sys/class/leds/red/trigger";
-char const*const GREEN_LED_FILE_TRIGGER		= "/sys/class/leds/green/trigger";
-char const*const BLUE_LED_FILE_TRIGGER		= "/sys/class/leds/blue/trigger";
-
-char const*const RED_LED_FILE_DELAYON		= "/sys/class/leds/red/delay_on";
-char const*const GREEN_LED_FILE_DELAYON		= "/sys/class/leds/green/delay_on";
-char const*const BLUE_LED_FILE_DELAYON		= "/sys/class/leds/blue/delay_on";
-
-char const*const RED_LED_FILE_DELAYOFF		= "/sys/class/leds/red/delay_off";
-char const*const GREEN_LED_FILE_DELAYOFF	= "/sys/class/leds/green/delay_off";
-char const*const BLUE_LED_FILE_DELAYOFF		= "/sys/class/leds/blue/delay_off";
-
-char const*const LCD_BACKLIGHT_FILE		= "/sys/class/leds/lcd_backlight0/brightness";
-
 
 /* The leds we have */
 enum {
@@ -97,15 +79,15 @@ static int write_int (const char *path, int value) {
 	return written == -1 ? -errno : 0;
 }
 
-static int write_str (const char *path, const char *value) {
-	ALOGD("write_str");
+static int write_string (const char *path, const char *value) {
+	ALOGD("write_string");
 	int fd;
 	static int already_warned = 0;
 
 	fd = open(path, O_RDWR);
 	if (fd < 0) {
 		if (already_warned == 0) {
-			ALOGE("write_str failed to open %s\n", path);
+			ALOGE("write_string failed to open %s\n", path);
 			already_warned = 1;
 		}
 		return -errno;
@@ -189,9 +171,9 @@ static void set_shared_light_locked (struct light_device_t *dev, struct light_st
 	delayOff = state->flashOffMS;
 
 	if (state->flashMode != LIGHT_FLASH_NONE) {
-		write_str (RED_LED_FILE_TRIGGER, "timer");
-		write_str (GREEN_LED_FILE_TRIGGER, "timer");
-		write_str (BLUE_LED_FILE_TRIGGER, "timer");
+		write_string (RED_LED_FILE_TRIGGER, "timer");
+		write_string (GREEN_LED_FILE_TRIGGER, "timer");
+		write_string (BLUE_LED_FILE_TRIGGER, "timer");
 
 		write_int (RED_LED_FILE_DELAYON, delayOn);
 		write_int (GREEN_LED_FILE_DELAYON, delayOn);
@@ -201,9 +183,9 @@ static void set_shared_light_locked (struct light_device_t *dev, struct light_st
 		write_int (GREEN_LED_FILE_DELAYOFF, delayOff);
 		write_int (BLUE_LED_FILE_DELAYOFF, delayOff);
 	} else {
-		write_str (RED_LED_FILE_TRIGGER, "none");
-		write_str (GREEN_LED_FILE_TRIGGER, "none");
-		write_str (BLUE_LED_FILE_TRIGGER, "none");
+		write_string (RED_LED_FILE_TRIGGER, "none");
+		write_string (GREEN_LED_FILE_TRIGGER, "none");
+		write_string (BLUE_LED_FILE_TRIGGER, "none");
 	}
 
 	write_int (RED_LED_FILE, r);
