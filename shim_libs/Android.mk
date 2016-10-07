@@ -13,12 +13,13 @@
 # limitations under the License.
 
 LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 
 # Debugging (uncomment to enable)
-LOCAL_CFLAGS += -DHW_LIBC_DEBUG
-LOCAL_WHOLE_STATIC_LIBRARIES := liblog
-
+#LOCAL_CFLAGS += -DHW_LIBC_DEBUG
+#LOCAL_WHOLE_STATIC_LIBRARIES := liblog
+#
 LOCAL_SRC_FILES := \
     hw_cutils.c
 
@@ -66,3 +67,18 @@ LOCAL_MODULE := libhw_graphics
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
+
+# ================================
+#
+#
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := \
+	hw_rild.c
+
+LOCAL_SHARED_LIBRARIES := liblog libril
+LOCAL_MODULE := libshim_rild
+LOCAL_MODULE_TAGS := user,eng,default
+
+include $(BUILD_SHARED_LIBRARY)
+
