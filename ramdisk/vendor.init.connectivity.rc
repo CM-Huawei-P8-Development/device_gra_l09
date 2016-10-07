@@ -1,2 +1,0 @@
-import /vendor.init.connectivity.gps.rc
-import /vendor.init.connectivity.bcm4334.rc
