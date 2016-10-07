@@ -7,9 +7,6 @@
 import /vendor.init.hi3635.rc
 import /vendor.init.hisi.rc
 
-#This will override some values which differ from stock and cm
-import /custom.init.environ.rc
-
 #init.usb.rc is provided by CM
 
 import /vendor.init.audio.rc
@@ -20,6 +17,9 @@ import /vendor.init.manufacture.rc
 import /vendor.init.performance.rc
 import /vendor.init.platform.rc
 import /vendor.init.protocol.rc
+
+#To allow modifications
+import /custom.init.mods.rc
 
 #init.trace.rc is provided by CM
 

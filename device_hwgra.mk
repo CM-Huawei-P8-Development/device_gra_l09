@@ -15,6 +15,12 @@ else
 	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
+
+#For shim libs or any other additional lib
+PRODUCT_PACKAGES += \
+	lights.hi3635 \
+
+
 #The built kernel
 PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 
@@ -30,7 +36,7 @@ BOOT_RAMDISK_DST = root
 PRODUCT_COPY_FILES += \
 $(BOOT_RAMDISK_SRC)/init.hi3635.rc:$(BOOT_RAMDISK_DST)/init.hi3635.rc \
 $(BOOT_RAMDISK_SRC)/init.recovery.hi3635.rc:$(BOOT_RAMDISK_DST)/init.recovery.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/custom.init.environ.rc:$(BOOT_RAMDISK_DST)/custom.init.environ.rc \
+$(BOOT_RAMDISK_SRC)/custom.init.mods.rc:$(BOOT_RAMDISK_DST)/custom.init.mods.rc \
 $(BOOT_RAMDISK_SRC)/vendor.init.5844.rc:$(BOOT_RAMDISK_DST)/vendor.init.5844.rc \
 $(BOOT_RAMDISK_SRC)/vendor.init.audio.rc:$(BOOT_RAMDISK_DST)/vendor.init.audio.rc \
 $(BOOT_RAMDISK_SRC)/vendor.init.balong_modem.rc:$(BOOT_RAMDISK_DST)/vendor.init.balong_modem.rc \

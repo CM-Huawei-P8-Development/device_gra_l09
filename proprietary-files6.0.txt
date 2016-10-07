@@ -211,27 +211,33 @@ lib/hwcam/hwcam.ddt.so
 lib/libnvme.so
 lib64/libnvme.so
 
-#modem related
+
+#modem related files (does work 75%)
 bin/rild
+bin/hw_cdmamodem_service
 lib/libril.so
 lib64/libril.so
-lib/librilutils.so
-lib64/librilutils.so
+bin/modemlogcat_via
+bin/modemlogcat_lte
 lib/libvia-ril.so
 lib64/libvia-ril.so
 lib/libbalong-ril.so
 lib64/libbalong-ril.so
 lib/libbalong-ril-1.so
 lib64/libbalong-ril-1.so
-bin/modemlogcat_lte
-bin/hw_cdmamodem_service
-bin/modemlogcat_via
+lib/libbalong_audio_ril.so
+lib64/libbalong_audio_ril.so
+etc/viacbp82d_log.bcfg
+etc/viacbp82d_shutdown_log.bcfg
+etc/modemConfig/balong/basic_name
+etc/modemConfig/viacbp82d_log.bcfg
+etc/modemConfig/viacbp82d_shutdown_log.bcfg
 etc/modemConfig/viacbp82d_log.bcfg
 etc/modemConfig/viacbp82d_shutdown_log.bcfg
 etc/modemConfig/hua.cfg
 etc/modemConfig/hids_ue_msg.cfg
 etc/modemConfig/balong/FieldTest.cfg
-etc/modemConfig/balong/basic_name
+
 
 #required?
 #lib/libicuuc.so
@@ -564,6 +570,10 @@ lib/libion.so
 lib64/libion.so
 lib/libgralloc_ext.default.so
 lib64/libgralloc_ext.default.so
+#Graphics? not sure from where:
+#APS:HWGL:hwglAPSInterface:importExternalFunctions, dlopen err:dlopen failed: library "libhwaps.so" not found
+lib/libhwaps.so
+lib64/libhwaps.so
 
 #In vendor rom only ! this is required.
 lib/libhwgl.so

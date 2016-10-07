@@ -9,6 +9,7 @@ TARGET_OTA_ASSERT_DEVICE := hwgra,gra_l09,huawei_p8,ascend_p8,p8,grace
 #TARGET_SPECIFIC_HEADER_PATH := device/huawei/include
 #BOARD_HARDWARE_CLASS += device/huawei/cmhw
 
+
 #Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
@@ -59,7 +60,6 @@ BOARD_EGL_CFG := device/huawei/hwgra/gpu/egl.cfg
 #BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += shim_libs
 
 
-
 #Audio
 #TARGET_PROVIDES_LIBAUDIO := true
 BOARD_USES_ALSA_AUDIO := true
@@ -67,7 +67,7 @@ BOARD_USES_TINY_ALSA_AUDIO := true
 BOARD_USES_GENERIC_AUDIO := false
 
 #RIL
-#BOARD_RIL_CLASS := device/huawei/hwgra/
+#BOARD_RIL_CLASS := device/huawei/hwgra/ril/
 
 
 #Netowrk
@@ -125,8 +125,8 @@ TARGET_SUPPORTS_64_BIT_APPS := true
 
 
 #Kernelname
-KERNEL_NAME="nexolight-morphkernel_r001"
-KBUILD_BUILD_VERSION="nexolight-morphkernel_r001"
+KBUILD_BUILD_USER="morphkernel_r002"
+KBUILD_BUILD_HOST="the-flux"
 #TARGET_PREBUILT_KERNEL := device/huawei/hwgra/kernel #After building it from source to save time
 TARGET_KERNEL_SOURCE := kernel/huawei/kernel
 #TARGET_KERNEL_SOURCE --> Shared source... Well it's not...
@@ -221,9 +221,9 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	bastet.service.enable=true \
 	ro.config.hw_emerg=on \
 	ro.sys.umsdirtyratio=2 \
-	ro.product.cpuinfo.normal=Hisilicon_Kirin_930 \
-	ro.product.cpuinfo.high=Hisilicon_Kirin_935 \
-	ro.product.cpuinfo.highhigh=Hisilicon_Kirin_935 \
+	ro.product.cpuinfo.normal=Hisilicon\ Kirin\ 930 \
+	ro.product.cpuinfo.high=Hisilicon_Kirin\ 935 \
+	ro.product.cpuinfo.highhigh=Hisilicon\ Kirin\ 935 \
 	ro.config.hw_enable_merge=true \
 	ro.config.helix_enable=true \
 	ro.config.huawei_smallwindow=505,197,1065,1257 \
@@ -260,20 +260,15 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.updatelocation=true \
 	ro.networkstatus.delaytimer=6 \
 	ro.check.modem_network=true \
-	ro.config.dsds_mode=cdma_gsm \
-	ro.config.hw_device_mode=clg_mode \
-	rild.libargs2=-mmodem1 \
-	persist.dsds.enabled=true \
-	rild.rild1_ready_to_start=false \
-	rild.libargs1=-mmodem0 \
-	rild.libpath=/system/lib64/libvia-ril.so \
-	ro.config.hw_dsda=true \
+	ro.config.dsds_mode=umts \
+	persist.radio.modem.cap=89894 \
+	persist.dsds.enabled=false \
+	rild.rild1_ready_to_start=false
+	rild.libpath=/system/lib64/libbalong-ril.so \
+	ro.config.hw_dsda=false \
 	ro.multi.rild=false \
-	rild.libpath1=/system/lib64/libbalong-ril.so \
-	rild.libargs=-d /dev/viacomm_cmux \
-	persist.radio.multisim.config=dsda \
-	ro.telephony.default_network=8 \
-	rild.libpath2=/system/lib64/libbalong-ril-1.so \
+	rild.libargs=-m\ modem0 \
+	ro.telephony.default_network=9 \
 	ro.config.attach_apn_enabled=true \
 	ro.config.hw_lte_support=true \
 	ro.config.hw_show_network_icon=true \
@@ -308,7 +303,8 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.product.varprofile.highhigh=L09 \
 	ro.product.varprofile=true \
 	ro.config.hw_ECT=true \
-	ro.config.hw_rcs_product=true
+	ro.config.hw_rcs_product=true \
+	audioril.lib=libhuawei-audio-ril.so
 
 #ro.boardid.product:
 #eighter 6238 or 5844 both contain "GRACE" which is a code in the origin build.props

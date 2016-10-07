@@ -20,6 +20,7 @@
 
 #define LOG_TAG "lights.hi3635"
 
+#include <stdlib.h>
 #include <cutils/log.h>
 #include <stdint.h>
 #include <string.h>
@@ -143,6 +144,7 @@ static int set_light_backlight (struct light_device_t *dev, struct light_state_t
 	return 0;
 }
 
+#ifdef BOARD_HAS_BUTTON_BACKLIGHT
 static int set_light_buttons (struct light_device_t *dev, struct light_state_t const* state) {
 	ALOGD("set_light_buttons");
 	size_t i;
@@ -157,6 +159,7 @@ static int set_light_buttons (struct light_device_t *dev, struct light_state_t c
 
 	return 0;
 }
+#endif
 
 static void set_shared_light_locked (struct light_device_t *dev, struct light_state_t *state) {
 	ALOGD("set_shared_light_locked");
@@ -244,9 +247,11 @@ static int open_lights (const struct hw_module_t* module, char const* name,
 	if (0 == strcmp(LIGHT_ID_BACKLIGHT, name)) {
 		set_light = set_light_backlight;
 	}
+#ifdef BOARD_HAS_BUTTON_BACKLIGHT
 	else if (0 == strcmp(LIGHT_ID_BUTTONS, name)) {
 		set_light = set_light_buttons;
 	}
+#endif
 	else if (0 == strcmp(LIGHT_ID_BATTERY, name)) {
 		set_light = set_light_battery;
 	}

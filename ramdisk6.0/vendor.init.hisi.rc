@@ -98,14 +98,16 @@ service atcserver /system/bin/atc
 #    user root
 #    group radio cache inet misc audio sdcard_r sdcard_rw log system dsm irda
 
-service ril-daemon1 /system/bin/rild -c 1
-    disabled
-    class core
-    socket rilds2 stream 660 root radio
-    socket rild-debug1 stream 660 radio system
-    socket rild-balong-test stream 660 radio system
-    user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log
+
+#This is probably for the 2nd simcard in another model
+#service ril-daemon1 /system/bin/rild -c 1
+#    disabled
+#    class core
+#    socket rilds2 stream 660 root radio
+#    socket rild-debug1 stream 660 radio system
+#    socket rild-balong-test stream 660 radio system
+#    user root
+#    group radio cache inet misc audio sdcard_r sdcard_rw log
 
 on property:rild.rild1_ready_to_start=true
     start ril-daemon1
