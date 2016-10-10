@@ -10,13 +10,19 @@ TARGET_OTA_ASSERT_DEVICE := hwgra,gra_l09,huawei_p8,ascend_p8,p8,grace
 #BOARD_HARDWARE_CLASS += device/huawei/cmhw
 
 
+# Enable WebGL
+ENABLE_WEBGL := true
+
+
 #Lights
 TARGET_PROVIDES_LIBLIGHT := true
+
 
 #Build
 DEVICE_FOLDER = device/huawei/hwgra
 TARGET_BUILD_VARIANT = eng
 TARGET_BUILD_TYPE = debug
+
 
 #Debug:
 BOARD_EGL_NEEDS_HANDLE_VALUE=true
@@ -65,6 +71,7 @@ BOARD_EGL_CFG := device/huawei/hwgra/gpu/egl.cfg
 BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_TINY_ALSA_AUDIO := true
 BOARD_USES_GENERIC_AUDIO := false
+BUILD_WITH_ALSA_UTILS := true
 
 #RIL
 #BOARD_RIL_CLASS := device/huawei/hwgra/ril/
@@ -92,25 +99,25 @@ BOARD_LEGACY_NL80211_STA_EVENTS := true
 BOARD_NO_APSME_ATTR := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUEDROID_VENDOR_CONF := $(DEVICE_FOLDER)/bluetooth/bt_vendor.conf
+BOARD_CUSTOM_BT_CONFIG := device/huawei/hwgra/bluetooth/vnd_hwgra.conf
 
 
 #CPU/ARCH
 TARGET_ARCH := arm64
 TARGET_BOARD_PLATFORM := hi3635
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 := armeabi-v7a,armeabi
+#TARGET_CPU_ABI2 := armeabi-v7a,armeabi
 TARGET_ARCH_VARIANT := armv8-a
-TARGET_CPU_VARIANT := cortex-a53
-TARGET_CPU_CORTEX_A53 := true
+TARGET_CPU_VARIANT := generic
+#TARGET_CPU_CORTEX_A53 := true
 TARGET_CPU_SMP := true
 TARGET_2ND_ARCH := arm
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
-TARGET_2ND_CPU_VARIANT := cortex-a53
-TARGET_GLOBAL_CFLAGS += -mcpu=cortex-a53 -mfpu=neon
-TARGET_GLOBAL_CPPFLAGS += -mcpu=cortex-a53 -mfpu=neon
+TARGET_2ND_CPU_VARIANT := cortex-a15
+#TARGET_GLOBAL_CFLAGS += -mcpu=cortex-a15 -mfpu=neon
+#TARGET_GLOBAL_CPPFLAGS += -mcpu=cortex-a15 -mfpu=neon
 #TARGET_GLOBAL_CFLAGS += --target=aarch64-arm-none-eabi -mcpu=cortex-a53
 #TARGET_2ND_GLOBAL_CFLAGS += --target=armv8a-arm-none-eabi -mcpu=cortex-a53
 ARCH_ARM_HAVE_TLS_REGISTER := true
@@ -188,6 +195,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 	sys.init_log_level=3
 
 ADDITIONAL_BUILD_PROPERTIES += \
+	debug.composition.type=cpu \
 	qemu.hw.mainkeys=0 \
 	ro.config.mmu_en=1 \
 	dalvik.vm.heapsize=256m \
@@ -221,9 +229,9 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	bastet.service.enable=true \
 	ro.config.hw_emerg=on \
 	ro.sys.umsdirtyratio=2 \
-	ro.product.cpuinfo.normal=Hisilicon\ Kirin\ 930 \
-	ro.product.cpuinfo.high=Hisilicon_Kirin\ 935 \
-	ro.product.cpuinfo.highhigh=Hisilicon\ Kirin\ 935 \
+	ro.product.cpuinfo.normal=HisiliconKirin930 \
+	ro.product.cpuinfo.high=HisiliconKirin935 \
+	ro.product.cpuinfo.highhigh=HisiliconKirin935 \
 	ro.config.hw_enable_merge=true \
 	ro.config.helix_enable=true \
 	ro.config.huawei_smallwindow=505,197,1065,1257 \
@@ -263,12 +271,13 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.dsds_mode=umts \
 	persist.radio.modem.cap=89894 \
 	persist.dsds.enabled=false \
-	rild.rild1_ready_to_start=false
+	rild.rild1_ready_to_start=false \
 	rild.libpath=/system/lib64/libbalong-ril.so \
 	ro.config.hw_dsda=false \
 	ro.multi.rild=false \
-	rild.libargs=-m\ modem0 \
+	rild.libargs=-mmodem0 \
 	ro.telephony.default_network=9 \
+	ro.config.bluetooth.name=HuaweiP8\
 	ro.config.attach_apn_enabled=true \
 	ro.config.hw_lte_support=true \
 	ro.config.hw_show_network_icon=true \

@@ -74,14 +74,6 @@ bin/gps4752logd
 bin/glgps4752
 bin/gpslogd
 
-#Wifi related
-bin/mac_addr_normalization
-bin/wifiwakeupsrc
-bin/wpa_supplicant
-etc/wifi/wpa_supplicant_overlay.conf
-#etc/wifi/wpa_supplicant.conf
-etc/wifi/p2p_supplicant_overlay.conf
-
 #init.device.rc  (5.0) 
 #bin/device_monitor
 
@@ -238,6 +230,13 @@ etc/modemConfig/hua.cfg
 etc/modemConfig/hids_ue_msg.cfg
 etc/modemConfig/balong/FieldTest.cfg
 
+#Wifi related
+bin/mac_addr_normalization
+bin/wifiwakeupsrc
+bin/wpa_supplicant
+etc/wifi/wpa_supplicant_overlay.conf
+#etc/wifi/wpa_supplicant.conf
+etc/wifi/p2p_supplicant_overlay.conf
 
 #required?
 #lib/libicuuc.so
@@ -335,12 +334,12 @@ etc/media_codecs_dts_audio.xml
 
 #audio
 #lib/libtinyalsa.so was not build for mka but for mm -B - should be fixed but not sure.
-lib/hw/audio.a2dp.default.so
-lib64/hw/audio.a2dp.default.so
+#lib/hw/audio.a2dp.default.so is build
+#lib64/hw/audio.a2dp.default.so is built
 lib/hw/audio.primary.hi3635.so
 lib64/hw/audio.primary.hi3635.so
-lib/hw/audio.r_submix.default.so
-lib64/hw/audio.r_submix.default.so
+#lib/hw/audio.r_submix.default.so is built
+#lib64/hw/audio.r_submix.default.so is built
 lib/libaudioroute.so
 lib64/libaudioroute.so
 lib/libaudio_custom.so
