@@ -43,3 +43,6 @@ void __android_log_buf_print(void){
 int isLogEnabled(void) {
     return 0;
 }
+
+void __hi_log_print(void){
+}

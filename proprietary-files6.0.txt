@@ -146,7 +146,8 @@ lib64/hw/keystore.hi3635.so
 lib64/hw/memtrack.hi3635.so
 lib64/hw/nfc_nci.pn54x.default.so
 lib64/hw/power.hi3635.so
-lib64/hw/sensorhub.default.so
+#lib64/hw/sensorhub.default.so
+#lib64/hw/sensorcaps.default.so
 lib/hw/camera.hi3635.so
 lib/hw/copybit.hi3635.so
 lib/hw/gralloc.hi3635.so
@@ -154,7 +155,8 @@ lib/hw/keystore.hi3635.so
 #lib/hw/lights.default.so
 lib/hw/memtrack.hi3635.so
 lib/hw/power.hi3635.so
-lib/hw/sensorhub.default.so
+#lib/hw/sensorhub.default.so
+#lib/hw/sensorcaps.default.so
 
 
 #The drm stuff isnt included in cm
@@ -229,23 +231,27 @@ etc/modemConfig/viacbp82d_shutdown_log.bcfg
 etc/modemConfig/hua.cfg
 etc/modemConfig/hids_ue_msg.cfg
 etc/modemConfig/balong/FieldTest.cfg
+#It works without them but some values are not reported correctly
+#I don't want to mess with the ril stack anyway
+lib/libreference-ril.so
+lib64/libreference-ril.so
+lib/librilutils.so
+lib64/librilutils.so
+
+#Sensorhub
+#We may implement that later but for now:
+#bin/sensorservice
+#lib/libsensorservice.so
+#lib64/libsensorservice.so
+
 
 #Wifi related
-bin/mac_addr_normalization
-bin/wifiwakeupsrc
+#bin/mac_addr_normalization #not required?
+#bin/wifiwakeupsrc #not required?
 bin/wpa_supplicant
 etc/wifi/wpa_supplicant_overlay.conf
-#etc/wifi/wpa_supplicant.conf
+etc/wifi/wpa_supplicant.conf
 etc/wifi/p2p_supplicant_overlay.conf
-
-#required?
-#lib/libicuuc.so
-#lib64/libicuuc.so
-#lib/libcrypto.so
-#lib64/libcrypto.so
-#lib/libreference-ril.so
-#lib64/libreference-ril.so
-#
 
 
 #helix? no idea but its not included on cm
@@ -556,10 +562,6 @@ etc/audio/sws/sws_LISZT_normal.xml
 etc/audio/sws/sws_MOZART_normal.xml
 etc/audio/sws/sws_default.xml
 
-#For keystore stuff
-#lib/libteec.so
-#lib64/libteec.so
-
 #That will be not easy to get it working...
 #lib/hw/hwcomposer.hi3635.so
 #lib64/hw/hwcomposer.hi3635.so
@@ -567,6 +569,8 @@ etc/audio/sws/sws_default.xml
 #Graphics
 lib/libion.so
 lib64/libion.so
+lib/libgralloc_ext.so
+lib64/libgralloc_ext.so
 lib/libgralloc_ext.default.so
 lib64/libgralloc_ext.default.so
 #Graphics? not sure from where:
