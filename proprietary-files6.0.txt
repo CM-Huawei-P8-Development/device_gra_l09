@@ -141,7 +141,6 @@ lib64/hw/flp.default.so
 lib64/hw/gps4752.default.so
 lib64/hw/gps47531.default.so
 lib64/hw/gps47531cl.default.so
-lib64/hw/gralloc.hi3635.so
 lib64/hw/keystore.hi3635.so
 lib64/hw/memtrack.hi3635.so
 lib64/hw/nfc_nci.pn54x.default.so
@@ -150,7 +149,6 @@ lib64/hw/power.hi3635.so
 #lib64/hw/sensorcaps.default.so
 lib/hw/camera.hi3635.so
 lib/hw/copybit.hi3635.so
-lib/hw/gralloc.hi3635.so
 lib/hw/keystore.hi3635.so
 #lib/hw/lights.default.so
 lib/hw/memtrack.hi3635.so
@@ -562,29 +560,37 @@ etc/audio/sws/sws_LISZT_normal.xml
 etc/audio/sws/sws_MOZART_normal.xml
 etc/audio/sws/sws_default.xml
 
-#That will be not easy to get it working...
-#lib/hw/hwcomposer.hi3635.so
-#lib64/hw/hwcomposer.hi3635.so
-
 #Graphics
-lib/libion.so
-lib64/libion.so
+lib/hw/hwcomposer.hi3635.so
+lib64/hw/hwcomposer.hi3635.so
+lib/hw/gralloc.hi3635.so
+lib64/hw/gralloc.hi3635.so
 lib/libgralloc_ext.so
 lib64/libgralloc_ext.so
 lib/libgralloc_ext.default.so
 lib64/libgralloc_ext.default.so
-#Graphics? not sure from where:
-#APS:HWGL:hwglAPSInterface:importExternalFunctions, dlopen err:dlopen failed: library "libhwaps.so" not found
 lib/libhwaps.so
 lib64/libhwaps.so
+lib/libsurfaceflinger.so
+lib64/libsurfaceflinger.so
+lib/libsurfaceflinger_ddmconnection.so
+lib64/libsurfaceflinger_ddmconnection.so
+bin/surfaceflinger
+lib/libgui.so
+lib64/libgui.so
 
 #In vendor rom only ! this is required.
+#Graphic related
 lib/libhwgl.so
 lib64/libhwgl.so
 
 #maybe not required
+#Graphic related
 lib/libGLESv3.so
 lib64/libGLESv3.so
+
+#lib/libion.so
+#lib64/libion.so
 
 
 #/system/bin/device_monitor --> libdmd.so not found
