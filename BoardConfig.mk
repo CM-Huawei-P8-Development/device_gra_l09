@@ -256,7 +256,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.hw_lte_support=true \
 	net.tethering.noprovisioning=true \
 	ro.config.hw_floatvideo=false \
-	ro.config.hw_ReduceSAR=true \
+	ro.config.hw_ReduceSAR=false \
 	ro.config.hw_use_browser_ua=http://wap1.huawei.com/uaprof/HUAWEI_GRA_L09_UAProfile.xml \
 	ro.setupwizard.mode=DISABLED \
 	ro.config.calendarsound=Step.ogg \
@@ -346,13 +346,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
 #Software buttons - we don't have hardwarekeys
 ADDITIONAL_BUILD_PROPERTIES += \
 	qemu.hw.mainkeys=0
-
-
-#Use the GPU for compositing since we don't have a working
-#hwcomposer
-ADDITIONAL_BUILD_PROPERTIES += \
-	debug.sf.hw=1 \
-	debug.composition.type=gpu
 
 
 #Lock launcher in memory
