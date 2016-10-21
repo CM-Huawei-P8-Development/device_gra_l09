@@ -67,23 +67,10 @@ on property:sys.boot_completed=1
     restorecon_recursive /sys/devices/system/cpu/cpu0/cpufreq/interactive
     chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load ${persist.sys.go_hispeed_load}
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq ${persist.sys.hispeed_freq}
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy ${persist.sys.io_is_busy}
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration ${persist.sys.boostpulse_duration}
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads ${persist.sys.target_loads}
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
-    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/io_is_busy ${persist.sys.io_is_busy}
-    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_down_factor ${persist.sys.sampling_down_facto}
-    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate ${persist.sys.sampling_rate}
-    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/up_threshold ${persist.sys.up_threshold}
-    write /sys/kernel/set_hmp_thresholds/enable 0
-    write /sys/kernel/hmp/up_threshold ${persist.sys.hmp_up}
-    write /sys/kernel/hmp/down_threshold ${persist.sys.hmp_down}
-    write /sys/kernel/set_hmp_thresholds/enable 1
-    setprop persist.sys.smart_power ${persist.sys.smart_power}
+    setprop sys.perf.profile=1
 
-on property:persist.sys.smart_power=2 && property:sys.boot_completed=1
+#Default
+on property:sys.perf.profile=1
     setprop persist.sys.go_hispeed_load 99
     setprop persist.sys.hispeed_freq 1209600
     setprop persist.sys.io_is_busy 1
@@ -110,7 +97,8 @@ on property:persist.sys.smart_power=2 && property:sys.boot_completed=1
     write /sys/kernel/hmp/up_prio ${persist.sys.hmp_prio}
     write /sys/kernel/set_hmp_thresholds/enable 1
 
-on property:persist.sys.smart_power=3 && property:sys.boot_completed=1
+#Performance
+on property:sys.perf.profile=2
     setprop persist.sys.go_hispeed_load 95
     setprop persist.sys.hispeed_freq 1516800
     setprop persist.sys.io_is_busy 1
@@ -137,7 +125,8 @@ on property:persist.sys.smart_power=3 && property:sys.boot_completed=1
     write /sys/kernel/hmp/up_prio ${persist.sys.hmp_prio}
     write /sys/kernel/set_hmp_thresholds/enable 1
 
-on property:persist.sys.smart_power=4 && property:sys.boot_completed=1
+#Powersave
+on property:sys.perf.profile=3
     setprop persist.sys.go_hispeed_load 99
     setprop persist.sys.hispeed_freq 1209600
     setprop persist.sys.io_is_busy 0
@@ -164,19 +153,22 @@ on property:persist.sys.smart_power=4 && property:sys.boot_completed=1
     write /sys/kernel/hmp/up_prio ${persist.sys.hmp_prio}
     write /sys/kernel/set_hmp_thresholds/enable 1
 
+
+
 on property:persist.sys.fingersense=1
     write /sys/devices/platform/huawei_sensor/set_fingersense_enable 1
+
 on property:persist.sys.fingersense=0
     write /sys/devices/platform/huawei_sensor/set_fingersense_enable 0
+
 on charger
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     restorecon_recursive /sys/devices/system/cpu/cpu0/cpufreq/interactive
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1209600
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1516800
     chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
     start hw_ueventd
     start oeminfo_nvm
-
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
     write /sys/kernel/set_hmp_thresholds/enable 0
     write /sys/kernel/hmp/up_threshold 1020

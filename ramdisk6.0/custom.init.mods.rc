@@ -1,2 +1,25 @@
 on init
+
+	#######################################
+	# Required shim libs
+	#######################################
 	export LD_SHIM_LIBS /system/lib64/libgui.so|libshim_gui.so:/system/lib/libgui.so|libshim_gui.so
+
+
+	#######################################
+	# CPU cores...
+	# Override them before boot
+	# I'd not like to override the original
+	# init.rc
+	#######################################
+	write /dev/cpuset/foreground/cpus 0-7
+	write /dev/cpuset/foreground/mems 0
+	write /dev/cpuset/foreground/boost/cpus 4-7
+	write /dev/cpuset/foreground/boost/mems 0
+	write /dev/cpuset/background/cpus 0-3
+	write /dev/cpuset/background/mems 0
+
+	#No big endian cores!
+	write /dev/cpuset/system-background/cpus 0-3
+	write /dev/cpuset/system-background/mems 0
+

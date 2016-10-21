@@ -108,14 +108,16 @@ TARGET_CPU_VARIANT := cortex-a53
 TARGET_CPU_CORTEX_A53 := true
 TARGET_CPU_SMP := true
 TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+#Technically it msut be cortex-a53e.cortex-a53 
+#Huawei used a second overclocked cortex-a53 set in a big.LITTLE setup
+#and called the overclocked version cortex-a53e
 TARGET_2ND_CPU_VARIANT := cortex-a53
-#TARGET_GLOBAL_CFLAGS += -mcpu=cortex-a15 -mfpu=neon
-#TARGET_GLOBAL_CPPFLAGS += -mcpu=cortex-a15 -mfpu=neon
-#TARGET_GLOBAL_CFLAGS += --target=aarch64-arm-none-eabi -mcpu=cortex-a53
-#TARGET_2ND_GLOBAL_CFLAGS += --target=armv8a-arm-none-eabi -mcpu=cortex-a53
+#we have big.LITTLE architecture with 2 sets
+ENABLE_CPUSETS := true
+#Not sure
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 
@@ -149,7 +151,7 @@ HAVE_SELINUX := true
 
 #Kernel Config
 #BOARD_KERNEL_CMDLINE := enforcing=0 androidboot.selinux=permissive mem=3072M mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem)
-BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 enforcing=0 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem)
+BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 enforcing=0 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem) cpuidle_sysfs_switch
 BOARD_KERNEL_BASE := 0x00678000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x07588000 --tags_offset 0xffb88000
@@ -175,6 +177,7 @@ POLICYVERS = 28
 #CM 13 would use v30 which freezes because of the kernel - v26 (maybe v28) works with the 3.10.61 kernel  
 
 #init
+#This is probably wrong but who wan't to question succeed
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 

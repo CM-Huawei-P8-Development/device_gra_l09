@@ -26,7 +26,6 @@ endif
 #which was also replaced.
 PRODUCT_PACKAGES += libshim_gui
 
-
 #Lights
 PRODUCT_PACKAGES += lights.hi3635
 
