@@ -47,10 +47,7 @@ USE_CAMERA_STUB := true
 #Screen
 DEVICE_RESOLUTION := 1080x1920
 BOARD_HAS_FLIPPED_SCREEN := false
-
-
-#It may complain about a missing font without this but I fixed it somehow else:
-#PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 
 #GPU
@@ -59,7 +56,6 @@ TARGET_HARDWARE_3D := true
 ANDROID_ENABLE_RENDERSCRIPT := true
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/huawei/hwgra/gpu/egl.cfg
-#BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += shim_libs
 
 
 #Audio
@@ -128,14 +124,9 @@ TARGET_USES_HISI_DTIMAGE := true
 TARGET_SUPPORTS_32_BIT_APPS := true
 TARGET_SUPPORTS_64_BIT_APPS := true
 
-
-#Kernelname
-KBUILD_BUILD_USER="morphkernel_r002"
-KBUILD_BUILD_HOST="the-flux"
-#TARGET_PREBUILT_KERNEL := device/huawei/hwgra/kernel #After building it from source to save time
-TARGET_KERNEL_SOURCE := kernel/huawei/kernel
 #TARGET_KERNEL_SOURCE --> Shared source... Well it's not...
 #The kernel has harcoded stuff in it which requires the source to be named "kernel"
+TARGET_KERNEL_SOURCE := kernel/huawei/kernel
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
@@ -143,15 +134,11 @@ BOARD_USES_UNCOMPRESSED_BOOT := true
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_USES_UNCOMPRESSED_KERNEL := true
 
-#TARGET_KERNEL_CONFIG := malimerge_hi3635_defconfig
 TARGET_KERNEL_CONFIG :=merge_hi3635_defconfig
-#VARIANT_DEFCONFIG := hisi_3635_defconfig
-#TARGET_KERNEL_CONFIG := morph_hi3635_defconfig
 HAVE_SELINUX := true
 
 #Kernel Config
-#BOARD_KERNEL_CMDLINE := enforcing=0 androidboot.selinux=permissive mem=3072M mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem)
-BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 enforcing=0 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem) cpuidle_sysfs_switch
+BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 enforcing=0 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem) cpuidle_sysfs_switch=1
 BOARD_KERNEL_BASE := 0x00678000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x07588000 --tags_offset 0xffb88000

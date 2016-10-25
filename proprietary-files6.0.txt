@@ -239,8 +239,10 @@ lib64/librilutils.so
 #Sensorhub
 #We may implement that later but for now:
 #bin/sensorservice
-#lib/libsensorservice.so
-#lib64/libsensorservice.so
+#This fixes only the accelometer/orientation
+#but for now this is fine.
+lib/libsensorservice.so
+lib64/libsensorservice.so
 
 
 #Wifi related
@@ -594,8 +596,10 @@ lib64/libGLESv3.so
 
 
 #/system/bin/device_monitor --> libdmd.so not found
-lib/libdmd.so
-lib64/libdmd.so
+#lib/libdmd.so
+#lib64/libdmd.so
+#etc/device_state_monitor.conf
+#etc/device_monitor_for_nff.conf
 #cannot locate symbol "__android_log_exception_write" referenced by "/system/lib64/libdmd.so"
 #It doesn't seem to be a problem to replace it.
 #--> corrected that with shim_libs
