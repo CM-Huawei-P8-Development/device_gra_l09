@@ -580,6 +580,8 @@ lib64/libsurfaceflinger_ddmconnection.so
 bin/surfaceflinger
 lib/libgui.so
 lib64/libgui.so
+lib/libion.so
+lib64/libion.so
 
 #In vendor rom only ! this is required.
 #Graphic related
@@ -590,9 +592,6 @@ lib64/libhwgl.so
 #Graphic related
 lib/libGLESv3.so
 lib64/libGLESv3.so
-
-#lib/libion.so
-#lib64/libion.so
 
 
 #/system/bin/device_monitor --> libdmd.so not found
