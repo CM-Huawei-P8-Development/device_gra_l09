@@ -45,6 +45,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	flp.default
 
+#NFC packages
+#http://www.nxp.com/documents/application_note/AN11690.pdf #Page 7
+PRODUCT_PACKAGES += \
+	libnfc-nci \
+	libnfc_nci_jni \
+	nfc_nci_pn54x.default\
+	NfcNci \
+	Tag \
+	com.android.nfc_extras
+
 
 #Bluetooth Missing xml files after build
 #That's probably not the propper way to do it!
@@ -61,6 +71,18 @@ PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 #This will be used as /etc/recovery.fstab only for twrp
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
 
+
+# NFC
+#http://www.nxp.com/documents/application_note/AN11690.pdf #Page 7
+PRODUCT_COPY_FILES += \
+$(LOCAL_PATH)/nfc/libnfc-nxp_grace.conf:system/etc/libnfc-nxp.conf \
+$(LOCAL_PATH)/nfc/libnfc-brcm_grace.conf:system/etc/libnfc-brcm.conf \
+frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
+
+
 #I'm sick of that don't want to copy all manually but they aren't device specific anyway
 #Most of them could be copied from the build system.
 PRODUCT_COPY_FILES += \
@@ -71,8 +93,6 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/permissions/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
-	$(LOCAL_PATH)/permissions/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-	$(LOCAL_PATH)/permissions/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \

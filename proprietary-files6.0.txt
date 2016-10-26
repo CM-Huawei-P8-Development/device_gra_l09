@@ -143,7 +143,7 @@ lib64/hw/gps47531.default.so
 lib64/hw/gps47531cl.default.so
 lib64/hw/keystore.hi3635.so
 lib64/hw/memtrack.hi3635.so
-lib64/hw/nfc_nci.pn54x.default.so
+#lib64/hw/nfc_nci.pn54x.default.so
 lib64/hw/power.hi3635.so
 #lib64/hw/sensorhub.default.so
 #lib64/hw/sensorcaps.default.so
