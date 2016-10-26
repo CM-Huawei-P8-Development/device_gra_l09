@@ -46,15 +46,20 @@ PRODUCT_PACKAGES += \
 	flp.default
 
 #NFC packages
-#http://www.nxp.com/documents/application_note/AN11690.pdf #Page 7
 PRODUCT_PACKAGES += \
-	libnfc-nci \
-	libnfc_nci_jni \
-	nfc_nci_pn54x.default\
+	com.android.nfc_extras \
+	nfc_nci.pn54x.default \
 	NfcNci \
-	Tag \
-	com.android.nfc_extras
+	nfcee_access.xml \
+	Tag
 
+#WIFI
+PRODUCT_PACKAGES += \
+	libwpa_client \
+	wpa_supplicant \
+	hostapd \
+	wificond \
+	wifilogd 
 
 #Bluetooth Missing xml files after build
 #That's probably not the propper way to do it!
@@ -73,14 +78,13 @@ PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.f
 
 
 # NFC
-#http://www.nxp.com/documents/application_note/AN11690.pdf #Page 7
 PRODUCT_COPY_FILES += \
-$(LOCAL_PATH)/nfc/libnfc-nxp_grace.conf:system/etc/libnfc-nxp.conf \
-$(LOCAL_PATH)/nfc/libnfc-brcm_grace.conf:system/etc/libnfc-brcm.conf \
 frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
 frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
 frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
+frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+$(LOCAL_PATH)/nfc/libnfc-nxp_grace.conf:system/etc/libnfc-nxp.conf \
+$(LOCAL_PATH)/nfc/libnfc-brcm_grace.conf:system/etc/libnfc-brcm.conf 
 
 
 #I'm sick of that don't want to copy all manually but they aren't device specific anyway
