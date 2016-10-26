@@ -19,8 +19,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 #Build
 DEVICE_FOLDER = device/huawei/hwgra
-TARGET_BUILD_VARIANT = eng
-TARGET_BUILD_TYPE = debug
 
 
 #Debug:
