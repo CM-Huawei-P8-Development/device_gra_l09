@@ -20,6 +20,8 @@ TARGET_PROVIDES_LIBLIGHT := true
 #Build
 DEVICE_FOLDER = device/huawei/hwgra
 
+#This is experimental
+EXPERIMENTAL_USE_JAVA8 := true
 
 #Debug:
 BOARD_EGL_NEEDS_HANDLE_VALUE=true
