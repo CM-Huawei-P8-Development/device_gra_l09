@@ -248,7 +248,7 @@ lib64/libsensorservice.so
 #Wifi related
 #bin/mac_addr_normalization #not required?
 #bin/wifiwakeupsrc #not required?
-bin/wpa_supplicant
+#bin/wpa_supplicant
 etc/wifi/wpa_supplicant_overlay.conf
 etc/wifi/wpa_supplicant.conf
 etc/wifi/p2p_supplicant_overlay.conf
