@@ -162,16 +162,9 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_SEPOLICY_DIRS := device/huawei/hwgra/sepolicy_ucmt
 #Union is no longer required https://android-review.googlesource.com/#/c/141560/ as its the new default.
 
-
-POLICYVERS = 28
-#CM 13 would use v30 which freezes because of the kernel - v26 (maybe v28) works with the 3.10.61 kernel  
-
 #init
-#This is probably wrong but who wan't to question succeed
-TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 
-	
 #add props
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.adb.secure=0 \

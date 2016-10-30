@@ -241,8 +241,8 @@ lib64/librilutils.so
 #bin/sensorservice
 #This fixes only the accelometer/orientation
 #but for now this is fine.
-lib/libsensorservice.so
-lib64/libsensorservice.so
+#lib/libsensorservice.so
+#lib64/libsensorservice.so
 
 
 #Wifi related

@@ -37,6 +37,7 @@ PRODUCT_PACKAGES += \
 
 #Sensors
 PRODUCT_PACKAGES += \
+	sensorservice \
 	sensors.default \
 	sensorhub.default \
 	sensorcaps.default
