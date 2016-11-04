@@ -29,10 +29,24 @@ mkdir -p $DST
 if [ $USEADB = false ];then
 	SOURCE="device/$VENDORNAME/$CODENAME/vendor6.0/system"
 	echo "Source is $SOURCE"
-	echo "assuming that it just contains the listed files!"
-	echo "cp -r $SOURCE $DST"	
-	cp -r $SOURCE/* $DST
-	echo "done"
+#	echo "assuming that it just contains the listed files!"
+#	echo "cp -r $SOURCE $DST"	
+#	cp -r $SOURCE/* $DST
+	echo "Using: $PFILES"
+	COUNT=0
+	for VBLOB in $(grep -v -E "(^\s*?#.*$)|(^\s*$)" $PFILES);do
+		if [ -d $VBLOB ];then
+			VBLOB="$VBLOB/."
+		fi	
+		echo "copying $SOURCE/$VBLOB to $DST/$VBLOB"
+		if $(mkdir -p $DST/`dirname $VBLOB` && cp $SOURCE/$VBLOB $DST/$VBLOB);then
+			COUNT=$(($COUNT+1))
+		fi
+	done
+	echo "###############################################"
+	echo "# Copied $COUNT blobs"
+	echo "###############################################"	
+echo "done"
 else
 	echo "Source is adb"
 	echo "Using: $PFILES"
