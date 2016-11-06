@@ -2,6 +2,7 @@
 /dev/block/mmcblk1p1                            /sdcard     vfat      defaults        defaults
 defaults                                        /storage    ramdisk   defaults        defaults
 /dev/block/platform/hi_mci.0/by-name/system     /system     ext4      defaults        defaults
+/dev/block/platform/hi_mci.0/by-name/cust       /cust       ext4      defaults        defaults
 /dev/block/platform/hi_mci.0/by-name/cache      /cache      ext4      defaults        defaults
 /dev/block/platform/hi_mci.0/by-name/userdata   /data       ext4      defaults        length=-16384
 /dev/block/platform/hi_mci.0/by-name/boot       /boot       emmc      defaults        defaults
