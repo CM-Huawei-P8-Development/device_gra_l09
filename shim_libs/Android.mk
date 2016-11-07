@@ -14,24 +14,10 @@
 
 LOCAL_PATH := $(call my-dir)
 
+
+#We may build that later
+#But for the moment replacing liblog is fine.
 include $(CLEAR_VARS)
-
-#Debugging (uncomment to enable)
-#LOCAL_CFLAGS += -DHW_LIBC_DEBUG
-#LOCAL_WHOLE_STATIC_LIBRARIES := liblog
-#
-#LOCAL_SRC_FILES := \
-#    hw_cutils.c
-#
-#LOCAL_MODULE := libhw_cutils
-#LOCAL_MODULE_TAGS := optional
-#
-#include $(BUILD_SHARED_LIBRARY)
-#
-# ================================
-
-include $(CLEAR_VARS)
-
 LOCAL_SRC_FILES := \
     hw_log.c
 
@@ -39,60 +25,3 @@ LOCAL_MODULE := libhw_log
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
-
-# ================================
-#
-#include $(CLEAR_VARS)
-#
-#LOCAL_SHARED_LIBRARIES := liblog libcutils libgui libbinder libutils
-#LOCAL_ADDITIONAL_DEPENDENCIES := libboringssl-compat
-#
-#LOCAL_SRC_FILES := \
-#    hw_gui.c
-#
-#LOCAL_MODULE := libhw_gui
-#LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-#
-#include $(BUILD_SHARED_LIBRARY)
-#
-# ================================
-#
-#include $(CLEAR_VARS)
-#
-#LOCAL_SRC_FILES := \
-#	hw_graphics.cpp
-#
-#LOCAL_SHARED_LIBRARIES := libgui libsurfaceflinger liblog libcutils libbinder libutils
-#LOCAL_MODULE := libhw_graphics
-#LOCAL_MODULE_TAGS := optional
-#
-#include $(BUILD_SHARED_LIBRARY)
-#
-# ================================
-#
-#
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-	hw_rild.c
-
-LOCAL_SHARED_LIBRARIES := liblog libril
-LOCAL_MODULE := libshim_rild
-LOCAL_MODULE_TAGS := user,eng,default
-
-include $(BUILD_SHARED_LIBRARY)
-
-
-# ================================
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-	hw_hwc.cpp
-
-LOCAL_SHARED_LIBRARIES := liblog
-LOCAL_MODULE := libshim_hwc
-LOCAL_MODULE_TAGS := user,eng,default
-
-include $(BUILD_SHARED_LIBRARY)
-

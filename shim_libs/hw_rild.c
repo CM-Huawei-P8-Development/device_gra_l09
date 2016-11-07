@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
+
+
+/*
+NOTE:
+-----
+This was just a incomplete try. For the moment I leave it in place.
+It isn't actually built or used at all.
+
+*/
+
+
 #define LOG_TAG "RILD_SHIM"
 #define MAX_SOCKET_NAME_LENGTH 6
 #define SOCKET_NAME_RIL "rild"
