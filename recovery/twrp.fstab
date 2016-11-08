@@ -1,5 +1,6 @@
 /boot				emmc		/dev/block/mmcblk0p27	defaults
 /cache				ext4		/dev/block/mmcblk0p34	defaults
+/recovery			ext4		/dev/block/mmcblk0p28	defaults
 /system				ext4		/dev/block/mmcblk0p38	flags=backup=1
 /cust				ext4		/dev/block/mmcblk0p39	defaults
 /data				ext4		/dev/block/mmcblk0p40	flags=length=-16384;backup=1
