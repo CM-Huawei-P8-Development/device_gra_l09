@@ -1,8 +1,9 @@
-/boot				emmc		/dev/block/mmcblk0p27	defaults
-/cache				ext4		/dev/block/mmcblk0p34	defaults
-/recovery			ext4		/dev/block/mmcblk0p28	defaults
-/system				ext4		/dev/block/mmcblk0p38	flags=backup=1
-/cust				ext4		/dev/block/mmcblk0p39	defaults
-/data				ext4		/dev/block/mmcblk0p40	flags=length=-16384;backup=1
-/external_sd			auto		/dev/block/mmcblk1p1 	/dev/block/mmcblk1	flags=display="sdcard";storage;wipeingui
-/usb				auto		/dev/block/sda1		/dev/block/sda		flags=display="usb storage";storage;wipeingui;removable
+/boot		emmc		/dev/block/platform/hi_mci.0/by-name/boot
+/recovery       emmc            /dev/block/platform/hi_mci.0/by-name/recovery
+/cache		ext4		/dev/block/platform/hi_mci.0/by-name/cache
+/cust           ext4            /dev/block/platform/hi_mci.0/by-name/cust       flags=display="Cust";storage;wipeingui;backup=1
+/oeminfo        emmc            /dev/block/platform/hi_mci.0/by-name/oeminfo    flags=display="OEMinfo";backup=1
+/data		ext4		/dev/block/platform/hi_mci.0/by-name/userdata
+/system		ext4		/dev/block/platform/hi_mci.0/by-name/system
+/external_sd		vfat		/dev/block/mmcblk1p1	/dev/block/mmcblk1	flags=display="MicroSD Card";storage;wipeingui;removable
+/usb-otg	auto		/dev/block/sda1         /dev/block/sda          flags=display="USB OTG";storage;removable;backup=0
