@@ -36,11 +36,14 @@ PRODUCT_PACKAGES += \
 	audio.r_submix.default
 
 #Sensors
-PRODUCT_PACKAGES += \
-	sensorservice \
-	sensors.default \
-	sensorhub.default \
-	sensorcaps.default
+#Huawei changed stuff here and the defaults do in fact
+#not work without further changes.
+#So we take their libraries for the moment
+#PRODUCT_PACKAGES += \
+#	sensorservice \
+#	sensors.default \
+#	sensorhub.default \
+#	sensorcaps.default
 
 #?
 PRODUCT_PACKAGES += \

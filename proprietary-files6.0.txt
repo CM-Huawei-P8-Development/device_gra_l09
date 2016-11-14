@@ -145,8 +145,8 @@ lib64/hw/keystore.hi3635.so
 lib64/hw/memtrack.hi3635.so
 #lib64/hw/nfc_nci.pn54x.default.so
 lib64/hw/power.hi3635.so
-#lib64/hw/sensorhub.default.so
-#lib64/hw/sensorcaps.default.so
+lib64/hw/sensorhub.default.so
+lib64/hw/sensorcaps.default.so
 lib/hw/camera.hi3635.so
 lib/hw/copybit.hi3635.so
 lib/hw/keystore.hi3635.so
@@ -238,11 +238,11 @@ lib64/librilutils.so
 
 #Sensorhub
 #We may implement that later but for now:
-#bin/sensorservice
+bin/sensorservice
 #This fixes only the accelometer/orientation
 #but for now this is fine.
-#lib/libsensorservice.so
-#lib64/libsensorservice.so
+lib/libsensorservice.so
+lib64/libsensorservice.so
 
 
 #Wifi related
