@@ -436,7 +436,7 @@ TWRP_EVENT_LOGGING := false
 #BOARD_CUSTOM_GRAPHICS := device/huawei/hwgra/recovery/twrp-graphics.c
 STE_HARDWARE := true #Not sure if needed
 TW_BRIGHTNESS_PATH := /sys/devices/platform/hisi_fb.1048577/leds/lcd_backlight0/brightness
-#TW_CUSTOM_BATTERY_PATH
+TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/Battery
 TWRP_INCLUDE_LOGCAT := true
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 255
