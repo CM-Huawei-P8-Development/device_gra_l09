@@ -443,7 +443,11 @@ TW_DEFAULT_BRIGHTNESS := 255
 TWRP_INCLUDE_LOGCAT := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 #in vendor recovery it is RGB565
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-#TARGET_RECOVERY_FSTAB := device/huawei/hwgra/recovery/twrp.fstab twrp already handles this
+#TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"  
+#TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888" 
+#TARGET_RECOVERY_FSTAB := device/huawei/hwgra/ramdisk6.0/etc/fstab.hi3635 
+#this is required to avoid unresponsive touch at boot until screen timeout 
+TW_SCREEN_BLANK_ON_BOOT := true 
+RECOVERY_SDCARD_ON_DATA := true
 
 
