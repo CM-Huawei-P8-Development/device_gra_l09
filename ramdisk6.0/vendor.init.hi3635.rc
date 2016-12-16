@@ -167,6 +167,8 @@ on charger
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1516800
     chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
+    write /sys/devices/virtual/graphics/fb0/mode "U:1080x1920p-0"
+    start charger_huawei
     start hw_ueventd
     start oeminfo_nvm
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
@@ -499,6 +501,13 @@ on boot
      write /sys/class/net/rmnet4/queues/rx-0/rps_cpus f
      write /sys/class/net/rmnet_ims/queues/rx-0/rps_flow_cnt 0
      write /sys/class/net/rmnet_ims/queues/rx-0/rps_cpus f
+
+service charger_huawei /sbin/healthd -c
+    class charger
+    user root
+    group graphics
+    disabled
+
 
 #service kerneldump /system/etc/kerneldump.sh 
 #    class main
