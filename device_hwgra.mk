@@ -49,13 +49,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	flp.default
 
-#NFC packages
 PRODUCT_PACKAGES += \
 	com.android.nfc_extras \
+	com.nxp.nfc.nq \
 	nfc_nci.pn54x.default \
-	NfcNci \
-	nfcee_access.xml \
-	Tag
+	NQNfcNci \
+	nqnfcee_access.xml \
+	nqnfcse_access.xml \
+	Tagf
 
 #WIFI
 PRODUCT_PACKAGES += \
@@ -80,16 +81,15 @@ PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 #This will be used as /etc/recovery.fstab only for twrp
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
 
-
 # NFC
 PRODUCT_COPY_FILES += \
 frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
 frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
 frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
 frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+packages/apps/Nfc/migrate_nfc.txt:system/etc/updatecmds/migrate_nfc.txt \
 $(LOCAL_PATH)/nfc/libnfc-nxp_grace.conf:system/etc/libnfc-nxp.conf \
-$(LOCAL_PATH)/nfc/libnfc-brcm_grace.conf:system/etc/libnfc-brcm.conf 
-
+$(LOCAL_PATH)/nfc/libnfc-brcm_grace.conf:system/etc/libnfc-brcm.conf \
 
 #I'm sick of that don't want to copy all manually but they aren't device specific anyway
 #Most of them could be copied from the build system.

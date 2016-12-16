@@ -49,6 +49,11 @@ on boot
 	chown nfc nfc /sys/bus/i2c/devices/0-0028/conf_for_factory
 	chmod 0444 /sys/bus/i2c/devices/0-0028/conf_for_factory
 
+	#Fix for nfc not able to access the 
+	#device node
+	setprop ro.nfc.port "I2C"
+	chmod 0660 /dev/pn544
+	chown nfc nfc /dev/pn544
 
 #broken atm
 #service HwCamCfgSvr /system/bin/HwCamCfgSvr hi3635 GRACE

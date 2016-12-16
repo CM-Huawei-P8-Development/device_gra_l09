@@ -58,7 +58,9 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 
 #NFC
+TARGET_USES_NQ_NFC := true
 BOARD_NFC_CHIPSET := pn547
+NXP_CHIP_TYPE := 1
 
 #GPU
 TARGET_BOARD_GPU := mali-t628
@@ -250,8 +252,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.hw_use_browser_ua=http://wap1.huawei.com/uaprof/HUAWEI_GRA_L09_UAProfile.xml \
 	ro.setupwizard.mode=DISABLED \
 	ro.config.calendarsound=Step.ogg \
-	ro.config.hw_nfc_on=false \
-	ro.config.hw_nfc_msimce=false \
 	ro.config.soundtrigger_enabled=0 \
 	ro.config.messagesound=Whisper.ogg \
 	ro.config.linkplus.roaming=false \
