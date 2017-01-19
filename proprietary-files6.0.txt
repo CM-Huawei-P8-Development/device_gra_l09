@@ -74,6 +74,20 @@ bin/gps4752logd
 bin/glgps4752
 bin/gpslogd
 
+#Perfhub - used for camera
+/system/lib/libperfhub_client.so
+/system/lib/libperfhub.so 
+/system/lib/libperfhub_service.so 
+/system/bin/perfhub 
+/system/etc/permissions/com.hisi.perfhub.xml 
+/system/lib64/libperfhub_client.so 
+/system/lib64/libperfhub.so 
+/system/lib64/libperfhub_service.so
+/system/lib/libhwuibp.so
+/system/lib64/libhwuibp.so
+#/system/lib/libshim_hwui.so - Vendor lib used as shim lib here see device_hwgra.mk 
+#/system/lib64/libshim_hwui.so - Vendor lib used as shim lib here see device_hwgra.mk 
+
 #init.device.rc  (5.0) 
 #bin/device_monitor
 

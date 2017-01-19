@@ -174,6 +174,10 @@ BOARD_SEPOLICY_DIRS := device/huawei/hwgra/sepolicy
 #init
 TARGET_PROVIDES_INIT_TARGET_RC := true
 
+#Huawei Perfhub is related to camera
+ADDITIONAL_DEFAULT_PROPERTIES += \
+	ro.config.hw_perfhub=true
+
 #add props
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.adb.secure=0 \

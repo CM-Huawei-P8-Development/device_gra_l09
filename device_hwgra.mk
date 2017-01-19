@@ -66,6 +66,11 @@ PRODUCT_PACKAGES += \
 	wificond \
 	wifilogd 
 
+#Camera/Perfhub workaround
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/vendor6.0/system/lib/libhwui.so:system/lib/libshim_hwui.so \
+	$(LOCAL_PATH)/vendor6.0/system/lib64/libhwui.so:system/lib64/libshim_hwui.so
+
 #Bluetooth Missing xml files after build
 #That's probably not the propper way to do it!
 PRODUCT_COPY_FILES += \
