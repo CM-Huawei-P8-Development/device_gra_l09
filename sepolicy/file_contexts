@@ -1,0 +1,186 @@
+#
+# Copyright (C) 2016 Jonathan Jason Dennis [Meticulus]
+#                                       theonejohnnyd@gmail.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Hisi Devices
+/dev/spidev[0-9]*\.[0-9]*   u:object_r:irda_device:s0
+/dev/sensorhub		u:object_r:sensors_device:s0
+/dev/motionhub		u:object_r:sensors_device:s0
+/dev/hifi_misc		u:object_r:audio_device:s0
+/dev/hi6402_hifi_misc   u:object_r:audio_device:s0
+/dev/deviceboxID        u:object_r:audio_device:s0
+/dev/maxim_smartpa_dev  u:object_r:audio_device:s0
+/dev/tfa9895            u:object_r:audio_device:s0
+/dev/ear_pa             u:object_r:audio_device:s0
+/dev/ttyAMA4		u:object_r:hci_attach_dev:s0
+/dev/ttyAMA3		u:object_r:gps_device:s0
+/dev/gpstty        	u:object_r:bluetooth_device:s0
+/dev/hwfm		u:object_r:con_device:s0
+/dev/dsm		u:object_r:dmd_device:s0
+/dev/fingerprint	u:object_r:fingerprint_device:s0
+/dev/hwgnss		u:object_r:gnss_device:s0
+/dev/hwbfgdbg		u:object_r:oam_hisi_device:s0
+/dev/hwbt		u:object_r:bluetooth_device:s0
+/dev/flp		u:object_r:flp_device:s0
+
+# oeminfo_nvm device?
+/dev/nve0		u:object_r:oeminfo_nvm_device:s0
+
+# teecd
+/sbin/teecd		u:object_r:teecd_exec:s0
+/dev/tc_ns_client	u:object_r:teecd_device:s0
+/dev/block/mmcblk0rpmb  u:object_r:teecd_blkdev:s0
+
+# mali0-K3V3+, mali-V8R2
+/dev/mali0              u:object_r:gpu_device:s0
+/dev/mali               u:object_r:gpu_device:s0
+/dev/memory_throughput  u:object_r:gpu_device:s0
+/dev/media[0-9]		u:object_r:video_device:s0
+/dev/imgsysbrg_vdec0	u:object_r:video_device:s0
+
+# Modem
+/dev/block/platform/hi_mci.0/by-name/modemnvm_img u:object_r:make_ext4fs_blkdev:s0
+/dev/block/platform/hi_mci.0/by-name/modem_om u:object_r:make_ext4fs_blkdev:s0
+/modemom(/.*)?		u:object_r:modem_log_file:s0
+/modem_log(/.*)?	u:object_r:modem_log_file:s0
+
+# aoovcom
+/dev/appvcom.*		u:object_r:radio_device:s0
+/dev/appvcom2		u:object_r:modem_device:s0
+/dev/appvcom8		u:object_r:modem_device:s0
+/dev/appvcom17		u:object_r:modem_device:s0
+/dev/appvcomERRLOG	u:object_r:modem_device:s0
+
+# RIL
+/dev/socket/rild3	u:object_r:rild_socket:s0
+/dev/socket/rild2	u:object_r:rild_socket:s0
+/dev/socket/rild.*      u:object_r:rild_socket:s0
+/dev/socket/rildc1      u:object_r:rild_debug_socket:s0
+/dev/socket/rildc2      u:object_r:rild_debug_socket:s0
+/dev/socket/rildc3      u:object_r:rild_debug_socket:s0
+/dev/socket/rild-ims	u:object_r:rild_socket:s0
+/dev/socket/rild-debug1		u:object_r:rild_debug_socket:s0
+/dev/socket/rild-balong-test	u:object_r:rild_debug_socket:s0
+/dev/ttyAMA5		u:object_r:radio_device:s0
+/dev/ttySPI.*		u:object_r:radio_device:s0
+/dev/ttySPI6		u:object_r:modem_device:s0
+/dev/vmodem         u:object_r:modem_device:s0
+
+# System files
+/system/bin/HwCamCfgSvr		u:object_r:hwcamcfgsvr_exec:s0
+/system/bin/himreg		u:object_r:himreg_exec:s0
+/system/bin/device_monitor	u:object_r:device_monitor_exec:s0
+/system/bin/logserver		u:object_r:logserver_exec:s0
+/system/bin/data_cleaner	u:object_r:data_cleaner_exec:s0
+/data/hw_init/system/bin/logserver		u:object_r:logserver_exec:s0
+/system/bin/hiscoutmanager  	u:object_r:hiscoutmanager_exec:s0
+/system/bin/dumptool		u:object_r:logserver_exec:s0
+/system/bin/chargelogcat	u:object_r:logcat_exec:s0
+/system/bin/chargemonitor	u:object_r:logcat_exec:s0
+/system/bin/sleeplogcat		u:object_r:logcat_exec:s0
+/system/bin/factory_log_service	u:object_r:logcat_exec:s0
+/system/bin/powerlogd		u:object_r:powerlogd_exec:s0
+/system/bin/chr_logd		u:object_r:chr_logd_exec:s0
+/system/bin/mac_addr_normalization	u:object_r:mac_addr_normal_exec:s0
+/system/bin/wifiwakeupsrc	u:object_r:wifiwakeupsrc_exec:s0
+/system/bin/atcmdserver		u:object_r:atcmdserver_exec:s0
+# DTS2015051508182 z00284161 2015/05/15 Add HiLOGE feature start.
+/system/bin/hilogcat u:object_r:logcat_exec:s0
+# DTS2015051508182 z00284161 2015/05/15 Add HiLOGE feature end.
+/system/bin/isplogcat u:object_r:logcat_exec:s0
+/system/bin/tlogcat             u:object_r:logcat_exec:s0
+/system/bin/thermal-daemon	u:object_r:thermal-daemon_exec:s0
+/system/bin/eventcat		u:object_r:logcat_exec:s0
+/system/bin/secure_storage	u:object_r:secure_storage_exec:s0
+/system/bin/octty		u:object_r:octty_exec:s0
+/system/bin/diagserver		u:object_r:diagserver_exec:s0
+/system/bin/hwnffserver		u:object_r:hwnffserver_exec:s0
+/system/bin/hwnff		u:object_r:hwnff_exec:s0
+/system/bin/hwpged		u:object_r:hwpged_exec:s0
+/system/bin/statusd       	u:object_r:statusd_exec:s0
+/system/bin/resize2fs           u:object_r:resize2fs_exec:s0
+/system/bin/resize.f2fs         u:object_r:resize2fs_exec:s0
+/system/bin/oam_hisi		u:object_r:oam_hisi_exec:s0
+/system/bin/gnss_engine_hisi	u:object_r:gnss_exec:s0
+/system/bin/gnss_control_hisi	u:object_r:gnss_exec:s0
+/system/bin/gnss_supl20clientd_hisi	u:object_r:gnss_exec:s0
+/system/bin/wpa_supplicant_hisi	u:object_r:wpa_exec:s0
+
+# gps
+/system/bin/gpsdaemon		u:object_r:gpsdaemon_exec:s0
+/system/bin/glgps47531		u:object_r:gpsd_exec:s0
+/system/bin/glgps47531cl	u:object_r:gpsd_exec:s0
+/system/bin/glgps4752		u:object_r:gpsd_exec:s0
+/system/bin/gps4752logd		u:object_r:gpslogd_exec:s0
+/system/bin/gpslogd		u:object_r:gpslogd_exec:s0
+/system/bin/glgps4774		u:object_r:gpsd_exec:s0
+/system/bin/glgps4774cl		u:object_r:gpsd_exec:s0
+/system/bin/lhd4774		u:object_r:gpsd_exec:s0
+/system/bin/lhd4774cl		u:object_r:gpsd_exec:s0
+
+# bastet daemon
+/system/bin/bastetd		u:object_r:bastetd_exec:s0
+
+# for zygote link file
+/system/bin/app_process         u:object_r:zygote_exec:s0
+/system/bin/perfhub     	u:object_r:perfhub_exec:s0
+
+# oeminfo_nvm
+/sbin/oeminfo_nvm_server	u:object_r:oeminfo_nvm_exec:s0
+/dev/oinv(/.*)?			u:object_r:oeminfo_nvm_device:s0
+
+# hw_ueventd
+/sbin/hw_ueventd		u:object_r:hw_ueventd_exec:s0
+
+# hisi_bfg
+/system/bin/start_connectivity_hisi	u:object_r:start_connectivity_exec:s0
+
+# block devices
+/dev/block/mmcblk0p41 		u:object_r:cust_blkdev:s0
+/dev/block/mmcblk0p42 		u:object_r:userdata_blkdev:s0
+/dev/block/mmcblk0p8 		u:object_r:oeminfo_blkdev:s0
+/dev/block/mmcblk0p36 		u:object_r:cache_blkdev:s0
+/dev/block/mmcblk0p19 		u:object_r:splash2_blkdev:s0
+/dev/block/zram0 		u:object_r:zram0_blkdev:s0
+/dev/block/mmcblk0p13		u:object_r:secure_storage_blkdev:s0
+
+# Logs
+/data/hwzd_logs(/.*)?		u:object_r:hisi_log:s0
+/data/sec_storage_data(/.*)?		u:object_r:hisi_log:s0
+/data/hwlogdir(/.*)?		u:object_r:hisi_log:s0
+
+# Log Devices
+/dev/chrAppBt			u:object_r:log_device:s0
+/dev/chrAppGnss			u:object_r:log_device:s0
+/dev/chrAppWifi			u:object_r:log_device:s0
+/dev/chrKmsgPlat		u:object_r:log_device:s0
+/dev/chrKmsgWifi		u:object_r:log_device:s0
+/dev/hwlog_jank			u:object_r:log_device:s0
+
+# media devices
+/dev/v4l-subdev6		u:object_r:video_device:s0
+/dev/v4l-subdev5		u:object_r:video_device:s0
+/dev/v4l-subdev4		u:object_r:video_device:s0
+/dev/v4l-subdev3		u:object_r:video_device:s0
+/dev/v4l-subdev2		u:object_r:video_device:s0
+/dev/v4l-subdev1		u:object_r:video_device:s0
+/dev/v4l-subdev0		u:object_r:video_device:s0
+
+# Camera data files
+/data/camera(/.*)?		u:object_r:camera_data_file:s0
+
+# GNSS data files
+/data/gnss(/.*)?		u:object_r:gnss_data_file:s0

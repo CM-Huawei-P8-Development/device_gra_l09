@@ -168,7 +168,7 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 
 #SEpolicy
 #BOARD_SEPOLICY_DIRS += device/huawei/hwgra/sepolicy_cmmerge #They are the result of a substraction from the stock lines and CM13 lines
-BOARD_SEPOLICY_DIRS := device/huawei/hwgra/sepolicy_ucmt
+BOARD_SEPOLICY_DIRS := device/huawei/hwgra/sepolicy
 #Union is no longer required https://android-review.googlesource.com/#/c/141560/ as its the new default.
 
 #init

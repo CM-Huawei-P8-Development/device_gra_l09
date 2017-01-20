@@ -1,0 +1,45 @@
+#
+# Copyright (C) 2016 Jonathan Jason Dennis [Meticulus]
+#                                       theonejohnnyd@gmail.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# start_connectivity_hisi
+#
+
+type start_connectivity, domain;
+type start_connectivity_exec, exec_type, file_type;
+type con_device,dev_type,file_type;
+
+init_daemon_domain(start_connectivity)
+
+allow start_connectivity kmsg_device:chr_file rw_file_perms;
+allow start_connectivity property_socket:sock_file rw_file_perms;
+allow start_connectivity shell_exec:file r_file_perms;
+allow start_connectivity sysfs:file rw_file_perms;
+allow start_connectivity self:capability { sys_nice fsetid chown fowner };
+allow start_connectivity kernel:process { setsched };
+allow start_connectivity sysfs:file { setattr rw_file_perms };
+allow start_connectivity con_device:chr_file { setattr rw_file_perms };
+allow start_connectivity log_device:chr_file { setattr rw_file_perms };
+allow start_connectivity self:capability { dac_override };
+allow start_connectivity system_data_file:dir { getattr setattr };
+allow start_connectivity wifi_data_file:dir { search getattr setattr };
+allow start_connectivity wifi_data_file:file { setattr rw_file_perms };
+allow start_connectivity init:unix_stream_socket { connectto };
+allow start_connectivity gnss_device:chr_file { getattr setattr };
+allow start_connectivity gnss_data_file:dir { setattr rw_dir_perms };
+allow start_connectivity gnss_data_file:file { setattr rw_file_perms };
+allow start_connectivity bluetooth_device: chr_file { getattr setattr };
+allow start_connectivity hisi_log:dir { setattr rw_dir_perms };
+allow start_connectivity oam_hisi_device:chr_file { getattr setattr };

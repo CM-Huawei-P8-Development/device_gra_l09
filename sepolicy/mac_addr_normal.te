@@ -1,0 +1,33 @@
+#
+# Copyright (C) 2016 Jonathan Jason Dennis [Meticulus]
+#                                       theonejohnnyd@gmail.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# mac_addr_normal
+#
+
+type mac_addr_normal, domain;
+type mac_addr_normal_exec, exec_type, file_type;
+
+init_daemon_domain(mac_addr_normal)
+
+allow mac_addr_normal oeminfo_nvm:unix_stream_socket { connectto };
+allow mac_addr_normal socket_device:sock_file rw_file_perms;
+allow mac_addr_normal self:capability { dac_override chown fowner };
+allow mac_addr_normal wifi_data_file:dir r_dir_perms;
+allow mac_addr_normal wifi_data_file:file { setattr rw_file_perms };
+allow mac_addr_normal bluetooth_data_file:dir r_dir_perms;
+allow mac_addr_normal bluetooth_data_file:file { setattr rw_file_perms };
+allow mac_addr_normal device:dir rw_dir_perms;
+allow mac_addr_normal device:file { unlink rw_file_perms };

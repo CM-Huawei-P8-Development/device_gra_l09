@@ -1,0 +1,43 @@
+#
+# Copyright (C) 2016 Jonathan Jason Dennis [Meticulus]
+#                                       theonejohnnyd@gmail.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# teecd
+#
+
+type teecd, domain;
+type teecd_exec, exec_type, file_type;
+
+init_daemon_domain(teecd)
+
+allow tee rootfs:file { entrypoint };
+
+allow tee teecd_device:chr_file rw_file_perms;
+allow tee property_socket:sock_file rw_file_perms;
+allow tee init:unix_stream_socket { connectto };
+allow tee system_data_file:dir rw_dir_perms;
+allow tee system_data_file:file r_file_perms;
+allow tee self:capability { chown fowner fsetid };
+allow tee init:dir rw_dir_perms;
+allow tee gatekeeperd:dir r_dir_perms;
+allow tee gatekeeperd:file r_file_perms;
+allow tee keystore:file r_file_perms;
+allow tee keystore:dir r_dir_perms;
+allow tee fingerprintd:dir r_dir_perms;
+allow tee fingerprintd:file r_file_perms;
+allow tee hisi_log:dir { setattr rw_dir_perms };
+allow tee hisi_log:file { setattr rw_file_perms };
+allow tee unlabeled:dir { search };
+allow tee default_prop:property_service { set };

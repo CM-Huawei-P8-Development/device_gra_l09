@@ -1,0 +1,35 @@
+#
+# Copyright (C) 2016 Jonathan Jason Dennis [Meticulus]
+#                                       theonejohnnyd@gmail.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# oeminfo_nvm
+#
+
+type oeminfo_nvm, domain;
+type oeminfo_nvm_exec, exec_type, file_type;
+type oeminfo_nvm_device, dev_type, file_type;
+
+init_daemon_domain(oeminfo_nvm)
+
+allow oeminfo_nvm rootfs:file { entrypoint };
+allow oeminfo_nvm device:dir { add_name write create };
+allow oeminfo_nvm socket_device:dir { add_name write };
+allow oeminfo_nvm socket_device:sock_file { create setattr };
+allow oeminfo_nvm self:capability { chown fsetid };
+allow oeminfo_nvm device:dir { open read write getattr setattr };
+allow oeminfo_nvm oeminfo_nvm_device:chr_file rw_file_perms;
+allow oeminfo_nvm oeminfo_blkdev:blk_file rw_file_perms;
+allow oeminfo_nvm device:dir rw_dir_perms;
+allow oeminfo_nvm device:file create_file_perms;

@@ -1,0 +1,40 @@
+#
+# Copyright (C) 2016 Jonathan Jason Dennis [Meticulus]
+#                                       theonejohnnyd@gmail.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# hwcamcfgsvr
+#
+
+type hwcamcfgsvr, domain;
+type hwcamcfgsvr_exec, exec_type, file_type;
+
+init_daemon_domain(hwcamcfgsvr)
+
+allow hwcamcfgsvr video_device:chr_file rw_file_perms;
+allow hwcamcfgsvr sysfs_wake_lock:file rw_file_perms;
+allow hwcamcfgsvr servicemanager:binder { call transfer };
+allow hwcamcfgsvr mediaserver:binder { transfer };
+allow hwcamcfgsvr mediaserver:fd { use };
+allow hwcamcfgsvr camera_data_file:dir rw_dir_perms;
+allow hwcamcfgsvr camera_data_file:file { setattr rw_file_perms };
+allow hwcamcfgsvr default_android_service:service_manager { add find };
+allow hwcamcfgsvr surfaceflinger:fd { use };
+allow hwcamcfgsvr dmd_device:chr_file rw_file_perms;
+allow hwcamcfgsvr sensorservice_service:service_manager { find };
+allow hwcamcfgsvr system_server:binder { call transfer };
+allow hwcamcfgsvr property_socket:sock_file { rw_file_perms };
+allow hwcamcfgsvr init:unix_stream_socket { connectto };
+allow hwcamcfgsvr system_server:unix_stream_socket { read write };
+allow hwcamcfgsvr perfhub:binder { call transfer };
