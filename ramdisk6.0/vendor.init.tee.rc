@@ -7,12 +7,12 @@ on init
 on init
     chmod 0400 /dev/hisi_teelog
 
-#service teecd /sbin/teecd
-#    socket tee-multi-user stream 660 root system
-#    class core
-#    user root
-#    group root
-#    seclabel u:r:tee:s0
+service teecd /sbin/teecd
+    socket tee-multi-user stream 660 root system
+    class core
+    user root
+    group root
+    seclabel u:r:tee:s0
 
 #service teelogcat /system/bin/tlogcat -f
 #class late_start

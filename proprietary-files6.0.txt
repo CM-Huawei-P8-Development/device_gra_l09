@@ -156,6 +156,13 @@ lib/hw/power.hi3635.so
 #lib/hw/sensorhub.default.so
 #lib/hw/sensorcaps.default.so
 
+#Keystore
+bin/keystore
+lib/libsoftkeymasterdevice.so
+lib64/libsoftkeymasterdevice.so
+lib/libkeymaster1.so
+lib64/libkeymaster1.so
+
 
 #The drm stuff isnt included in cm
 lib64/drm/libdrmhwomavoneplugin.so
