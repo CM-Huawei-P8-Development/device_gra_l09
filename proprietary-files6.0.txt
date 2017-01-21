@@ -236,6 +236,18 @@ lib64/libreference-ril.so
 lib/librilutils.so
 lib64/librilutils.so
 
+#atcmdserver (modem/usb?)
+bin/atcmdserver
+lib64/libconn_factory_test.so
+lib/lib_atprotocolsw.so
+lib64/lib_atprotocolsw.so
+lib/libhisi_efuse.so
+lib64/libhisi_efuse.so
+lib/libfaclog.so
+lib64/libfaclog.so
+lib/libteec.so
+lib64/libteec.so
+
 #Sensorhub
 #We may implement that later but for now:
 bin/sensorservice

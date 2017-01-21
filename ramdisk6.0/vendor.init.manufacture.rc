@@ -79,10 +79,10 @@ on early-boot
 
 on boot
 
-#service atcmdserver  /system/bin/atcmdserver
-#    class main
-#    disabled
-#    seclabel u:r:atcmdserver:s0
+service atcmdserver  /system/bin/atcmdserver
+    class main
+    disabled
+    seclabel u:r:atcmdserver:s0
 
 service oeminfo_nvm /sbin/oeminfo_nvm_server
     class core
