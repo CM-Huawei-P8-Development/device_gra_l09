@@ -89,6 +89,8 @@ lib64/libhwuibp.so
 #/system/lib64/libshim_hwui.so - Vendor lib used as shim lib here see device_hwgra.mk 
 
 #Camera
+lib/libexif.so
+lib64/libexif.so
 miniisp/TBM_Latour2.bin
 miniisp/TBM_Latour.bin
 miniisp/miniBoot2.bin
@@ -150,9 +152,11 @@ lib/libjni_front_panorama_camera.so
 lib/libjnidcamera_visual_effect.so
 lib/libmrc_cg_mfdenoise_dualcam.so
 lib/libWnnJpnDic.so
-lib64/ibWnnJpnDic.so
+lib64/libWnnJpnDic.so
 lib/liblifevibes_videoedit_5_0.so
 lib/libSmartAE.so
+lib/libmrc_cg_postprocess_cl.so
+lib/imedia_filters.so
 etc/camera/bshutter/imx179/algo.xml
 etc/camera/bshutter/imx179/info.xml
 etc/camera/bshutter/imx278/algo.xml
