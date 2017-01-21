@@ -94,6 +94,7 @@ miniisp/TBM_Latour.bin
 miniisp/miniBoot2.bin
 miniisp/miniBoot.bin
 miniisp/chip_det.bin
+isp/isp.bin
 lib64/hwcam/hwcam.hi3635.GRACE.s.ov8865.so
 lib64/hwcam/hwcam.hi3635.GRACE.s.imx278_sunny.so
 lib64/hwcam/hwcam.hi3635.GRACE.s.imx278_liteon.so
@@ -147,6 +148,11 @@ lib64/libCameraHwExtend.so
 lib/libjni_mrc_cg_filters_camera.so
 lib/libjni_front_panorama_camera.so
 lib/libjnidcamera_visual_effect.so
+lib/libmrc_cg_mfdenoise_dualcam.so
+lib/libWnnJpnDic.so
+lib64/ibWnnJpnDic.so
+lib/liblifevibes_videoedit_5_0.so
+lib/libSmartAE.so
 etc/camera/bshutter/imx179/algo.xml
 etc/camera/bshutter/imx179/info.xml
 etc/camera/bshutter/imx278/algo.xml
