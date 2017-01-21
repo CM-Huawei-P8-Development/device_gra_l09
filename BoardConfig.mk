@@ -426,6 +426,10 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.vc_call_steps=20
 
 
+#MTP & Sdcard related
+ADDITIONAL_BUILD_PROPERTIES += \
+	persist.fw.force_adoptable=true
+
 #TWRP
 RECOVERY_VARIANT := twrp
 TWHAVE_SELINUX := false

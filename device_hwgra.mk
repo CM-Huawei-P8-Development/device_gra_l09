@@ -132,6 +132,7 @@ PRODUCT_COPY_FILES += \
 $(BOOT_RAMDISK_SRC)/init.hi3635.rc:$(BOOT_RAMDISK_DST)/init.hi3635.rc \
 $(BOOT_RAMDISK_SRC)/init.recovery.hi3635.rc:$(BOOT_RAMDISK_DST)/init.recovery.hi3635.rc \
 $(BOOT_RAMDISK_SRC)/custom.init.mods.rc:$(BOOT_RAMDISK_DST)/custom.init.mods.rc \
+$(BOOT_RAMDISK_SRC)/custom.init.usb.rc:$(BOOT_RAMDISK_DST)/custom.init.usb.rc \
 $(BOOT_RAMDISK_SRC)/vendor.init.5844.rc:$(BOOT_RAMDISK_DST)/vendor.init.5844.rc \
 $(BOOT_RAMDISK_SRC)/vendor.init.audio.rc:$(BOOT_RAMDISK_DST)/vendor.init.audio.rc \
 $(BOOT_RAMDISK_SRC)/vendor.init.balong_modem.rc:$(BOOT_RAMDISK_DST)/vendor.init.balong_modem.rc \
