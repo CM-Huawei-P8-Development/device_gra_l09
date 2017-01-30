@@ -67,9 +67,9 @@ PRODUCT_PACKAGES += \
 	wifilogd 
 
 #Camera
-PRODUCT_PACKAGES += \
-	stlport \
-	stlport_static
+#PRODUCT_PACKAGES += \
+#	stlport \
+#	stlport_static
 
 #Camera
 PRODUCT_COPY_FILES += \
