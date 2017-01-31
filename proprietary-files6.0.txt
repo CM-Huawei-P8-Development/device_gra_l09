@@ -390,7 +390,8 @@ lib64/libcameraservice.so
 bin/mediaserver
 lib/libservices.huawei.so 
 lib64/libservices.huawei.so 
-lib/libmedialogservice.so 
+lib/libmedialogservice.so
+etc/media_profiles.xml
 
 
 #init.device.rc  (5.0) 
