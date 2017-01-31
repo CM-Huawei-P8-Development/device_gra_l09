@@ -77,6 +77,10 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/vendor6.0/system/lib64/libhwui.so:system/lib64/libshim_hwui.so \
 	$(LOCAL_PATH)/vendor6.0/system/vendor/lib64/egl/libGLES_mali.so:system/vendor/lib64/libGLES_mali.so \
 	$(LOCAL_PATH)/vendor6.0/system/vendor/lib/egl/libGLES_mali.so:system/vendor/lib/libGLES_mali.so \
+	$(LOCAL_PATH)/vendor6.0/system/lib/libmedia.so:system/lib/libshim_media.so \
+	$(LOCAL_PATH)/vendor6.0/system/lib64/libmedia.so:system/lib64/libshim_media.so \
+	$(LOCAL_PATH)/vendor6.0/system/lib/libcamera_client.so:system/lib/libshim_camera_client.so \
+	$(LOCAL_PATH)/vendor6.0/system/lib64/libcamera_client.so:system/lib64/libshim_camera_client.so
 
 #Bluetooth Missing xml files after build
 #That's probably not the propper way to do it!

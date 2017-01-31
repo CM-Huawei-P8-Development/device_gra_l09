@@ -385,6 +385,12 @@ fpgaice40/CARRERA-TULG-VN1-FPGA.bin
 fpgaice40/GRACE-CLG-VN1.bin
 fpgaice40/PLK-TL00-VA.bin
 isp/isp.bin
+lib/libcameraservice.so
+lib64/libcameraservice.so
+bin/mediaserver
+lib/libservices.huawei.so 
+lib64/libservices.huawei.so 
+lib/libmedialogservice.so 
 
 
 #init.device.rc  (5.0) 
