@@ -71,10 +71,19 @@ PRODUCT_PACKAGES += \
 	wificond \
 	wifilogd 
 
+
+#GPS
+#Somehow CM looks for this file with another name
+#I'l keep the stock ones there too.
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/vendor6.0/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
+
 #Camera
 #PRODUCT_PACKAGES += \
 #	stlport \
 #	stlport_static
+
+
 
 #Camera
 PRODUCT_COPY_FILES += \

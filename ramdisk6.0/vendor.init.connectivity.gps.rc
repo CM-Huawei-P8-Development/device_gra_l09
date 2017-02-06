@@ -26,7 +26,9 @@ on early-boot
 on boot
 
     chmod 660 /dev/ttyAMA3
-
+    
+    #Note only 1 out of those 3 following gps daemons will start
+    #This seems intentional
     service gpsdaemon /system/bin/gpsdaemon
     class late_start
     oneshot
@@ -44,7 +46,7 @@ on boot
     user root
     group system inet sdcard_rw
     disabled
-
+    
     service gpsd_4752  /system/bin/glgps4752 -c /data/gps/gpsconfig.xml
     socket gps seqpacket 660 root root
     class late_start

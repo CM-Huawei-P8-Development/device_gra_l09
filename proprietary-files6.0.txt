@@ -73,6 +73,19 @@ bin/glgps47531cl
 bin/gps4752logd
 bin/glgps4752
 bin/gpslogd
+lib/libgps_factory_test.so
+etc/gps47531config_cl.xml
+etc/gps47531config_cl_beta.xml
+etc/gps47531config.xml
+etc/gps4752.conf
+etc/gps.conf
+etc/gps47531config_beta.xml
+etc/gps4752config.xml
+lib64/libhuaweigpsrpc.so
+lib64/libgps_factory_test.so
+lib64/libviagpsrpc.so
+lib64/librpc.so
+
 
 #Perfhub - used for camera
 lib/libperfhub_client.so
