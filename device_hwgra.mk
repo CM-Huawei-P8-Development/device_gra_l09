@@ -17,6 +17,11 @@ else
 endif
 
 
+#Dalvik & memory
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
+
+
 #HWC workaround - this is CM13 source used as shim lib
 #in order to keep the compatibility to the rest since
 #in the stock version a few symbols are missing.
