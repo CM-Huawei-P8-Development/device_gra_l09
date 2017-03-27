@@ -21,16 +21,6 @@ endif
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
 
-
-#HWC workaround - this is CM13 source used as shim lib
-#in order to keep the compatibility to the rest since
-#in the stock version a few symbols are missing.
-#I could not use any shim lib since the problem was 
-#a segfault caused by any internal function.
-#libgui was just a dependency of surfaceflinger
-#which was also replaced.
-PRODUCT_PACKAGES += libshim_gui
-
 #Lights
 PRODUCT_PACKAGES += lights.hi3635
 
@@ -70,6 +60,10 @@ PRODUCT_PACKAGES += \
 	hostapd \
 	wificond \
 	wifilogd 
+
+#HWC
+PRODUCT_PACKAGES += \
+	hwcomposer.hi3635
 
 
 #GPS

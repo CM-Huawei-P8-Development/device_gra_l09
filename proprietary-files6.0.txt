@@ -852,25 +852,16 @@ etc/audio/sws/sws_MOZART_normal.xml
 etc/audio/sws/sws_default.xml
 
 #Graphics
-lib/hw/hwcomposer.hi3635.so
-lib64/hw/hwcomposer.hi3635.so
 lib/hw/gralloc.hi3635.so
 lib64/hw/gralloc.hi3635.so
 lib/libgralloc_ext.so
 lib64/libgralloc_ext.so
 lib/libgralloc_ext.default.so
 lib64/libgralloc_ext.default.so
-lib/libhwaps.so
-lib64/libhwaps.so
-lib/libsurfaceflinger.so
-lib64/libsurfaceflinger.so
-lib/libsurfaceflinger_ddmconnection.so
-lib64/libsurfaceflinger_ddmconnection.so
-bin/surfaceflinger
-lib/libgui.so
-lib64/libgui.so
 lib/libion.so
 lib64/libion.so
+lib/libhwaps.so
+lib64/libhwaps.so
 
 #In vendor rom only ! this is required.
 #Graphic related
