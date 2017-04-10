@@ -48,7 +48,7 @@
            1. Lenient threshold
            2. Custom threshold
     -->
-    <integer name="config_LTE_RSRP_threshold_type">1</integer>
+    <integer name="config_LTE_RSRP_threshold_type">2</integer>
 
     <!-- When config_LTE_RSRP_threshold_type is set to "custom" -->
     <!-- TODO: fix it lte signal isn't reported correctly -->
