@@ -48,11 +48,12 @@
            1. Lenient threshold
            2. Custom threshold
     -->
-    <integer name="config_LTE_RSRP_threshold_type">2</integer>
+    <integer name="config_LTE_RSRP_threshold_type">1</integer>
 
     <!-- When config_LTE_RSRP_threshold_type is set to "custom" -->
     <!-- TODO: fix it lte signal isn't reported correctly -->
-    <integer-array name="config_LTE_RSRP_custom_levels">
+    <!--
+	<integer-array name="config_LTE_RSRP_custom_levels">
         <item>-140</item>
         <item>-128</item>
         <item>-118</item>
@@ -60,7 +61,7 @@
         <item>-98</item>
         <item>-44</item>
     </integer-array>
-
+	-->
     <!-- If true, the screen can be rotated via the accelerometer in all 4
          rotations as the default behavior. -->
     <bool name="config_allowAllRotations">true</bool>
