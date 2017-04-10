@@ -36,8 +36,8 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 #Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 RED_LED_PATH := "/sys/class/leds/red/brightness"
-GREEN_LED_PATH := "/sys/class/leds/green/brightnes"
-BLUE_LED_PATH :=  "/sys/class/leds/blue/brightnes"
+GREEN_LED_PATH := "/sys/class/leds/green/brightness"
+BLUE_LED_PATH :=  "/sys/class/leds/blue/brightness"
 BACKLIGHT_PATH := "/sys/class/leds/lcd_backlight0/brightness"
 HEALTHD_BACKLIGHT_LEVEL := 60
 
