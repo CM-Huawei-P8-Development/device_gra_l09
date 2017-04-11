@@ -535,7 +535,8 @@ lib64/libsensorservice.so
 
 
 #Wifi related
-bin/mac_addr_normalization #fixes mac address issue
+bin/mac_addr_normalization
+#fixes mac address issue
 #bin/wifiwakeupsrc #not required?
 #bin/wpa_supplicant
 etc/wifi/wpa_supplicant_overlay.conf
