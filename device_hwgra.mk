@@ -93,7 +93,7 @@ PRODUCT_COPY_FILES += \
 #Bluetooth Missing xml files after build
 #That's probably not the propper way to do it!
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
+	$(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 
 #Audio config
 PRODUCT_COPY_FILES += \
