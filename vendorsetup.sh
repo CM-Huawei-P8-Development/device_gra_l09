@@ -1,4 +1,4 @@
-add_lunch_combo cm_hwgra-eng
-add_lunch_combo cm_hwgra-userdebug
-add_lunch_combo cm_hwgra-user
+add_lunch_combo lineage_hwgra-eng
+add_lunch_combo lineage_hwgra-userdebug
+add_lunch_combo lineage_hwgra-user
 
