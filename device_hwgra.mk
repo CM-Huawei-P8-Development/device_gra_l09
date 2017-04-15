@@ -1,4 +1,7 @@
+#$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+#$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_arm64.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
@@ -9,6 +12,7 @@ $(call inherit-product-if-exists, vendor/huawei/hwgra/hwgra-vendor.mk)
 PRODUCT_PACKAGE_OVERLAYS += \
 	device/huawei/hwgra/overlay
 
+DEVICE_PACKAGE_OVERLAYS += device/huawei/hwgra/overlay
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 	LOCAL_KERNEL := device/huawei/hwgra/kernel
@@ -76,8 +80,6 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_PACKAGES += \
 #	stlport \
 #	stlport_static
-
-
 
 #Camera
 PRODUCT_COPY_FILES += \
@@ -187,7 +189,39 @@ $(BOOT_RAMDISK_SRC)/sbin/ntfs-3gd:$(BOOT_RAMDISK_DST)/sbin/ntfs-3gd \
 $(BOOT_RAMDISK_SRC)/sbin/oeminfo_nvm_server:$(BOOT_RAMDISK_DST)/sbin/oeminfo_nvm_server \
 $(BOOT_RAMDISK_SRC)/sbin/hw_ueventd:$(BOOT_RAMDISK_DST)/sbin/hw_ueventd \
 
-#$(call inherit-product, build/target/product/full.mk) #we don't want to build emulator stuff
+#was here
+
+#Experiments
+# Update 1x signal strength after 2s
+#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.radio.snapshot_enabled=1 \
+    persist.radio.snapshot_timer=2
+
+#CAMERA
+#PRODUCT_PACKAGES += \
+    libcamera \
+    libmmcamera_interface \
+    libmmcamera_interface2 \
+    libmmjpeg_interface \
+    libqomx_core \
+    libmm-qcamera \
+    mm-qcamera-app \
+    Snap
+
+#PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hwui.texture_cache_size=72 \
+    ro.hwui.layer_cache_size=48 \
+    ro.hwui.r_buffer_cache_size=8 \
+    ro.hwui.path_cache_size=32 \
+    ro.hwui.gradient_cache_size=1 \
+    ro.hwui.drop_shadow_cache_size=6 \
+    ro.hwui.texture_cache_flushrate=0.4 \
+    ro.hwui.text_small_cache_width=1024 \
+    ro.hwui.text_small_cache_height=1024 \
+    ro.hwui.text_large_cache_width=2048 \
+    ro.hwui.text_large_cache_height=1024
+    
+#End Experiments
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
