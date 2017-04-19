@@ -1,11 +1,20 @@
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_arm64.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+#
+# Copyright (C) 2016 The CyanogenMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product-if-exists, vendor/huawei/hwgra/hwgra-vendor.mk)
 
@@ -20,34 +29,30 @@ else
 	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
-
-#Dalvik & memory
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
-
-#Lights
+# LIGHTS
 PRODUCT_PACKAGES += lights.hi3635
 
-#Audio
+# AUDIO
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default
 
-#Sensors
-#Huawei changed stuff here and the defaults do in fact
-#not work without further changes.
-#So we take their libraries for the moment
-#PRODUCT_PACKAGES += \
-#	sensorservice \
-#	sensors.default \
-#	sensorhub.default \
-#	sensorcaps.default
+# FM RADIO
+PRODUCT_PACKAGES += \
+	FMRadio
+	
+# GELLO
+PRODUCT_PACKAGES += \
+	Gello
+	
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
 
 #?
 PRODUCT_PACKAGES += \
 	flp.default
-
+# NFC
 PRODUCT_PACKAGES += \
 	com.android.nfc_extras \
 	com.nxp.nfc.nq \
@@ -55,9 +60,18 @@ PRODUCT_PACKAGES += \
 	NQNfcNci \
 	nqnfcee_access.xml \
 	nqnfcse_access.xml \
-	Tagf
+	Tag
 
-#WIFI
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+	frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+	frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+	frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+	packages/apps/Nfc/migrate_nfc.txt:system/etc/updatecmds/migrate_nfc.txt \
+	$(LOCAL_PATH)/nfc/libnfc-nxp_grace.conf:system/etc/libnfc-nxp.conf \
+	$(LOCAL_PATH)/nfc/libnfc-brcm_grace.conf:system/etc/libnfc-brcm.conf
+
+# WIFI
 PRODUCT_PACKAGES += \
 	libwpa_client \
 	wpa_supplicant \
@@ -65,23 +79,40 @@ PRODUCT_PACKAGES += \
 	wificond \
 	wifilogd 
 
-#HWC
+# HWC
 PRODUCT_PACKAGES += \
 	hwcomposer.hi3635
 
+# POWER HAL
+#PRODUCT_PACKAGES += \
+	power.hi3635
 
-#GPS
+# GPS
 #Somehow CM looks for this file with another name
 #I'l keep the stock ones there too.
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/vendor6.0/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
 
-#Camera
+# FM RADIO quick hack to copy renamed files, does cm looks for default?
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/vendor6.0/system/lib/hw/fm.bcm.hi3635.so:system/lib/hw/fm.bcm.default.so \
+	$(LOCAL_PATH)/vendor6.0/system/lib64/hw/fm.bcm.hi3635.so:system/lib64/hw/fm.bcm.default.so
+	
+# CAMERA
 #PRODUCT_PACKAGES += \
-#	stlport \
-#	stlport_static
+	stlport \
+	stlport_static
 
-#Camera
+PRODUCT_PACKAGES += \
+	libcamera \
+	libmmcamera_interface \
+	libmmcamera_interface2 \
+	libmmjpeg_interface \
+	libqomx_core \
+	libmm-qcamera \
+	mm-qcamera-app \
+	Snap
+    
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/vendor6.0/system/lib/libhwui.so:system/lib/libshim_hwui.so \
 	$(LOCAL_PATH)/vendor6.0/system/lib64/libhwui.so:system/lib64/libshim_hwui.so \
@@ -97,9 +128,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 
-#Audio config
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
 
 #The built kernel
 PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
@@ -107,18 +135,7 @@ PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 #This will be used as /etc/recovery.fstab only for twrp
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
 
-# NFC
-PRODUCT_COPY_FILES += \
-frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
-frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
-frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-packages/apps/Nfc/migrate_nfc.txt:system/etc/updatecmds/migrate_nfc.txt \
-$(LOCAL_PATH)/nfc/libnfc-nxp_grace.conf:system/etc/libnfc-nxp.conf \
-$(LOCAL_PATH)/nfc/libnfc-brcm_grace.conf:system/etc/libnfc-brcm.conf \
-
-#I'm sick of that don't want to copy all manually but they aren't device specific anyway
-#Most of them could be copied from the build system.
+# PERMISSIONS
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/permissions/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	$(LOCAL_PATH)/permissions/android.hardware.camera.external.xml:system/etc/permissions/android.hardware.camera.external.xml \
@@ -149,64 +166,53 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	$(LOCAL_PATH)/permissions/platform.xml:system/etc/permissions/platform.xml
 
-
-
-#Some files for the boot ramdisk
-BOOT_RAMDISK_SRC = $(LOCAL_PATH)/ramdisk6.0
-BOOT_RAMDISK_DST = root
+# MEDIA
 PRODUCT_COPY_FILES += \
-$(BOOT_RAMDISK_SRC)/init.hi3635.rc:$(BOOT_RAMDISK_DST)/init.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/init.recovery.hi3635.rc:$(BOOT_RAMDISK_DST)/init.recovery.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/custom.init.mods.rc:$(BOOT_RAMDISK_DST)/custom.init.mods.rc \
-$(BOOT_RAMDISK_SRC)/custom.init.usb.rc:$(BOOT_RAMDISK_DST)/custom.init.usb.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.5844.rc:$(BOOT_RAMDISK_DST)/vendor.init.5844.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.audio.rc:$(BOOT_RAMDISK_DST)/vendor.init.audio.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.balong_modem.rc:$(BOOT_RAMDISK_DST)/vendor.init.balong_modem.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.connectivity.bcm4334.rc:$(BOOT_RAMDISK_DST)/vendor.init.connectivity.bcm4334.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.connectivity.gps.rc:$(BOOT_RAMDISK_DST)/vendor.init.connectivity.gps.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.connectivity.rc:$(BOOT_RAMDISK_DST)/vendor.init.connectivity.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.device.rc:$(BOOT_RAMDISK_DST)/vendor.init.device.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.extmodem.rc:$(BOOT_RAMDISK_DST)/vendor.init.extmodem.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.hi3635.rc:$(BOOT_RAMDISK_DST)/vendor.init.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.hisi.rc:$(BOOT_RAMDISK_DST)/vendor.init.hisi.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.manufacture.rc:$(BOOT_RAMDISK_DST)/vendor.init.manufacture.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.performance.rc:$(BOOT_RAMDISK_DST)/vendor.init.performance.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.platform.rc:$(BOOT_RAMDISK_DST)/vendor.init.platform.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.protocol.rc:$(BOOT_RAMDISK_DST)/vendor.init.protocol.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.tee.rc:$(BOOT_RAMDISK_DST)/vendor.init.tee.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.post-fs-data.rc:$(BOOT_RAMDISK_DST)/vendor.init.post-fs-data.rc \
-$(BOOT_RAMDISK_SRC)/ueventd.hi3635.rc:$(BOOT_RAMDISK_DST)/ueventd.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/fstab.hi3635:$(BOOT_RAMDISK_DST)/fstab.hi3635 \
-$(BOOT_RAMDISK_SRC)/sbin/volisnotd:$(BOOT_RAMDISK_DST)/sbin/volisnotd \
-$(BOOT_RAMDISK_SRC)/sbin/teecd:$(BOOT_RAMDISK_DST)/sbin/teecd \
-$(BOOT_RAMDISK_SRC)/sbin/check_root:$(BOOT_RAMDISK_DST)/sbin/check_root \
-$(BOOT_RAMDISK_SRC)/sbin/e2fsck_s:$(BOOT_RAMDISK_DST)/sbin/e2fsck_s \
-$(BOOT_RAMDISK_SRC)/sbin/emmc_partation:$(BOOT_RAMDISK_DST)/sbin/emmc_partation \
-$(BOOT_RAMDISK_SRC)/sbin/hdbd:$(BOOT_RAMDISK_DST)/sbin/hdbd \
-$(BOOT_RAMDISK_SRC)/sbin/kmsgcat:$(BOOT_RAMDISK_DST)/sbin/kmsgcat \
-$(BOOT_RAMDISK_SRC)/sbin/logctl_service:$(BOOT_RAMDISK_DST)/sbin/logctl_service \
-$(BOOT_RAMDISK_SRC)/sbin/ntfs-3gd:$(BOOT_RAMDISK_DST)/sbin/ntfs-3gd \
-$(BOOT_RAMDISK_SRC)/sbin/oeminfo_nvm_server:$(BOOT_RAMDISK_DST)/sbin/oeminfo_nvm_server \
-$(BOOT_RAMDISK_SRC)/sbin/hw_ueventd:$(BOOT_RAMDISK_DST)/sbin/hw_ueventd \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/media/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs_dts_audio.xml \
+    $(LOCAL_PATH)/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
 
-#was here
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml
+#    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
-#Experiments
+    
+# RAMDISK
+PRODUCT_PACKAGES += \
+	fstab.hi3635 \
+	init.hi3635.rc \
+	init.recovery.hi3635.rc \
+	custom.init.mods.rc \
+	custom.init.usb.rc \
+	vendor.init.5844.rc \
+	vendor.init.audio.rc \
+	vendor.init.balong_modem.rc \
+	vendor.init.connectivity.bcm4334.rc \
+	vendor.init.connectivity.gps.rc \
+	vendor.init.connectivity.rc \
+	vendor.init.device.rc \
+	vendor.init.extmodem.rc \
+	vendor.init.hi3635.rc \
+	vendor.init.hisi.rc \
+	vendor.init.manufacture.rc \
+	vendor.init.performance.rc \
+	vendor.init.platform.rc \
+	vendor.init.protocol.rc \
+	vendor.init.tee.rc \
+	vendor.init.post-fs-data.rc \
+	ueventd.hi3635.rc 
+#	init.hi3635.power.rc \
+#	init.hi3635.power.sh \
+
+
+# Experiments
 # Update 1x signal strength after 2s
 #PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.radio.snapshot_enabled=1 \
     persist.radio.snapshot_timer=2
-
-#CAMERA
-#PRODUCT_PACKAGES += \
-    libcamera \
-    libmmcamera_interface \
-    libmmcamera_interface2 \
-    libmmjpeg_interface \
-    libqomx_core \
-    libmm-qcamera \
-    mm-qcamera-app \
-    Snap
 
 #PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=72 \
@@ -223,10 +229,7 @@ $(BOOT_RAMDISK_SRC)/sbin/hw_ueventd:$(BOOT_RAMDISK_DST)/sbin/hw_ueventd \
     
 #End Experiments
 
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
-PRODUCT_DEVICE:=hwgra
-PRODUCT_NAME:=full_hwgra
-PRODUCT_BRAND:=HUAWEI
-PRODUCT_MODEL:=HUAWEI GRA-L09
-PRODUCT_MANUFACTURER:=HUAWEI
+#Dalvik & memory
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk) 

@@ -1,0 +1,251 @@
+# Android Run Time
+ro.sys.fw.dex2oat_thread_count=4
+
+# ActivityManager
+ro.config.max_starting_bg=8
+ro.sys.fw.use_trim_settings=true
+
+#Huawei Perfhub is related to camera
+
+ro.config.hw_perfhub=true
+
+build.hisi_perf_opt=true
+
+#add props
+
+ro.adb.secure=0
+ro.secure=0
+ro.debuggable=1
+ro.allow.mock.location=1
+persist.sys.root_access=3
+ro.zygote=zygote64_32
+persist.logd.logpersistd=logcatd
+sys.init_log_level=3
+
+
+#undefined or from rom
+#partially tweaked and merged
+
+ro.config.mmu_en=1
+dalvik.vm.heapsize=512m
+dalvik.vm.heapstartsize=8m
+dalvik.vm.heapgrowthlimit=384m
+dalvik.vm.heaptargetutilization=0.75
+dalvik.vm.checkjni=false
+ro.opengles.version=196609
+ro.sf.lcd_density=420
+sys.config.jankenable=true
+ro.bt.bdaddr_path=/data/misc/bluedroid/macbt
+ro.config.keypasstouser=true
+ro.config.hw_sensorhub=true
+ro.balong_debug.port_num=8
+ro.product.platform.pseudonym=1ARB9CV
+ro.hwui.texture_cache_size=48
+ro.hwui.texture_cache_flushrate=0.4
+ro.hwui.layer_cache_size=48
+ro.hwui.path_cache_size=32
+ro.hwui.shape_cache_size=2
+ro.hwui.drop_shadow_cache_size=6
+ro.hwui.gradient_cache_size=1
+ro.hwui.text_large_cache_height=1024
+ro.hwui.text_large_cache_width=2048
+ro.hwui.text_small_cache_height=1024
+ro.hwui.text_small_cache_width=1024
+ro.hwui.r_buffer_cache_size=8
+ro.tui.service=true
+ro.vr_display.service=true
+debug.hwui.render_dirty_regions=false
+keyguard.no_require_sim=true
+hw.enterinto.imm_chat.scene=false
+camera.ignore.chat.facebeauty=1
+bastet.service.enable=true
+ro.sys.umsdirtyratio=2
+ro.hardware.alter=Hisilicon Kirin 930
+ro.product.cpuinfo.normal=Hisilicon_Kirin_930
+ro.product.cpuinfo.high=Hisilicon_Kirin_935
+ro.product.cpuinfo.highhigh=Hisilicon_Kirin_935
+#ro.config.helix_enable=true
+ro.config.huawei_smallwindow=505,197,1065,1257
+#ro.config.hw_eapsim=true
+#ro.config.hw_multiscreen=true
+#ro.config.hw_omacp=1
+#ro.config.hw_privacymode=true
+#ro.config.hw_RemindWifiToPdp=false
+#ro.config.hw_simpleui_enable=1
+#ro.config.hw_singlehand=1
+#ro.config.hw_vcardBase64=true
+#ro.config.hwinternet_audio=1
+ro.config.switchPrimaryVolume=true
+#ro.huawei.cust.oma=false
+#ro.huawei.cust.oma_drm=false
+#ro.config.hwtheme=0
+#ro.config.hw_allow_rs_mms=true
+#ro.config.hw_hungtasklist=whitelist,system_server,SurfaceFlinger
+ro.config.fm_type=libbcmfm_if
+ro.config.bluetooth.name=Huawei_P8
+ro.config.marketing_name=Huawei_P8
+ro.config.attach_apn_enabled=true
+ro.config.hw_lte_support=true
+net.tethering.noprovisioning=true
+#ro.config.hw_floatvideo=false
+#ro.config.hw_ReduceSAR=false
+#ro.config.hw_use_browser_ua=http://wap1.huawei.com/uaprof/HUAWEI_GRA_L09_UAProfile.xml
+ro.setupwizard.mode=DISABLED
+ro.config.soundtrigger_enabled=0
+ro.config.linkplus.roaming=false
+ro.com.google.clientidbase.am=android-huawei
+ro.com.google.clientidbase.gmm=android-huawei
+ro.com.google.clientidbase.ms=android-huawei
+ro.com.google.clientidbase.yt=android-huawei
+ro.config.spare_ntp_server=ntp.sjtu.edu.cn,time.windows.com,time.nist.gov,1.cn.pool.ntp.org
+ro.config.hw_channel_info=0,0,0,0
+ro.product.hardwareversion=HL2UGRACEM
+ro.config.support_ca=false
+ro.product.varprofile.base=L09
+#ro.config.hw_cp_showagree=true
+ro.product.varprofile.highhigh=L09
+ro.product.varprofile=true
+#ro.config.hw_ECT=true
+#ro.config.hw_rcs_product=true
+#ro.cofig.onlinemusic.enabled=true
+#ro.cofig.onlinevideo.enabled=true
+ro.config.lvm_mode=true
+
+#Modem from phone.props
+
+ro.config.dsds_mode=umts
+persist.radio.modem.cap=89894
+persist.dsds.enabled=false
+rild.rild1_ready_to_start=false
+rild.libpath=/system/lib64/libbalong-ril.so
+ro.config.hw_dsda=false
+ro.multi.rild=false
+rild.libargs=-m modem0
+ro.telephony.default_network=9
+
+#Modem related?
+
+persist.radio.lte_enabled=true
+ro.check.modem_network=true
+persist.sys.dualcards=true
+ril.hw_modem0.rssi=-1
+ril.hw_modem1.rssi=-1
+persist.service.tm2.tofile=true
+ro.cellbroadcast.emergencyids=0-65534
+ro.config.delay_send_signal=true
+ro.config.hw_accesscontrol=true
+ro.config.hw_disable_cops=true
+ro.config.hw_ecclist_nocard=1+110,6+119,8+118
+ro.config.hw_ecclist_withcard=1+110,6+119,8+118
+ro.config.hw_globalEcc=true
+persist.radio.apm_sim_not_pwdn=1
+ro.config.hw_useCtrlSocket=true
+ro.config.updatelocation=true
+ro.networkstatus.delaytimer=20
+ro.config.ipv4.mtu=1400
+ro.gsm.systemui.carriericon=true
+gsm.fastdormancy.mode=1
+#gsm.fastdormancy.screen=2
+#gsm.fastdormancy.time_scroff=4000
+#ro.config.hw_hotswap_on=true
+ro.dual.sim.phone=true
+ro.config.hw_sim2airplane=false
+ro.config.show_sim_icon=true
+audioril.lib=libhuawei-audio-ril.so
+#ro.config.hw_opta=432
+#ro.config.hw_optb=999
+#ro.config.hw_show_4G_Plus_icon=true
+#ro.config.hw_show_network_icon=true
+#gsm.signalplus.support.tas=true
+#gsm.signalplus.support.xpass=true
+ro.config.signalplus.tas=true
+ro.config.signalplus.xpass=true
+
+#Audio related
+
+ro.config.hw_dts=true
+ro.config.wind_noise_supp=true
+ro.config.virtual_hd_voice=true
+
+#Disable strict mode checking
+
+persist.sys.strictmode.disable=true
+
+#Lock launcher in memory
+#Speedup and we have enough ram so what
+
+ro.HOME_APP_ADJ=1
+ro.am.reschedule_service=true
+
+#Faster streaming ?
+#media.stagefright.enable-player=true
+#media.stagefright.enable-meta=true
+#media.stagefright.enable-scan=true
+#media.stagefright.enable-http=true
+#media.stagefright.enable-rtsp=true
+#media.stagefright.enable-record=false
+
+#3G tweaks
+
+#ro.ril.hep=0
+#ro.ril.hsxpa=2
+#ro.ril.gprsclass=12
+#ro.ril.enable.dtm=1
+#ro.ril.hsdpa.category=8
+#ro.ril.enable.a53=1
+#ro.ril.enable.3g.prefix=1
+#ro.ril.htcmaskw1.bitmask=4294967295
+#ro.ril.htcmaskw1=14449
+#ro.ril.hsupa.category=6
+
+#Better signal?
+
+persist.cust.tel.eons=1
+#ro.config.hw_fast_dormancy=1
+
+#Better vocie quality
+
+ro.ril.enable.amr.wideband=1
+
+#IPv4 & IPv6
+
+persist.telephony.support.ipv6=1
+persist.telephony.support.ipv4=1
+
+#No ring delay
+
+ro.telephony.call_ring.delay=0
+ring.delay=0
+
+#May fix a black screen issue related to 
+ro.lge.proximity.delay=25
+mot.proximity.delay=25
+
+#Scroll tweak
+
+#ro.min_pointer_dur=8
+#ro.max.fling_velocity=12000
+#ro.min.fling_velocity=8000
+
+#No JNI checking - may be a huge boot time boost
+
+ro.kernel.android.checkjni=0
+ro.kernel.checkjni=0
+
+#Don't send usage data
+
+ro.config.nocheckin=1
+
+
+#Better adjustment for volume
+
+ro.config.vc_call_steps=20
+
+
+#MTP & Sdcard related
+
+persist.fw.force_adoptable=true
+
+#Custom RIL Class
+
+ro.telephony.ril_class=HwHisiRIL
