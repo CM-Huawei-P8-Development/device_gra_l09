@@ -40,7 +40,7 @@
   <item name="camera.flashlight">200</item> <!-- Avg. power for camera flash, ~160mA -->
   <item name="camera.avg">700</item> <!-- Avg. power use of camera in standard usecases, ~550mA -->
   <item name="radio.active">177</item> <!-- ~200mA -->
-  <item name="radio.scanning">302</item> <!-- cellular radio scanning for signal, ~10mA -->
+  <item name="radio.scanning">65</item> <!-- cellular radio scanning for signal, ~10mA -->
   <item name="gps.on">1.6</item> <!-- ~50mA -->
   <!-- Current consumed by the radio at different signal strengths, when paging -->
   <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
@@ -114,7 +114,8 @@
 
   <!-- Current when CPU is idle -->
   <item name="cpu.idle">3</item>
-
+  <!-- Power consumption due to wake lock held -->
+  <item name="cpu.awake">40.2</item> <!-- k3v3 -->
   <!-- This is the battery capacity in mAh (measured at nominal voltage) -->
   <item name="battery.capacity">2600</item>
 
