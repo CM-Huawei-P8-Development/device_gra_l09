@@ -181,11 +181,6 @@
          Must be in the range specified by minimum and maximum. -->
     <integer name="config_screenBrightnessSettingDefault">128</integer>
 
-    <!-- Screen brightness used to dim the screen while dozing in a very low power state.
-         May be less than the minimum allowed brightness setting
-         that can be set by the user. -->
-    <integer name="config_screenBrightnessDoze">0</integer>
-
     <!-- Minimum allowable screen brightness to use in a very dark room.
          This value sets the floor for the darkest possible auto-brightness
          adjustment.  It is expected to be somewhat less than the first entry in
