@@ -30,7 +30,10 @@ on early-boot
     chmod 664 /sys/class/devfreq/gpufreq/mali_ondemand/animation_boost
     chown system system /sys/class/devfreq/gpufreq/mali_ondemand/animation_boost_freq
     chmod 664 /sys/class/devfreq/gpufreq/mali_ondemand/animation_boost_freq
-
+	chown system system /sys/class/devfreq/gpufreq/polling_interval
+	chmod 664 /sys/class/devfreq/gpufreq/polling_interval
+	
+	
     chown system system /sys/class/devfreq/ddrfreq/max_freq
     chmod 664 /sys/class/devfreq/ddrfreq/max_freq
     chown system system /sys/class/devfreq/ddrfreq/min_freq
@@ -41,8 +44,23 @@ on early-boot
     chmod 664 /sys/class/devfreq/ddrfreq/cur_freq
     chown system system /sys/class/devfreq/ddrfreq/available_frequencies
     chmod 664 /sys/class/devfreq/ddrfreq/available_frequencies
+    chown system system /sys/class/devfreq/ddrfreq/polling_interval
+    chmod 664 /sys/class/devfreq/ddrfreq/polling_interval
     chown system system /sys/kernel/set_hmp_thresholds/policy
-    chmod 0664 /sys/kernel/set_hmp_thresholds/policy	
+    chmod 0664 /sys/kernel/set_hmp_thresholds/policy
+    chown system system /sys/class/devfreq/ddrfreq_up_threshold/max_freq
+    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/max_freq
+    chown system system /sys/class/devfreq/ddrfreq_up_threshold/min_freq
+    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/min_freq
+    chown system system /sys/class/devfreq/ddrfreq_up_threshold/ddr_bandwidth
+    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/ddr_bandwidth
+    chown system system /sys/class/devfreq/ddrfreq_up_threshold/cur_freq
+    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/cur_freq
+    chown system system /sys/class/devfreq/ddrfreq_up_threshold/available_frequencies
+    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/available_frequencies
+    chown system system /sys/class/devfreq/ddrfreq_up_threshold/polling_interval
+    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/polling_interval
+
     chown system system /sys/class/graphics/fb0/lcd_cabc_mode
     chmod 664 /sys/class/graphics/fb0/lcd_cabc_mode
 
