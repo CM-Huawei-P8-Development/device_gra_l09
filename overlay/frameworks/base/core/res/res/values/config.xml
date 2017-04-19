@@ -180,7 +180,7 @@
          some range of adjustment to dim the screen further than usual in very
          dark rooms. The contents of the screen must still be clearly visible
          in darkness (although they may not be visible in a bright room). -->
-    <integer name="config_screenBrightnessDark">60</integer>
+    <integer name="config_screenBrightnessDark">5</integer>
 
     <!-- The RadioAccessFamilies supported by the device. + Empty is
          viewed as "all".  Only used on devices which + don't support
@@ -212,10 +212,19 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
+		<!--
         <item>15</item>
         <item>100</item>
         <item>3000</item>
         <item>8000</item>
+		-->
+		<item>15</item>
+        <item>100</item>
+        <item>500</item>
+        <item>3000</item>
+        <item>8000</item>
+        <item>30000</item>
+        <item>50000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
