@@ -6,7 +6,7 @@
 
 import /vendor.init.hi3635.rc
 import /vendor.init.hisi.rc
-
+#import /init.hi3635.power.rc
 #init.usb.rc is provided by CM
 
 import /vendor.init.audio.rc
