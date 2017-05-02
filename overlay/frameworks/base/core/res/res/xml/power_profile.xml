@@ -117,7 +117,7 @@
   <!-- Power consumption due to wake lock held -->
   <item name="cpu.awake">40.2</item> <!-- k3v3 -->
   <!-- This is the battery capacity in mAh (measured at nominal voltage) -->
-  <item name="battery.capacity">2600</item>
+  <item name="battery.capacity">2680</item>
 
   <array name="wifi.batchedscan"> <!-- mA (This is stolen from moto shamu)-->
       <value>0.015</value> <!-- 1-8/hr -->
