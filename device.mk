@@ -92,6 +92,15 @@ PRODUCT_PACKAGES += \
 #I'l keep the stock ones there too.
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/vendor6.0/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
+# GPS config
+PRODUCT_COPY_FILES += \
+	    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+	    $(LOCAL_PATH)/gps/gps4752.conf:system/etc/gps4752.conf \
+	    $(LOCAL_PATH)/gps/gps4752config.xml:system/etc/gps4752config.xml \
+	    $(LOCAL_PATH)/gps/gps47531config.xml:system/etc/gps47531config.xml \
+	    $(LOCAL_PATH)/gps/gps47531config_beta.xml:system/etc/gps47531config_beta.xml \
+	    $(LOCAL_PATH)/gps/gps47531config_cl.xml:system/etc/gps47531config_cl.xml \
+	    $(LOCAL_PATH)/gps/gps47531config_cl_beta.xml:system/etc/gps47531config_cl_beta.xml
 
 # FM RADIO quick hack to copy renamed files, does cm looks for default?
 PRODUCT_COPY_FILES += \
