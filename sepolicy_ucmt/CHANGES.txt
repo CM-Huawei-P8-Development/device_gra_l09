@@ -1,2 +1,0 @@
- The idea is to uncomment the conflicting lines as well as doing so in the init where processes are assigned to a domain
-with selinux to premissive this should work and generate a warning later on
