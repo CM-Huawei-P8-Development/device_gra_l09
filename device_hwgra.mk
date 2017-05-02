@@ -74,7 +74,7 @@ PRODUCT_PACKAGES += \
 #Somehow CM looks for this file with another name
 #I'l keep the stock ones there too.
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
+	$(LOCAL_PATH)/vendor/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
 
 #Camera
 PRODUCT_PACKAGES += \
@@ -89,19 +89,19 @@ PRODUCT_PACKAGES += \
 
 # FM RADIO quick hack to copy renamed files, does cm looks for default?
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vendor6.0/system/lib/hw/fm.bcm.hi3635.so:system/lib/hw/fm.bcm.default.so \
-    $(LOCAL_PATH)/vendor6.0/system/lib64/hw/fm.bcm.hi3635.so:system/lib64/hw/fm.bcm.default.so
+    $(LOCAL_PATH)/vendor/system/lib/hw/fm.bcm.hi3635.so:system/lib/hw/fm.bcm.default.so \
+    $(LOCAL_PATH)/vendor/system/lib64/hw/fm.bcm.hi3635.so:system/lib64/hw/fm.bcm.default.so
 
 #Camera
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/vendor6.0/system/lib/libhwui.so:system/lib/libshim_hwui.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/libhwui.so:system/lib64/libshim_hwui.so \
-	$(LOCAL_PATH)/vendor6.0/system/vendor/lib64/egl/libGLES_mali.so:system/vendor/lib64/libGLES_mali.so \
-	$(LOCAL_PATH)/vendor6.0/system/vendor/lib/egl/libGLES_mali.so:system/vendor/lib/libGLES_mali.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib/libmedia.so:system/lib/libshim_media.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/libmedia.so:system/lib64/libshim_media.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib/libcamera_client.so:system/lib/libshim_camera_client.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/libcamera_client.so:system/lib64/libshim_camera_client.so
+	$(LOCAL_PATH)/vendor/system/lib/libhwui.so:system/lib/libshim_hwui.so \
+	$(LOCAL_PATH)/vendor/system/lib64/libhwui.so:system/lib64/libshim_hwui.so \
+	$(LOCAL_PATH)/vendor/system/vendor/lib64/egl/libGLES_mali.so:system/vendor/lib64/libGLES_mali.so \
+	$(LOCAL_PATH)/vendor/system/vendor/lib/egl/libGLES_mali.so:system/vendor/lib/libGLES_mali.so \
+	$(LOCAL_PATH)/vendor/system/lib/libmedia.so:system/lib/libshim_media.so \
+	$(LOCAL_PATH)/vendor/system/lib64/libmedia.so:system/lib64/libshim_media.so \
+	$(LOCAL_PATH)/vendor/system/lib/libcamera_client.so:system/lib/libshim_camera_client.so \
+	$(LOCAL_PATH)/vendor/system/lib64/libcamera_client.so:system/lib64/libshim_camera_client.so
 
 
 # MEDIA
