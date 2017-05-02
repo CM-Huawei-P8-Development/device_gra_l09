@@ -20,7 +20,7 @@ DST="$VDIR/proprietary"
 
 if [ -d $DST ];then
 	echo "Cleaning up..."
-	rm -rf $VDIR
+	rm -rf $DST
 fi
 echo "Create output dir..."
 mkdir -p $DST
