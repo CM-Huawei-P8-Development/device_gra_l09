@@ -91,7 +91,8 @@ PRODUCT_PACKAGES += \
 #Somehow CM looks for this file with another name
 #I'l keep the stock ones there too.
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
+	$(LOCAL_PATH)/vendor/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
+
 # GPS config
 PRODUCT_COPY_FILES += \
 	    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
@@ -123,20 +124,19 @@ PRODUCT_PACKAGES += \
 	Snap
     
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/vendor6.0/system/lib/libhwui.so:system/lib/libshim_hwui.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/libhwui.so:system/lib64/libshim_hwui.so \
-	$(LOCAL_PATH)/vendor6.0/system/vendor/lib64/egl/libGLES_mali.so:system/vendor/lib64/libGLES_mali.so \
-	$(LOCAL_PATH)/vendor6.0/system/vendor/lib/egl/libGLES_mali.so:system/vendor/lib/libGLES_mali.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib/libmedia.so:system/lib/libshim_media.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/libmedia.so:system/lib64/libshim_media.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib/libcamera_client.so:system/lib/libshim_camera_client.so \
-	$(LOCAL_PATH)/vendor6.0/system/lib64/libcamera_client.so:system/lib64/libshim_camera_client.so
+	$(LOCAL_PATH)/vendor/system/lib/libhwui.so:system/lib/libshim_hwui.so \
+	$(LOCAL_PATH)/vendor/system/lib64/libhwui.so:system/lib64/libshim_hwui.so \
+	$(LOCAL_PATH)/vendor/system/vendor/lib64/egl/libGLES_mali.so:system/vendor/lib64/libGLES_mali.so \
+	$(LOCAL_PATH)/vendor/system/vendor/lib/egl/libGLES_mali.so:system/vendor/lib/libGLES_mali.so \
+	$(LOCAL_PATH)/vendor/system/lib/libmedia.so:system/lib/libshim_media.so \
+	$(LOCAL_PATH)/vendor/system/lib64/libmedia.so:system/lib64/libshim_media.so \
+	$(LOCAL_PATH)/vendor/system/lib/libcamera_client.so:system/lib/libshim_camera_client.so \
+	$(LOCAL_PATH)/vendor/system/lib64/libcamera_client.so:system/lib64/libshim_camera_client.so
 
 #Bluetooth Missing xml files after build
 #That's probably not the propper way to do it!
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
-
 
 #The built kernel
 PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
