@@ -27,7 +27,7 @@ mkdir -p $DST
 
 
 if [ $USEADB = false ];then
-	SOURCE="device/$VENDORNAME/$CODENAME/vendor6.0/system"
+	SOURCE="device/$VENDORNAME/$CODENAME/vendor/system"
 	echo "Source is $SOURCE"
 #	echo "assuming that it just contains the listed files!"
 #	echo "cp -r $SOURCE $DST"	
