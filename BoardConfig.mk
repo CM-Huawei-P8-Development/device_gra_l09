@@ -15,16 +15,14 @@
 
 LOCAL_PATH := device/huawei/hwgra
 
-#Assert
-TARGET_OTA_ASSERT_DEVICE := hwgra,gra_l09,huawei_p8,ascend_p8,p8,grace,hi3635
+# OTA ASSERT
+TARGET_OTA_ASSERT_DEVICE := hi3635,GRA-L09,hwgra,HWGRA,gra_l09,huawei_p8,ascend_p8,P8,grace,GRACE
 
-
-#CM Hardware abstraction
+# HARDWARE CLASS
 BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS := \
     hardware/cyanogen/cmhw \
     $(LOCAL_PATH)/cmhw
-
 
 # WEBGL
 ENABLE_WEBGL := true
@@ -63,16 +61,11 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # CAMERA
 USE_CAMERA_STUB := true
-# Force camera module to be compiled only in 32-bit mode on 64-bit systems
-# Once camera module can run in the native mode of the system (either
-# 32-bit or 64-bit), the following line should be deleted
-#BOARD_QTI_CAMERA_32BIT_ONLY := true
-BOARD_CAMERA_HAVE_ISO := true
-COMMON_GLOBAL_CFLAGS += -DHAVE_ISO
 USE_DEVICE_SPECIFIC_CAMERA := true
+#BOARD_CAMERA_HAVE_ISO := true
+#COMMON_GLOBAL_CFLAGS += -DHAVE_ISO
 #BOARD_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
 #TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-
 
 # SCREEN
 DEVICE_RESOLUTION := 1080x1920
@@ -81,41 +74,34 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 TARGET_USES_ION := true
 
-
 # SURFACEFLINGER
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-#NFC
+# NFC
 TARGET_USES_NQ_NFC := true
 BOARD_NFC_CHIPSET := pn547
 NXP_CHIP_TYPE := 1
 
-#GPU
 # GPU
-TARGET_BOARD_GPU := mali-t628mp4
+TARGET_BOARD_GPU := mali-t628
 TARGET_HARDWARE_3D := true
 ANDROID_ENABLE_RENDERSCRIPT := true
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/gpu/egl.cfg
-#from debicche build, maybe unneeded?
-#BOARD_EGL_WORKAROUND_BUG_10194508 := true
-#BOARD_USE_MHEAP_SCREENSHOT := true
-#TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-
 
 # AUDIO
-#TARGET_PROVIDES_LIBAUDIO := true
+TARGET_PROVIDES_LIBAUDIO := true
 BOARD_USES_ALSA_AUDIO := true
-BOARD_USES_TINY_ALSA_AUDIO := true
+#BOARD_USES_TINY_ALSA_AUDIO := true
 BOARD_USES_GENERIC_AUDIO := false
-BUILD_WITH_ALSA_UTILS := true
+#BUILD_WITH_ALSA_UTILS := true
+BOARD_SUPPORTS_SOUND_TRIGGER := true
 
 # RIL
 #COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 #PROTOBUF_SUPPORTED := true
 #TARGET_RIL_VARIANT := proprietary
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril/
-
 
 # WIFI
 WPA_SUPPLICANT_VERSION := VER_0_8_X
@@ -125,14 +111,11 @@ BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-#WPA_SUPPLICANT_VERSION := VER_2_0_X
 WIFI_DRIVER_NVRAM_PATH := "/vendor/firmware/nvram4334_hw.txt"
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA := "/system/vendor/firmware/fw_bcm4334_hw.bin"
 WIFI_DRIVER_FW_PATH_AP := "/system/vendor/firmware/fw_bcm4334_apsta_hw.bin"
 WIFI_BAND := 802_11_ABGN
-#WIFI_DRIVER_MODULE_NAME := bcmdhd
-#WIFI_DRIVER_MODULE_PATH := auto
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw_fifa_ul.txt ifname=wlan0"
 WIFI_DRIVER_MODULE_P2P := "firmware_path=/system/vendor/firmware/fw_bcm4334_apsta_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw_fifa_ul.txt ifname=wlan0"
 WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_apsta_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw_fifa_ul.txt ifname=wlan0"
@@ -142,12 +125,14 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_CUSTOM_BT_CONFIG := $(LOCAL_PATH)/bluetooth/vnd_hwgra.conf
 
-
 # CPU/ARCH
 TARGET_ARCH := arm64
+#TARGET_ARM_TYPE := arm64
 TARGET_BOARD_PLATFORM := hi3635
+BOARD_VENDOR_PLATFORM := hi3635
+HISI_TARGET_PRODUCT := hi3635
 TARGET_CPU_ABI := arm64-v8a
-#TARGET_CPU_ABI2 := armeabi-v7a,armeabi
+TARGET_CPU_ABI2 :=
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_VARIANT := cortex-a53
 TARGET_CPU_CORTEX_A53 := true
@@ -156,9 +141,6 @@ TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-#Technically it msut be cortex-a53e.cortex-a53 
-#Huawei used a second overclocked cortex-a53 set in a big.LITTLE setup
-#and called the overclocked version cortex-a53e
 TARGET_2ND_CPU_VARIANT := cortex-a53
 #we have big.LITTLE architecture with 2 sets
 ENABLE_CPUSETS := true
@@ -166,9 +148,7 @@ ENABLE_CPUSETS := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HIGH_OPTIMIZATION := true
-ANDROID_64=true
-BOARD_VENDOR_PLATFORM := hi3635
-HISI_TARGET_PRODUCT := hi3635
+#ANDROID_64=true
 TARGET_USES_64_BIT_BINDER := true
 TARGET_IS_64_BIT := true
 TARGET_USES_HISI_DTIMAGE := true
@@ -184,31 +164,24 @@ TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 BOARD_USES_UNCOMPRESSED_BOOT := true
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_USES_UNCOMPRESSED_KERNEL := true
-
-TARGET_KERNEL_CONFIG := lineage_hi3635_defconfig
-HAVE_SELINUX := true
+TARGET_KERNEL_CONFIG := merge_hi3635_defconfig
+#HAVE_SELINUX := true
 
 # KERNEL CONFIG
-BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 enforcing=0 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem) cpuidle_sysfs_switch=1
+BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem) cpuidle_sysfs_switch=1
 BOARD_KERNEL_BASE := 0x00678000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x07588000 --tags_offset 0xffb88000
-
 
 # PARTITIONS SIZES
 BOARD_BOOTIMAGE_PARTITION_SIZE := 25165824
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2684354560
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 11448352768
-#had a hard time finding this out. cat /proc/mtd - the erasesize column contains this size as hexadecimal value
-#so mine is 00001000 (0x00001000) = 4096.
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-
 # SEPOLICY
-#BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy_cmmerge #They are the result of a substraction from the stock lines and CM13 lines
-BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
-#Union is no longer required https://android-review.googlesource.com/#/c/141560/ as its the new default.
+# BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
 
 # INIT
 TARGET_PROVIDES_INIT_TARGET_RC := true
@@ -224,7 +197,7 @@ TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.hi3635
 
 # FM RADIO
 BOARD_HAVE_FM_RADIO := true
-#BOARD_FM_DEVICE :=
+BOARD_FM_DEVICE := bcm4334
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 
 # BOOTANIMATION
@@ -232,8 +205,7 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # TAP TO WAKE
-TARGET_TAP_TO_WAKE_NODE := "/sys/touchscreen/easy_wakeup_gesture"
-TARGET_TAP_TO_WAKE_UP := "/sys/touchscreen/wakeup_gesture_enable"
+TARGET_TAP_TO_WAKE_NODE := "/sys/touchscreen/wakeup_gesture_enable"
 
 # inherit from the proprietary version
 -include vendor/huawei/hwgra/BoardConfigVendor.mk
