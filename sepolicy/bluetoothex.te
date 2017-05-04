@@ -1,2 +1,0 @@
-type bluetooth_device, dev_type, file_type;
-allow bluetooth bluetooth_device:chr_file rw_file_perms;
