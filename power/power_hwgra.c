@@ -33,6 +33,8 @@
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 static int boostpulse_fd = -1;
 static int current_power_profile = 1;
+static int low_power = 0;
+static int dt2w = 0;
 
 static int sysfs_write_str(char *path, char *s)
 {
@@ -110,42 +112,113 @@ static void power_set_interactive(__attribute__((unused)) struct power_module *m
     // break out early if governor is not interactive
     if (!check_governor()) return;
 
-    if (!on) {
+    if (on && !low_power) {
+        sysfs_write_int(INTERACTIVE_PATH0 "go_hispeed_load",
+                      profiles0[current_power_profile].go_hispeed_load);
         sysfs_write_int(INTERACTIVE_PATH0 "hispeed_freq",
                         profiles0[current_power_profile].hispeed_freq);
-        sysfs_write_int(INTERACTIVE_PATH0 "go_hispeed_load",
-                        profiles0[current_power_profile].go_hispeed_load);
-        sysfs_write_int(INTERACTIVE_PATH0 "timer_rate",
-                        profiles0[current_power_profile].timer_rate);
+        sysfs_write_int(INTERACTIVE_PATH0 "io_is_busy",
+                      profiles0[current_power_profile].io_is_busy);
+        sysfs_write_int(INTERACTIVE_PATH0 "boostpulse_duration",
+                        profiles0[current_power_profile].boostpulse_duration);
         sysfs_write_str(INTERACTIVE_PATH0 "target_loads",
                         profiles0[current_power_profile].target_loads);
+        sysfs_write_int(CPUFREQ_PATH0 "scaling_min_freq",
+                        profiles0[current_power_profile].scaling_min_freq);
+        sysfs_write_int(CPUFREQ_PATH0 "scaling_max_freq",
+                        profiles0[current_power_profile].scaling_max_freq);
 
-        sysfs_write_int(INTERACTIVE_PATH1 "hispeed_freq",
-                        profiles1[current_power_profile].hispeed_freq);
-        sysfs_write_int(INTERACTIVE_PATH1 "go_hispeed_load",
-                        profiles1[current_power_profile].go_hispeed_load);
-        sysfs_write_int(INTERACTIVE_PATH1 "timer_rate",
-                        profiles1[current_power_profile].timer_rate);
-        sysfs_write_str(INTERACTIVE_PATH1 "target_loads",
-                        profiles1[current_power_profile].target_loads);
+        sysfs_write_int(ONDEMAND_PATH1 "io_is_busy",
+                        profiles1[current_power_profile].io_is_busy);
+        sysfs_write_int(ONDEMAND_PATH1 "sampling_down_factor",
+                        profiles1[current_power_profile].sampling_down_factor);
+        sysfs_write_int(ONDEMAND_PATH1 "sampling_rate",
+                        profiles1[current_power_profile].sampling_rate);
+        sysfs_write_int(ONDEMAND_PATH1 "up_threshold",
+                        profiles1[current_power_profile].up_threshold);
+        sysfs_write_int(CPUFREQ_PATH1 "scaling_min_freq",
+                        profiles0[current_power_profile].scaling_min_freq);
+        sysfs_write_int(CPUFREQ_PATH1 "scaling_max_freq",
+                        profiles0[current_power_profile].scaling_max_freq);
+
+        sysfs_write_int(KERNEL_HMP_PATH "hmp_up",
+                        profiles2[current_power_profile].hmp_up);
+        sysfs_write_int(KERNEL_HMP_PATH "hmp_down",
+                        profiles2[current_power_profile].hmp_down);
+        sysfs_write_int(KERNEL_HMP_PATH "hmp_prio",
+                        profiles2[current_power_profile].hmp_prio);
+
+        sysfs_write_int(DDRFREQ__PATH "min_freq",
+                        profiles2[current_power_profile].ddr_min_freq);
+        sysfs_write_int(DDRFREQ__PATH "max_freq",
+                        profiles2[current_power_profile].ddr_max_freq);
+        sysfs_write_int(DDRFREQ__PATH "polling_interval",
+                        profiles2[current_power_profile].ddr_polling_interval);
+
+        sysfs_write_int(GPUFREQ_PATH "min_freq",
+                        profiles2[current_power_profile].gpu_min_freq);
+        sysfs_write_int(GPUFREQ_PATH "max_freq",
+                        profiles2[current_power_profile].gpu_max_freq);
+        sysfs_write_int(GPUFREQ_PATH "polling_interval",
+                        profiles2[current_power_profile].gpu_polling_interval);
+        sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost",
+                        profiles2[current_power_profile].animation_boost);
+        sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost_freq",
+                        profiles2[current_power_profile].animation_boost_freq);
     } else {
-        sysfs_write_int(INTERACTIVE_PATH0 "hispeed_freq",
-                        profiles0[current_power_profile].hispeed_freq_off);
-        sysfs_write_int(INTERACTIVE_PATH0 "timer_rate",
-                        profiles0[current_power_profile].timer_rate_off);
-        sysfs_write_int(INTERACTIVE_PATH0 "go_hispeed_load",
-                        profiles0[current_power_profile].go_hispeed_load_off);
-        sysfs_write_str(INTERACTIVE_PATH0 "target_loads",
-                        profiles0[current_power_profile].target_loads_off);
+      sysfs_write_int(INTERACTIVE_PATH0 "go_hispeed_load",
+                    profiles0[PROFILE_BALANCED].go_hispeed_load);
+      sysfs_write_int(INTERACTIVE_PATH0 "hispeed_freq",
+                      profiles0[PROFILE_BALANCED].hispeed_freq);
+      sysfs_write_int(INTERACTIVE_PATH0 "io_is_busy",
+                    profiles0[PROFILE_BALANCED].io_is_busy);
+      sysfs_write_int(INTERACTIVE_PATH0 "boostpulse_duration",
+                      profiles0[PROFILE_BALANCED].boostpulse_duration);
+      sysfs_write_str(INTERACTIVE_PATH0 "target_loads",
+                      profiles0[PROFILE_BALANCED].target_loads);
+      sysfs_write_int(CPUFREQ_PATH0 "scaling_min_freq",
+                      profiles0[PROFILE_BALANCED].scaling_min_freq);
+      sysfs_write_int(CPUFREQ_PATH0 "scaling_max_freq",
+                      profiles0[PROFILE_BALANCED].scaling_max_freq);
 
-        sysfs_write_int(INTERACTIVE_PATH1 "hispeed_freq",
-                        profiles1[current_power_profile].hispeed_freq_off);
-        sysfs_write_int(INTERACTIVE_PATH1 "timer_rate",
-                        profiles1[current_power_profile].timer_rate_off);
-        sysfs_write_int(INTERACTIVE_PATH1 "go_hispeed_load",
-                        profiles1[current_power_profile].go_hispeed_load_off);
-        sysfs_write_str(INTERACTIVE_PATH1 "target_loads",
-                        profiles1[current_power_profile].target_loads_off);
+      sysfs_write_int(ONDEMAND_PATH1 "io_is_busy",
+                      profiles1[PROFILE_BALANCED].io_is_busy);
+      sysfs_write_int(ONDEMAND_PATH1 "sampling_down_factor",
+                      profiles1[PROFILE_BALANCED].sampling_down_factor);
+      sysfs_write_int(ONDEMAND_PATH1 "sampling_rate",
+                      profiles1[PROFILE_BALANCED].sampling_rate);
+      sysfs_write_int(ONDEMAND_PATH1 "up_threshold",
+                      profiles1[PROFILE_BALANCED].up_threshold);
+      sysfs_write_int(CPUFREQ_PATH1 "scaling_min_freq",
+                      profiles0[PROFILE_BALANCED].scaling_min_freq);
+      sysfs_write_int(CPUFREQ_PATH1 "scaling_max_freq",
+                      profiles0[PROFILE_BALANCED].scaling_max_freq);
+
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_up",
+                      profiles2[PROFILE_BALANCED].hmp_up);
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_down",
+                      profiles2[PROFILE_BALANCED].hmp_down);
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_prio",
+                      profiles2[PROFILE_BALANCED].hmp_prio);
+
+      sysfs_write_int(DDRFREQ__PATH "min_freq",
+                      profiles2[PROFILE_BALANCED].ddr_min_freq);
+      sysfs_write_int(DDRFREQ__PATH "max_freq",
+                      profiles2[PROFILE_BALANCED].ddr_max_freq);
+      sysfs_write_int(DDRFREQ__PATH "polling_interval",
+                      profiles2[PROFILE_BALANCED].ddr_polling_interval);
+
+      sysfs_write_int(GPUFREQ_PATH "min_freq",
+                      profiles2[PROFILE_BALANCED].gpu_min_freq);
+      sysfs_write_int(GPUFREQ_PATH "max_freq",
+                      profiles2[PROFILE_BALANCED].gpu_max_freq);
+      sysfs_write_int(GPUFREQ_PATH "polling_interval",
+                      profiles2[PROFILE_BALANCED].gpu_polling_interval);
+      sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost",
+                      profiles2[PROFILE_BALANCED].animation_boost);
+      sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost_freq",
+                      profiles2[PROFILE_BALANCED].animation_boost_freq);
+        if(dt2w) sysfs_write_int(TAP_TO_WAKE_ENABLE,1);
     }
 }
 
@@ -164,85 +237,174 @@ static void set_power_profile(int profile)
 
     ALOGD("%s: setting profile %d", __func__, profile);
 
-    sysfs_write_str(INTERACTIVE_PATH0 "above_hispeed_delay",
-                    profiles0[profile].above_hispeed_delay);
-    sysfs_write_int(INTERACTIVE_PATH0 "boost",
-                    profiles0[profile].boost);
-    sysfs_write_int(INTERACTIVE_PATH0 "boostpulse_duration",
-                    profiles0[profile].boostpulse_duration);
-    sysfs_write_int(INTERACTIVE_PATH0 "boostpulse_min_interval",
-                    profiles0[profile].boostpulse_min_interval);
     sysfs_write_int(INTERACTIVE_PATH0 "go_hispeed_load",
-                    profiles0[profile].go_hispeed_load);
+                  profiles0[profile].go_hispeed_load);
     sysfs_write_int(INTERACTIVE_PATH0 "hispeed_freq",
                     profiles0[profile].hispeed_freq);
     sysfs_write_int(INTERACTIVE_PATH0 "io_is_busy",
-                    profiles0[profile].io_is_busy);
-    sysfs_write_int(INTERACTIVE_PATH0 "min_sample_time",
-                    profiles0[profile].min_sample_time);
+                  profiles0[profile].io_is_busy);
+    sysfs_write_int(INTERACTIVE_PATH0 "boostpulse_duration",
+                    profiles0[profile].boostpulse_duration);
     sysfs_write_str(INTERACTIVE_PATH0 "target_loads",
                     profiles0[profile].target_loads);
-    sysfs_write_int(INTERACTIVE_PATH0 "timer_rate",
-                    profiles0[profile].timer_rate);
-    sysfs_write_int(INTERACTIVE_PATH0 "timer_slack",
-                    profiles0[profile].timer_slack);
-    sysfs_write_int(CPUFREQ_PATH0 "scaling_max_freq",
-                    profiles0[profile].scaling_max_freq);
     sysfs_write_int(CPUFREQ_PATH0 "scaling_min_freq",
                     profiles0[profile].scaling_min_freq);
-    sysfs_write_int(KERNEL_HMP_PATH "down_threshold",
-                    profiles0[profile].down_threshold);
-    sysfs_write_int(KERNEL_HMP_PATH "up_threshold",
-                    profiles0[profile].up_threshold);
-    sysfs_write_int(KERNEL_HMP_PATH "task_fork_on_bigcluster",
-                    profiles0[profile].task_fork_on_bigcluster);
-    sysfs_write_int(GPUFREQ_PATH "max_freq",
-                    profiles0[profile].max_freq);
-    sysfs_write_int(GPUFREQ_PATH "min_freq",
-                    profiles0[profile].min_freq);
-    sysfs_write_int(GPUFREQ_PATH "polling_interval",
-                    profiles0[profile].polling_interval);
+    sysfs_write_int(CPUFREQ_PATH0 "scaling_max_freq",
+                    profiles0[profile].scaling_max_freq);
 
-    sysfs_write_str(INTERACTIVE_PATH1 "above_hispeed_delay",
-                    profiles1[profile].above_hispeed_delay);
-    sysfs_write_int(INTERACTIVE_PATH1 "boost",
-                    profiles1[profile].boost);
-    sysfs_write_int(INTERACTIVE_PATH1 "boostpulse_duration",
-                    profiles1[profile].boostpulse_duration);
-    sysfs_write_int(INTERACTIVE_PATH1 "boostpulse_min_interval",
-                    profiles1[profile].boostpulse_min_interval);
-    sysfs_write_int(INTERACTIVE_PATH1 "go_hispeed_load",
-                    profiles1[profile].go_hispeed_load);
-    sysfs_write_int(INTERACTIVE_PATH1 "hispeed_freq",
-                    profiles1[profile].hispeed_freq);
-    sysfs_write_int(INTERACTIVE_PATH1 "io_is_busy",
+    sysfs_write_int(ONDEMAND_PATH1 "io_is_busy",
                     profiles1[profile].io_is_busy);
-    sysfs_write_int(INTERACTIVE_PATH1 "min_sample_time",
-                    profiles1[profile].min_sample_time);
-    sysfs_write_str(INTERACTIVE_PATH1 "target_loads",
-                    profiles1[profile].target_loads);
-    sysfs_write_int(INTERACTIVE_PATH1 "timer_rate",
-                    profiles1[profile].timer_rate);
-    sysfs_write_int(INTERACTIVE_PATH1 "timer_slack",
-                    profiles1[profile].timer_slack);
-    sysfs_write_int(CPUFREQ_PATH1 "scaling_max_freq",
-                    profiles1[profile].scaling_max_freq);
-    sysfs_write_int(CPUFREQ_PATH1 "scaling_min_freq",
-                    profiles1[profile].scaling_min_freq);
-    sysfs_write_int(KERNEL_HMP_PATH "down_threshold",
-                    profiles1[profile].down_threshold);
-    sysfs_write_int(KERNEL_HMP_PATH "up_threshold",
+    sysfs_write_int(ONDEMAND_PATH1 "sampling_down_factor",
+                    profiles1[profile].sampling_down_factor);
+    sysfs_write_int(ONDEMAND_PATH1 "sampling_rate",
+                    profiles1[profile].sampling_rate);
+    sysfs_write_int(ONDEMAND_PATH1 "up_threshold",
                     profiles1[profile].up_threshold);
-    sysfs_write_int(KERNEL_HMP_PATH "task_fork_on_bigcluster",
-                    profiles1[profile].task_fork_on_bigcluster);
-    sysfs_write_int(GPUFREQ_PATH "max_freq",
-                    profiles1[profile].max_freq);
+    sysfs_write_int(CPUFREQ_PATH1 "scaling_min_freq",
+                    profiles0[profile].scaling_min_freq);
+    sysfs_write_int(CPUFREQ_PATH1 "scaling_max_freq",
+                    profiles0[profile].scaling_max_freq);
+
+    sysfs_write_int(KERNEL_HMP_PATH "hmp_up",
+                    profiles2[profile].hmp_up);
+    sysfs_write_int(KERNEL_HMP_PATH "hmp_down",
+                    profiles2[profile].hmp_down);
+    sysfs_write_int(KERNEL_HMP_PATH "hmp_prio",
+                    profiles2[profile].hmp_prio);
+
+    sysfs_write_int(DDRFREQ__PATH "min_freq",
+                    profiles2[profile].ddr_min_freq);
+    sysfs_write_int(DDRFREQ__PATH "max_freq",
+                    profiles2[profile].ddr_max_freq);
+    sysfs_write_int(DDRFREQ__PATH "polling_interval",
+                    profiles2[profile].ddr_polling_interval);
+
     sysfs_write_int(GPUFREQ_PATH "min_freq",
-                    profiles1[profile].min_freq);
+                    profiles2[profile].gpu_min_freq);
+    sysfs_write_int(GPUFREQ_PATH "max_freq",
+                    profiles2[profile].gpu_max_freq);
     sysfs_write_int(GPUFREQ_PATH "polling_interval",
-                    profiles1[profile].polling_interval);
+                    profiles2[profile].gpu_polling_interval);
+    sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost",
+                    profiles2[profile].animation_boost);
+    sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost_freq",
+                    profiles2[profile].animation_boost_freq);
 
     current_power_profile = profile;
+}
+
+static void power_hint_low_power(int on) {
+    low_power = on;
+    if(on) {
+      /*
+      * USE POWER_SAVE SETTINGS BUT SET POLLING_INTERVAL TO 0
+      * ALSO SET MAX_FREQ FOR BOTH CPU SETS, GPU AND DDR TO THE SAME VALUE
+      * USED FOR MIN_FREQ TO SAVE BATTERY
+       */
+      sysfs_write_int(INTERACTIVE_PATH0 "go_hispeed_load",
+                      profiles0[PROFILE_POWER_SAVE].go_hispeed_load);
+      sysfs_write_int(INTERACTIVE_PATH0 "hispeed_freq",
+                      profiles0[PROFILE_POWER_SAVE].hispeed_freq);
+      sysfs_write_int(INTERACTIVE_PATH0 "io_is_busy",
+                      profiles0[PROFILE_POWER_SAVE].io_is_busy);
+      sysfs_write_int(INTERACTIVE_PATH0 "boostpulse_duration",
+                      profiles0[PROFILE_POWER_SAVE].boostpulse_duration);
+      sysfs_write_str(INTERACTIVE_PATH0 "target_loads",
+                      profiles0[PROFILE_POWER_SAVE].target_loads);
+      sysfs_write_int(CPUFREQ_PATH0 "scaling_min_freq",
+                      profiles0[PROFILE_POWER_SAVE].scaling_min_freq);
+      sysfs_write_int(CPUFREQ_PATH0 "scaling_max_freq",
+                      profiles0[PROFILE_POWER_SAVE].scaling_min_freq);
+
+      sysfs_write_int(ONDEMAND_PATH1 "io_is_busy",
+                      profiles1[PROFILE_POWER_SAVE].io_is_busy);
+      sysfs_write_int(ONDEMAND_PATH1 "sampling_down_factor",
+                      profiles1[PROFILE_POWER_SAVE].sampling_down_factor);
+      sysfs_write_int(ONDEMAND_PATH1 "sampling_rate",
+                      profiles1[PROFILE_POWER_SAVE].sampling_rate);
+      sysfs_write_int(ONDEMAND_PATH1 "up_threshold",
+                      profiles1[PROFILE_POWER_SAVE].up_threshold);
+      sysfs_write_int(CPUFREQ_PATH1 "scaling_min_freq",
+                      profiles0[PROFILE_POWER_SAVE].scaling_min_freq);
+      sysfs_write_int(CPUFREQ_PATH1 "scaling_max_freq",
+                      profiles0[PROFILE_POWER_SAVE].scaling_min_freq);
+
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_up",
+                      profiles2[PROFILE_POWER_SAVE].hmp_up);
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_down",
+                      profiles2[PROFILE_POWER_SAVE].hmp_down);
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_prio",
+                      profiles2[PROFILE_POWER_SAVE].hmp_prio);
+
+      sysfs_write_int(DDRFREQ__PATH "min_freq",
+                      profiles2[PROFILE_POWER_SAVE].ddr_min_freq);
+      sysfs_write_int(DDRFREQ__PATH "max_freq",
+                      profiles2[PROFILE_POWER_SAVE].ddr_min_freq);
+      sysfs_write_int(DDRFREQ__PATH "polling_interval", 0);
+
+      sysfs_write_int(GPUFREQ_PATH "min_freq",
+                      profiles2[PROFILE_POWER_SAVE].gpu_min_freq);
+      sysfs_write_int(GPUFREQ_PATH "max_freq",
+                      profiles2[PROFILE_POWER_SAVE].gpu_min_freq);
+      sysfs_write_int(GPUFREQ_PATH "polling_interval", 0);
+      sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost",
+                      profiles2[PROFILE_POWER_SAVE].animation_boost);
+      sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost_freq",
+                      profiles2[PROFILE_POWER_SAVE].animation_boost_freq);
+    } else {
+      sysfs_write_int(INTERACTIVE_PATH0 "go_hispeed_load",
+                      profiles0[current_power_profile].go_hispeed_load);
+      sysfs_write_int(INTERACTIVE_PATH0 "hispeed_freq",
+                      profiles0[current_power_profile].hispeed_freq);
+      sysfs_write_int(INTERACTIVE_PATH0 "io_is_busy",
+                      profiles0[current_power_profile].io_is_busy);
+      sysfs_write_int(INTERACTIVE_PATH0 "boostpulse_duration",
+                      profiles0[current_power_profile].boostpulse_duration);
+      sysfs_write_str(INTERACTIVE_PATH0 "target_loads",
+                      profiles0[current_power_profile].target_loads);
+      sysfs_write_int(CPUFREQ_PATH0 "scaling_min_freq",
+                      profiles0[current_power_profile].scaling_min_freq);
+      sysfs_write_int(CPUFREQ_PATH0 "scaling_max_freq",
+                      profiles0[current_power_profile].scaling_max_freq);
+
+      sysfs_write_int(ONDEMAND_PATH1 "io_is_busy",
+                      profiles1[current_power_profile].io_is_busy);
+      sysfs_write_int(ONDEMAND_PATH1 "sampling_down_factor",
+                      profiles1[current_power_profile].sampling_down_factor);
+      sysfs_write_int(ONDEMAND_PATH1 "sampling_rate",
+                      profiles1[current_power_profile].sampling_rate);
+      sysfs_write_int(ONDEMAND_PATH1 "up_threshold",
+                      profiles1[current_power_profile].up_threshold);
+      sysfs_write_int(CPUFREQ_PATH1 "scaling_min_freq",
+                      profiles0[current_power_profile].scaling_min_freq);
+      sysfs_write_int(CPUFREQ_PATH1 "scaling_max_freq",
+                      profiles0[current_power_profile].scaling_max_freq);
+
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_up",
+                      profiles2[current_power_profile].hmp_up);
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_down",
+                      profiles2[current_power_profile].hmp_down);
+      sysfs_write_int(KERNEL_HMP_PATH "hmp_prio",
+                      profiles2[current_power_profile].hmp_prio);
+
+      sysfs_write_int(DDRFREQ__PATH "min_freq",
+                      profiles2[current_power_profile].ddr_min_freq);
+      sysfs_write_int(DDRFREQ__PATH "max_freq",
+                      profiles2[current_power_profile].ddr_max_freq);
+      sysfs_write_int(DDRFREQ__PATH "polling_interval",
+                      profiles2[current_power_profile].ddr_polling_interval);
+
+      sysfs_write_int(GPUFREQ_PATH "min_freq",
+                      profiles2[current_power_profile].gpu_min_freq);
+      sysfs_write_int(GPUFREQ_PATH "max_freq",
+                      profiles2[current_power_profile].gpu_max_freq);
+      sysfs_write_int(GPUFREQ_PATH "polling_interval",
+                      profiles2[current_power_profile].gpu_polling_interval);
+      sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost",
+                      profiles2[current_power_profile].animation_boost);
+      sysfs_write_int(GPU_ONDEMAND_PATH "animation_boost_freq",
+                      profiles2[current_power_profile].animation_boost_freq);
+    }
 }
 
 static void process_video_encode_hint(void *metadata)
@@ -259,12 +421,7 @@ static void process_video_encode_hint(void *metadata)
     on = !strncmp(metadata, STATE_ON, sizeof(STATE_ON));
 
     sysfs_write_int(INTERACTIVE_PATH0 "timer_rate", on ?
-            VID_ENC_TIMER_RATE :
-            profiles0[current_power_profile].timer_rate);
-    sysfs_write_int(INTERACTIVE_PATH1 "timer_rate", on ?
-            VID_ENC_TIMER_RATE :
-            profiles1[current_power_profile].timer_rate);
-
+            VID_ENC_TIMER_RATE : 20000);
 
     sysfs_write_int(INTERACTIVE_PATH0 "io_is_busy", on ?
             VID_ENC_IO_IS_BUSY :
@@ -284,12 +441,14 @@ static void power_hint(__attribute__((unused)) struct power_module *module,
     case POWER_HINT_INTERACTION:
     case POWER_HINT_LAUNCH_BOOST:
     case POWER_HINT_CPU_BOOST:
+        if(low_power)
+            return;
         if (is_profile_valid(current_power_profile) < 0) {
             ALOGD("%s: no power profile selected yet", __func__);
             return;
         }
 
-        if (!profiles0[current_power_profile].boostpulse_duration && !profiles1[current_power_profile].boostpulse_duration)
+        if (!profiles0[current_power_profile].boostpulse_duration)
             return;
 
         // break out early if governor is not interactive
@@ -316,9 +475,15 @@ static void power_hint(__attribute__((unused)) struct power_module *module,
         break;
     case POWER_HINT_VIDEO_ENCODE:
         pthread_mutex_lock(&lock);
-        process_video_encode_hint(data);
+        if(!low_power)
+            process_video_encode_hint(data);
         pthread_mutex_unlock(&lock);
         break;
+    case POWER_HINT_LOW_POWER:
+        pthread_mutex_lock(&lock);
+    		power_hint_low_power(*(int32_t *)data);
+        pthread_mutex_unlock(&lock);
+    		break;
     default:
         break;
     }
@@ -328,14 +493,25 @@ static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
 
+static void set_dt2w(int on) {
+    dt2w = on;
+    if(on)
+	     sysfs_write_int(TAP_TO_WAKE_NODE,1);
+    else
+	     sysfs_write_int(TAP_TO_WAKE_NODE,0);
+}
+
 static int get_feature(__attribute__((unused)) struct power_module *module,
                        feature_t feature)
 {
     int ret = -1;
     switch (feature) {
+      case POWER_FEATURE_DOUBLE_TAP_TO_WAKE:
+        ret = 1;
+        break;
     case POWER_FEATURE_SUPPORTED_PROFILES:
-	ret = PROFILE_MAX;
-	break;
+	     ret = PROFILE_MAX;
+	     break;
     default:
         break;
     }
@@ -346,9 +522,13 @@ static void set_feature(__attribute__((unused)) struct power_module *module,
                        feature_t feature, int mode)
 {
     switch (feature) {
+    case POWER_FEATURE_DOUBLE_TAP_TO_WAKE:
+        set_dt2w(mode);
+        ALOGI("POWER_FEATURE_DOUBLE_TAP_TO_WAKE: %d",mode);
+        break;
     case POWER_FEATURE_SUPPORTED_PROFILES:
         ALOGI("POWER_FEATURE_SUPPORTED_PROFILES: %d",mode);
-	break;
+	      break;
     default:
         break;
     }
@@ -357,7 +537,7 @@ static void set_feature(__attribute__((unused)) struct power_module *module,
 struct power_module HAL_MODULE_INFO_SYM = {
     .common = {
         .tag = HARDWARE_MODULE_TAG,
-        .module_api_version = POWER_MODULE_API_VERSION_0_2,
+        .module_api_version = POWER_MODULE_API_VERSION_0_3,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
         .name = "HI3635 Power HAL",
