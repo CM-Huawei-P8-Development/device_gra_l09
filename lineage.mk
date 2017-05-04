@@ -23,8 +23,7 @@ $(call inherit-product, device/huawei/hwgra/full_hwgra.mk)
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-
-# Boot animation
+# BOOTANIMATION
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
