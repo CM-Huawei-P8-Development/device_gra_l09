@@ -1,0 +1,82 @@
+on fs
+
+    #mount ext4 /dev/block/platform/hi_mci.0/by-name/cust /cust wait ro nosuid nodev
+    #mount_doul vfat-ext4 /dev/block/platform/hi_mci.0/by-name/splash2 /splash2 wait rw nosuid nodev uid=1000,gid=1000,fmask=0002,dmask=0002,context=u:object_r:splash2_data_file:s0
+    #mount ext4 /dev/block/platform/hi_mci.0/by-name/3rdmodem /3rdmodem noatime nosuid nodev context=u:object_r:radio_data_file:s0
+    #mount ext4 /dev/block/platform/hi_mci.0/by-name/3rdmodemnvm /3rdmodemnvm noatime nosuid nodev context=u:object_r:radio_data_file:s0
+    #mount ext4 /dev/block/platform/hi_mci.0/by-name/3rdmodemnvmback /3rdmodemnvmbkp noatime nosuid nodev context=u:object_r:radio_data_file:s0
+
+
+
+
+
+
+#service pmom /system/bin/pmom_cat -i /dev/pmom -e s -r 10240 -z 3 -n 1 -f /data/android_logs/pmom-log
+#	class late_start
+#	user root
+#	group system
+#	disabled
+
+#service audiouartctl /system/bin/audiouartctl on
+#    class main
+
+
+#service teelogcat /system/bin/tlogcat -f
+#class late_start
+#user root
+#group system
+#disabled
+
+#on property:persist.sys.huawei.debug.on=1
+#start teelogcat
+
+#on property:persist.sys.huawei.debug.on=0
+#stop teelogcat
+
+#service atcmdserver  /system/bin/atcmdserver
+#    class main
+#    disabled
+
+service oeminfo_nvm /sbin/oeminfo_nvm_server
+    class core
+    critical
+    ioprio rt 4
+
+#service diagserver /system/bin/diagserver
+#    class main
+#    user root
+
+service goldeneye /system/bin/goldeneye
+    class main
+    user root
+
+#service check_root /sbin/check_root
+#    class main
+#    oneshot
+
+#service check_longpress /system/bin/check_longpress
+#    class main
+#    oneshot
+
+#on property:sys.boot_completed=1
+#    start check_root
+
+#on property:ro.runmode=factory
+#    chmod 0775 /data/media/0/Music
+#    chmod 0775 /data/media/0/Pictures
+#    chown media_rw media_rw /data/media/0
+#    chown media_rw media_rw /data/media/0/Music
+#    chown media_rw media_rw /data/media/0/Pictures
+
+#broken atm
+#service hwnffserver  /system/bin/hwnffserver
+#    class main
+#    socket hwnff stream 0660 root mount
+
+#service data_cleanner /system/bin/data_cleaner
+#    class core
+#    oneshot
+
+#service check_hota /system/bin/sh /system/etc/check_hota.sh
+#    class core
+#    oneshot

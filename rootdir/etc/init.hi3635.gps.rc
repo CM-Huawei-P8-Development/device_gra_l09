@@ -1,0 +1,67 @@
+on post-fs-data
+
+    mkdir /data/gps 775 system system
+    mkdir /data/gps/log 770
+    #chown root system /data/gps
+    #chmod 775 /data/gps
+    #chmod 770 /data/gps/log
+
+    #mkdir /data/hwzd_logs
+    mkdir /data/hwzd_logs/gps_log 775 root system
+    #chown root system /data/hwzd_logs
+    #chmod 775 /data/hwzd_logs
+    #chmod 775 /data/hwzd_logs/gps_log
+
+    mkdir /data/hwzd_logs/gps_log/.tmp 775 gps system
+
+    mkdir /data/hwzd_logs/gps_log/ipa 775 root system
+    mkdir /data/hwzd_logs/gps_log/ipa/log 775 root system
+
+    mkdir /data/hwzd_logs/gps_log/gps 775 gps system
+    mkdir /data/hwzd_logs/gps_log/lhd 775 gps system
+
+    mkdir /data/hwzd_logs/gps_log/gps/.tmp 775 gps system
+    mkdir /data/hwzd_logs/gps_log/lhd/.tmp 775 gps system
+
+    chmod 660 /data/gps/.flp.interface.pipe.to_gpsd
+    chmod 660 /data/gps/.flp.interface.pipe.to_jni
+    chmod 660 /data/gps/.gps.interface.pipe.to_gpsd
+    chmod 660 /data/gps/.gps.interface.pipe.to_jni
+
+on boot
+
+    chown root system /dev/ttyAMA3
+    chmod 0664 /dev/ttyAMA3
+      #chown root system /dev/gpstty
+      #chmod 0664 /dev/gpstty
+      chown gps system /dev/appvcom9
+      chmod 0664 /dev/appvcom9
+      chown root system /proc/gps/nstandby
+      chmod 0664 /proc/gps/nstandby
+
+    #Note only 1 out of those 3 following gps daemons will start
+    #This seems intentional
+    service gpsdaemon /system/bin/gpsdaemon
+    class late_start
+    oneshot
+
+    service gpsd_47531  /system/bin/glgps47531 -c /data/gps/gpsconfig.xml
+    socket gps seqpacket 660 root root
+    class late_start
+    user root
+    group system inet sdcard_rw
+    disabled
+
+    service gpsdcl_47531  /system/bin/glgps47531cl -c /data/gps/gpsconfig.xml
+    socket gps seqpacket 660 root root
+    class late_start
+    user root
+    group system inet sdcard_rw
+    disabled
+
+    service gpsd_4752  /system/bin/glgps4752 -c /data/gps/gpsconfig.xml
+    socket gps seqpacket 660 root root
+    class late_start
+    user root
+    group system inet sdcard_rw
+    disabled
