@@ -45,4 +45,6 @@ for VBLOB in $VBLOBS;do
 	fi
 done
 
+echo "$(call inherit-product-if-exists, $VENDORDIR/$DEVICE-vendor-blobs.mk)" >> $MK_VENDOR_BLOBS
+
 echo "Done"
