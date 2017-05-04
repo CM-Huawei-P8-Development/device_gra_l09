@@ -996,15 +996,13 @@ on nonencrypted
 on data_ready
     setprop sys.userdata_is_ready 1
     write /proc/post-fs-data 1
-    write /proc/data-ready 1
     write /proc/apanic_console 1
-      setprop sys.usb.start_atdiag ${sys.usb.start_atdiag}
-      setprop sys.usb.start_modempcui ${sys.usb.start_modempcui}
+#      setprop sys.usb.start_atdiag ${sys.usb.start_atdiag}
+#      setprop sys.usb.start_modempcui ${sys.usb.start_modempcui}
 
 on data_not_ready
     setprop sys.userdata_is_ready 0
     write /proc/post-fs-data 0
-    write /proc/data-ready 0
 
 on charger
     mount_all /fstab.hi3635
@@ -1117,12 +1115,12 @@ service macaddr /system/bin/mac_addr_normalization
    group root bluetooth net_bt_stack wifi
    oneshot
 
-service wifi_wakeup_src /system/bin/wifiwakeupsrc
-   class core
-   user root
-   group root wifi
-   disabled
-   oneshot
+#service wifi_wakeup_src /system/bin/wifiwakeupsrc
+#   class core
+#   user root
+#   group root wifi
+#   disabled
+#   oneshot
 
 service p2p_supplicant /system/bin/wpa_supplicant -d \
    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -1188,19 +1186,19 @@ service modemlogcat_VIA /system/bin/modemlogcat_via -t /dev/ttySPI1 -c /system/e
    disabled
    oneshot
 
-service preparesdservice /system/bin/vdc volume storagetosd
-   class main
-   disabled
-   oneshot
+#service preparesdservice /system/bin/vdc volume storagetosd
+#   class main
+#   disabled
+#   oneshot
 
-on property:persist.sys.primarysd=*
-   start preparesdservice
+#on property:persist.sys.primarysd=*
+#   start preparesdservice
 
-service logserver /system/bin/logserver
-    class late_start
-    user root
-    group system
-    oneshot
+#service logserver /system/bin/logserver
+#    class late_start
+#    user root
+#    group system
+#    oneshot
 
 service modemlogcat /system/bin/modemlogcat_lte -l
     class late_start
@@ -1216,8 +1214,8 @@ service modematserver /system/bin/modemlogcat_lte -f hidp
     disabled
     oneshot
 
-service dumptool /system/bin/dumptool
-    class late_start
+#service dumptool /system/bin/dumptool
+#    class late_start
 
 service hw_cdma_service /system/bin/hw_cdmamodem_service /dev/acm_cdma_log /dev/ttySPI3 /dev/ttySPI1
     class main
@@ -1229,47 +1227,47 @@ service thermal-daemon /system/bin/thermal-daemon
     user system
     group system
 
-service hwpged /system/bin/hwpged
-    class main
-    socket MsgHubSock stream 0660 root system
-    user root
+#service hwpged /system/bin/hwpged
+#    class main
+#    socket MsgHubSock stream 0660 root system
+#    user root
 
-service chargemonitor /system/bin/chargemonitor
-    class late_start
-    user root
-    group system
+#service chargemonitor /system/bin/chargemonitor
+#    class late_start
+#    user root
+#    group system
 
-service bastetd /system/bin/bastetd
-    class main
-    user root
-    group root
+#service bastetd /system/bin/bastetd
+#    class main
+#    user root
+#    group root
 
 service perfhub /system/bin/perfhub
     class core
     user system
     group system
 
-  service atcmdserver /system/bin/atcmdserver
-      class main
-      disabled
+#  service atcmdserver /system/bin/atcmdserver
+#      class main
+#      disabled
 
   service oeminfo_nvm /sbin/oeminfo_nvm_server
       class core
       critical
       ioprio rt 4
 
-  service diagserver /system/bin/diagserver
-      class main
-      user root
-      disabled
+#  service diagserver /system/bin/diagserver
+#      class main
+#      user root
+#      disabled
 
-  service hwnffserver /system/bin/hwnffserver
-      class main
-      socket hwnff stream 0660 root mount
+#  service hwnffserver /system/bin/hwnffserver
+#      class main
+#      socket hwnff stream 0660 root mount
 
-  service data_cleaner /system/bin/data_cleaner
-      class core
-      oneshot
+#  service data_cleaner /system/bin/data_cleaner
+#      class core
+#      oneshot
 
 service teecd /sbin/teecd
     socket tee-multi-user stream 660 root system
