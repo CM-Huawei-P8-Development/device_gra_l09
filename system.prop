@@ -60,7 +60,7 @@ hw.enterinto.imm_chat.scene=false
 camera.ignore.chat.facebeauty=1
 bastet.service.enable=true
 ro.sys.umsdirtyratio=2
-ro.hardware.alter=Hisilicon Kirin 930
+#ro.hardware.alter=Hisilicon Kirin 930
 ro.product.cpuinfo.normal=Hisilicon_Kirin_930
 ro.product.cpuinfo.high=Hisilicon_Kirin_935
 ro.product.cpuinfo.highhigh=Hisilicon_Kirin_935
@@ -120,7 +120,7 @@ rild.rild1_ready_to_start=false
 rild.libpath=/system/lib64/libbalong-ril.so
 ro.config.hw_dsda=false
 ro.multi.rild=false
-rild.libargs=-m modem0
+rild.libargs=-mmodem0
 ro.telephony.default_network=9
 
 #Modem related?
@@ -201,7 +201,7 @@ ro.am.reschedule_service=true
 #Better signal?
 
 persist.cust.tel.eons=1
-#ro.config.hw_fast_dormancy=1
+ro.config.hw_fast_dormancy=1
 
 #Better vocie quality
 
@@ -217,7 +217,7 @@ persist.telephony.support.ipv4=1
 ro.telephony.call_ring.delay=0
 ring.delay=0
 
-#May fix a black screen issue related to 
+#May fix a black screen issue related to
 ro.lge.proximity.delay=25
 mot.proximity.delay=25
 
