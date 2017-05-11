@@ -10,14 +10,6 @@ $(call inherit-product-if-exists, vendor/huawei/hwgra/hwgra-vendor.mk)
 PRODUCT_PACKAGE_OVERLAYS += \
 	device/huawei/hwgra/overlay
 
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/huawei/hwgra/kernel
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-
 #Dalvik & memory
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
