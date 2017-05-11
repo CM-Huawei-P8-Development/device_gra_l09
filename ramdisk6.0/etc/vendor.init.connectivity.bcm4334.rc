@@ -58,12 +58,12 @@ service macaddr /system/bin/mac_addr_normalization
     oneshot
 
 
-service wifi_wakeup_src /system/bin/wifiwakeupsrc
-    class core
-    user root
-    group root wifi
-    disabled
-    oneshot
+#service wifi_wakeup_src /system/bin/wifiwakeupsrc
+#    class core
+#    user root
+#    group root wifi
+#    disabled
+#    oneshot
 
 service p2p_supplicant /system/bin/wpa_supplicant -d \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
