@@ -1,5 +1,5 @@
 #Assert
-TARGET_OTA_ASSERT_DEVICE := hwgra,gra_l09,huawei_p8,ascend_p8,p8,grace,hi3635
+TARGET_OTA_ASSERT_DEVICE := hi3635,GRA-L09,hwgra,HWGRA,gra_l09,huawei_p8,ascend_p8,P8,grace,GRACE
 
 
 #CM Hardware abstraction
@@ -51,13 +51,8 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 #Camera
 USE_CAMERA_STUB := true
-
-# Force camera module to be compiled only in 32-bit mode on 64-bit systems
-# Once camera module can run in the native mode of the system (either
-# 32-bit or 64-bit), the following line should be deleted
-#BOARD_QTI_CAMERA_32BIT_ONLY := true
-BOARD_CAMERA_HAVE_ISO := true
 USE_DEVICE_SPECIFIC_CAMERA := true
+#BOARD_CAMERA_HAVE_ISO := true
 #BOARD_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
 #TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
@@ -80,7 +75,7 @@ BOARD_NFC_CHIPSET := pn547
 NXP_CHIP_TYPE := 1
 
 #GPU
-TARGET_BOARD_GPU := mali-t628mp4
+TARGET_BOARD_GPU := mali-t628
 TARGET_HARDWARE_3D := true
 ANDROID_ENABLE_RENDERSCRIPT := true
 USE_OPENGL_RENDERER := true
@@ -88,11 +83,12 @@ BOARD_EGL_CFG := $(LOCAL_PATH)/gpu/egl.cfg
 
 
 #Audio
-#TARGET_PROVIDES_LIBAUDIO := true
+TARGET_PROVIDES_LIBAUDIO := true
 BOARD_USES_ALSA_AUDIO := true
-BOARD_USES_TINY_ALSA_AUDIO := true
+#BOARD_USES_TINY_ALSA_AUDIO := true
 BOARD_USES_GENERIC_AUDIO := false
-BUILD_WITH_ALSA_UTILS := true
+#BUILD_WITH_ALSA_UTILS := true
+BOARD_SUPPORTS_SOUND_TRIGGER := true
 
 # RIL
 #COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
@@ -108,14 +104,11 @@ BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-#WPA_SUPPLICANT_VERSION := VER_2_0_X
 WIFI_DRIVER_NVRAM_PATH := "/vendor/firmware/nvram4334_hw.txt"
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA := "/system/vendor/firmware/fw_bcm4334_hw.bin"
 WIFI_DRIVER_FW_PATH_AP := "/system/vendor/firmware/fw_bcm4334_apsta_hw.bin"
 WIFI_BAND := 802_11_ABGN
-#WIFI_DRIVER_MODULE_NAME := bcmdhd
-#WIFI_DRIVER_MODULE_PATH := auto
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw_fifa_ul.txt ifname=wlan0"
 WIFI_DRIVER_MODULE_P2P := "firmware_path=/system/vendor/firmware/fw_bcm4334_apsta_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw_fifa_ul.txt ifname=wlan0"
 WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/system/vendor/firmware/fw_bcm4334_apsta_hw.bin nvram_path=/system/vendor/firmware/nvram4334_hw_fifa_ul.txt ifname=wlan0"
@@ -128,6 +121,7 @@ BOARD_CUSTOM_BT_CONFIG := $(LOCAL_PATH)/bluetooth/vnd_hwgra.conf
 
 #CPU/ARCH
 TARGET_ARCH := arm64
+
 TARGET_BOARD_PLATFORM := hi3635
 TARGET_CPU_ABI := arm64-v8a
 #TARGET_CPU_ABI2 := armeabi-v7a,armeabi
@@ -152,7 +146,6 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 # 64 bit
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HIGH_OPTIMIZATION := true
-ANDROID_64=true
 BOARD_VENDOR_PLATFORM := hi3635
 HISI_TARGET_PRODUCT := hi3635
 TARGET_USES_64_BIT_BINDER := true
@@ -175,7 +168,7 @@ TARGET_KERNEL_CONFIG :=merge_hi3635_defconfig
 HAVE_SELINUX := true
 
 #Kernel Config
-BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 enforcing=0 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem) cpuidle_sysfs_switch=1
+BOARD_KERNEL_CMDLINE := androidboot.hardware=hi3635 androidboot.selinux=permissive no_console_suspend=1 mem=3072M coherent_pool=512K mmcparts=mmcblk0:p1(vrl),p2(vrl_backup),p6(modemnvm_factory),p9(splash),p10(modemnvm_backup),p11(modemnvm_img),p12(modemnvm_system),p14(3rdmodemnvm),p15(3rdmodemnvmback),p17(modem_om),p20(modemnvm_update),p30(modem),p31(modem_dsp),p32(dfx),p33(3rdmodem) cpuidle_sysfs_switch=1
 BOARD_KERNEL_BASE := 0x00678000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x07588000 --tags_offset 0xffb88000
@@ -199,6 +192,25 @@ BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
 #init
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
+
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.root_access=3
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.root_access=3
+    #ro.build.selinux=0 \
+
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.config.hw_perfhub=true \
+    ro.adb.secure=0 \
+    ro.secure=0 \
+    ro.debuggable=1 \
+    ro.allow.mock.location=1 \
+    persist.sys.root_access=3 \
+    ro.zygote=zygote64_32 \
+    persist.logd.logpersistd=logcatd \
+    sys.init_log_level=3
 
 #TWRP
 RECOVERY_VARIANT := twrp
@@ -233,6 +245,7 @@ RECOVERY_SDCARD_ON_DATA := true
 
 # FM Radio
 BOARD_HAVE_FM_RADIO := true
+BOARD_FM_DEVICE := bcm4334
 
 # BOOTANIMATION
 TARGET_BOOTANIMATION_PRELOAD := true
@@ -243,8 +256,7 @@ BOARD_VENDOR := huawei
 PRODUCT_GMS_CLIENTID_BASE := android-huawei
 
 # TAP TO WAKE
-TARGET_TAP_TO_WAKE_NODE := "/sys/touchscreen/easy_wakeup_gesture"
-TARGET_TAP_TO_WAKE_UP := "/sys/touchscreen/wakeup_gesture_enable"
+TARGET_TAP_TO_WAKE_NODE := "/sys/touchscreen/wakeup_gesture_enable"
 
 # inherit from the proprietary version
 -include vendor/huawei/hwgra/BoardConfigVendor.mk

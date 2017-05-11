@@ -27,9 +27,17 @@ PRODUCT_PACKAGES += lights.hi3635
 
 #Audio
 PRODUCT_PACKAGES += \
-	audio.a2dp.default \
-	audio.usb.default \
-	audio.r_submix.default
+    audio.primary.default \
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libaudioutils \
+    libaudioroute \
+    libtinyalsa \
+    tinyplay \
+    tinycap \
+    tinymix \
+    tinypcminfo
 
 
 # FM RADIO
@@ -78,13 +86,6 @@ PRODUCT_COPY_FILES += \
 
 #Camera
 PRODUCT_PACKAGES += \
-    libcamera \
-    libmmcamera_interface \
-    libmmcamera_interface2 \
-    libmmjpeg_interface \
-    libqomx_core \
-    libmm-qcamera \
-    mm-qcamera-app \
     Snap  
 
 # FM RADIO quick hack to copy renamed files, does cm looks for default?
@@ -108,7 +109,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/media/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs_dts_audio.xml \
+    $(LOCAL_PATH)/media/media_codecs_dts_audio.xml:system/etc/media_codecs_dts_audio.xml \
     $(LOCAL_PATH)/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
 
