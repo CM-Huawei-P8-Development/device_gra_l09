@@ -150,31 +150,34 @@ PRODUCT_COPY_FILES += \
 
 
 
+#Ramdisk
+PRODUCT_PACKAGES += \
+    custom.init.mods.rc \
+    custom.init.usb.rc \
+    init.hi3635.rc \
+    init.recovery.hi3635.rc \
+    ueventd.hi3635.rc \
+    vendor.init.5844.rc \
+    vendor.init.audio.rc \
+    vendor.init.balong_modem.rc \
+    vendor.init.connectivity.bcm4334.rc \
+    vendor.init.connectivity.gps.rc \
+    vendor.init.connectivity.rc \
+    vendor.init.device.rc \
+    vendor.init.extmodem.rc \
+    vendor.init.hi3635.rc \
+    vendor.init.hisi.rc \
+    vendor.init.manufacture.rc \
+    vendor.init.performance.rc \
+    vendor.init.platform.rc \
+    vendor.init.post-fs-data.rc \
+    vendor.init.protocol.rc \
+    vendor.init.tee.rc 
+
 #Some files for the boot ramdisk
 BOOT_RAMDISK_SRC = $(LOCAL_PATH)/ramdisk6.0
 BOOT_RAMDISK_DST = root
 PRODUCT_COPY_FILES += \
-$(BOOT_RAMDISK_SRC)/init.hi3635.rc:$(BOOT_RAMDISK_DST)/init.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/init.recovery.hi3635.rc:$(BOOT_RAMDISK_DST)/init.recovery.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/custom.init.mods.rc:$(BOOT_RAMDISK_DST)/custom.init.mods.rc \
-$(BOOT_RAMDISK_SRC)/custom.init.usb.rc:$(BOOT_RAMDISK_DST)/custom.init.usb.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.5844.rc:$(BOOT_RAMDISK_DST)/vendor.init.5844.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.audio.rc:$(BOOT_RAMDISK_DST)/vendor.init.audio.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.balong_modem.rc:$(BOOT_RAMDISK_DST)/vendor.init.balong_modem.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.connectivity.bcm4334.rc:$(BOOT_RAMDISK_DST)/vendor.init.connectivity.bcm4334.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.connectivity.gps.rc:$(BOOT_RAMDISK_DST)/vendor.init.connectivity.gps.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.connectivity.rc:$(BOOT_RAMDISK_DST)/vendor.init.connectivity.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.device.rc:$(BOOT_RAMDISK_DST)/vendor.init.device.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.extmodem.rc:$(BOOT_RAMDISK_DST)/vendor.init.extmodem.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.hi3635.rc:$(BOOT_RAMDISK_DST)/vendor.init.hi3635.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.hisi.rc:$(BOOT_RAMDISK_DST)/vendor.init.hisi.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.manufacture.rc:$(BOOT_RAMDISK_DST)/vendor.init.manufacture.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.performance.rc:$(BOOT_RAMDISK_DST)/vendor.init.performance.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.platform.rc:$(BOOT_RAMDISK_DST)/vendor.init.platform.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.protocol.rc:$(BOOT_RAMDISK_DST)/vendor.init.protocol.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.tee.rc:$(BOOT_RAMDISK_DST)/vendor.init.tee.rc \
-$(BOOT_RAMDISK_SRC)/vendor.init.post-fs-data.rc:$(BOOT_RAMDISK_DST)/vendor.init.post-fs-data.rc \
-$(BOOT_RAMDISK_SRC)/ueventd.hi3635.rc:$(BOOT_RAMDISK_DST)/ueventd.hi3635.rc \
 $(BOOT_RAMDISK_SRC)/fstab.hi3635:$(BOOT_RAMDISK_DST)/fstab.hi3635 \
 $(BOOT_RAMDISK_SRC)/sbin/teecd:$(BOOT_RAMDISK_DST)/sbin/teecd \
 $(BOOT_RAMDISK_SRC)/sbin/e2fsck_s:$(BOOT_RAMDISK_DST)/sbin/e2fsck_s \
