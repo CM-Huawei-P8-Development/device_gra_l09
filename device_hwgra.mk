@@ -31,15 +31,14 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default
 
-#Sensors
-#Huawei changed stuff here and the defaults do in fact
-#not work without further changes.
-#So we take their libraries for the moment
-#PRODUCT_PACKAGES += \
-#	sensorservice \
-#	sensors.default \
-#	sensorhub.default \
-#	sensorcaps.default
+
+# FM RADIO
+PRODUCT_PACKAGES += \
+    FMRadio
+
+# GELLO
+PRODUCT_PACKAGES += \
+    Gello
 
 #?
 PRODUCT_PACKAGES += \
@@ -52,7 +51,7 @@ PRODUCT_PACKAGES += \
 	NQNfcNci \
 	nqnfcee_access.xml \
 	nqnfcse_access.xml \
-	Tagf
+	Tag
 
 #WIFI
 PRODUCT_PACKAGES += \
@@ -78,11 +77,20 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/vendor6.0/system/lib64/hw/gps47531.default.so:system/lib64/hw/gps.hi3635.so
 
 #Camera
-#PRODUCT_PACKAGES += \
-#	stlport \
-#	stlport_static
+PRODUCT_PACKAGES += \
+    libcamera \
+    libmmcamera_interface \
+    libmmcamera_interface2 \
+    libmmjpeg_interface \
+    libqomx_core \
+    libmm-qcamera \
+    mm-qcamera-app \
+    Snap  
 
-
+# FM RADIO quick hack to copy renamed files, does cm looks for default?
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/vendor6.0/system/lib/hw/fm.bcm.hi3635.so:system/lib/hw/fm.bcm.default.so \
+    $(LOCAL_PATH)/vendor6.0/system/lib64/hw/fm.bcm.hi3635.so:system/lib64/hw/fm.bcm.default.so
 
 #Camera
 PRODUCT_COPY_FILES += \
@@ -94,6 +102,21 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/vendor6.0/system/lib64/libmedia.so:system/lib64/libshim_media.so \
 	$(LOCAL_PATH)/vendor6.0/system/lib/libcamera_client.so:system/lib/libshim_camera_client.so \
 	$(LOCAL_PATH)/vendor6.0/system/lib64/libcamera_client.so:system/lib64/libshim_camera_client.so
+
+
+# MEDIA
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/media/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs_dts_audio.xml \
+    $(LOCAL_PATH)/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
+
+# AUDIO
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml
+
 
 #Bluetooth Missing xml files after build
 #That's probably not the propper way to do it!
@@ -158,6 +181,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     custom.init.mods.rc \
     custom.init.usb.rc \
+    init.hi3635.power.rc \
     init.hi3635.rc \
     init.recovery.hi3635.rc \
     ueventd.hi3635.rc \
@@ -197,7 +221,6 @@ $(BOOT_RAMDISK_SRC)/sbin/hw_ueventd:$(BOOT_RAMDISK_DST)/sbin/hw_ueventd
 
 #$(call inherit-product, build/target/product/full.mk) #we don't want to build emulator stuff
 
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 PRODUCT_DEVICE:=hwgra
 PRODUCT_NAME:=full_hwgra
