@@ -415,7 +415,7 @@ lib64/libBootloaderOeminfo.so
 
 #Some vendor blobs seems that there is more in lib/hw lib64/hw than just the hwcomposer
 #lib64/hw/bastet.hi3635.so
-lib64/hw/camera.hi3635.so:lib64/hw/camera.vendor.hi3635.so
+lib64/hw/camera.hi3635.so
 lib64/hw/copybit.hi3635.so
 lib64/hw/flp.default.so
 lib64/hw/gps4752.default.so
@@ -427,7 +427,7 @@ lib64/hw/memtrack.hi3635.so
 #lib64/hw/power.hi3635.so
 lib64/hw/sensorhub.default.so
 lib64/hw/sensorcaps.default.so
-lib/hw/camera.hi3635.so:lib/hw/camera.vendor.hi3635.so
+lib/hw/camera.hi3635.so
 lib/hw/copybit.hi3635.so
 lib/hw/keystore.hi3635.so
 #lib/hw/lights.default.so
