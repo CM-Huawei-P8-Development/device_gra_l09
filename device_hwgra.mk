@@ -67,6 +67,10 @@ PRODUCT_PACKAGES += \
 	hwcomposer.hi3635
 
 
+#Power HAL
+PRODUCT_PACKAGES += \
+    power.hi3635
+
 #GPS
 #Somehow CM looks for this file with another name
 #I'l keep the stock ones there too.
