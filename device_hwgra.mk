@@ -34,7 +34,7 @@ PRODUCT_PACKAGES += \
 
 # FM RADIO
 PRODUCT_PACKAGES += \
-    libfmjni
+    libfmjni \
     FMRadio
 
 # GELLO isn't available
