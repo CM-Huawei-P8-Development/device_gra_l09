@@ -34,6 +34,7 @@ PRODUCT_PACKAGES += \
 
 # FM RADIO
 PRODUCT_PACKAGES += \
+    libfmjni
     FMRadio
 
 # GELLO isn't available
@@ -64,11 +65,6 @@ PRODUCT_PACKAGES += \
 #HWC
 PRODUCT_PACKAGES += \
 	hwcomposer.hi3635
-
-
-#Power HAL
-PRODUCT_PACKAGES += \
-    power.hi3635
 
 #GPS
 #Somehow CM looks for this file with another name
