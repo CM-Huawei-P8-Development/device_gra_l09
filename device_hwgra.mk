@@ -34,6 +34,7 @@ PRODUCT_PACKAGES += \
 
 # FM RADIO
 PRODUCT_PACKAGES += \
+    FmReceiverJNI \
     libfmjni \
     FMRadio
 
@@ -76,10 +77,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     Snap  
 
-# FM RADIO quick hack to copy renamed files, does cm looks for default?
+# FM RADIO Huawei used a different naming. This one will however include the libs
+# named with their pattern.
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vendor/system/lib/hw/fm.bcm.hi3635.so:system/lib/hw/fm.bcm.default.so \
-    $(LOCAL_PATH)/vendor/system/lib64/hw/fm.bcm.hi3635.so:system/lib64/hw/fm.bcm.default.so
+    $(LOCAL_PATH)/vendor/system/lib/libfm_jni.so:system/lib/libfmjni.so \
+    $(LOCAL_PATH)/vendor/system/lib64/libfm_jni.so:system/lib64/libfmjni.so
 
 #Camera
 PRODUCT_COPY_FILES += \

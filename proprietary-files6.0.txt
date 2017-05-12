@@ -739,11 +739,9 @@ lib64/liblog.so
 #FM Radio
 lib/hw/fm.bcm.hi3635.so
 lib/libfm_interface.so
-lib/libfm_jni.so
 lib/libfm_volume.so
 lib64/hw/fm.bcm.hi3635.so
 lib64/libfm_interface.so
-lib64/libfm_jni.so
 lib64/libfm_volume.so
 
 #Frameworks for media?
