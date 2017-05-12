@@ -36,9 +36,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     FMRadio
 
-# GELLO
-PRODUCT_PACKAGES += \
-    Gello
+# GELLO isn't available
+#PRODUCT_PACKAGES += \
+#    Gello
 
 #?
 PRODUCT_PACKAGES += \
@@ -119,9 +119,6 @@ PRODUCT_COPY_FILES += \
 #Audio config
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
-
-#The built kernel
-PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 
 #This will be used as /etc/recovery.fstab only for twrp
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
