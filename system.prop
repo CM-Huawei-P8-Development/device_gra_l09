@@ -196,3 +196,6 @@ ro.config.vc_call_steps=20
 #MTP & Sdcard related
 persist.fw.force_adoptable=true
 
+#Custom ril class
+ro.telephony.ril_class=HwHisiRIL
+
