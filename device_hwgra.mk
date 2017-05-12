@@ -167,7 +167,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     custom.init.mods.rc \
     custom.init.usb.rc \
-    init.hi3635.power.rc \
+    custom.init.power.rc \
     init.hi3635.rc \
     init.recovery.hi3635.rc \
     ueventd.hi3635.rc \

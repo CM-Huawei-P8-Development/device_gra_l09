@@ -2,165 +2,17 @@ on early-init
     write /sys/block/mmcblk0/queue/scheduler noop
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
-#partially copied over from vendor init
 on early-boot
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
-    restorecon_recursive /sys/devices/system/cpu/cpu0/cpufreq/interactive
-    chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor interactive
+    #Trigger the performance profile during boot
+    setprop sys.perf.profile 2
 
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost
-    chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration
-    chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_min_interval
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_min_interval
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack
-
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost
-    chown system  system /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse
-    chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration
-    chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_min_interval
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_min_interval
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack
-    chmod 0664 /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack
-
-
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
-    chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
-    chmod 664 /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
-    chmod 664 /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
-    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies
-    chmod 444 /sys/devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies
-
-    chown system system /sys/class/devfreq/gpufreq/max_freq
-    chmod 664 /sys/class/devfreq/gpufreq/max_freq
-    chown system system /sys/class/devfreq/gpufreq/min_freq
-    chmod 664 /sys/class/devfreq/gpufreq/min_freq
-    chown system system /sys/class/devfreq/gpufreq/cur_freq
-    chmod 664 /sys/class/devfreq/gpufreq/cur_freq
-    chown system system /sys/class/devfreq/gpufreq/available_frequencies
-    chmod 664 /sys/class/devfreq/gpufreq/available_frequencies
-    chown system system /sys/class/devfreq/gpufreq/mali_ondemand/animation_boost
-    chmod 664 /sys/class/devfreq/gpufreq/mali_ondemand/animation_boost
-    chown system system /sys/class/devfreq/gpufreq/mali_ondemand/animation_boost_freq
-    chmod 664 /sys/class/devfreq/gpufreq/mali_ondemand/animation_boost_freq
-	chown system system /sys/class/devfreq/gpufreq/polling_interval
-	chmod 664 /sys/class/devfreq/gpufreq/polling_interval
-	
-	
-    chown system system /sys/class/devfreq/ddrfreq/max_freq
-    chmod 664 /sys/class/devfreq/ddrfreq/max_freq
-    chown system system /sys/class/devfreq/ddrfreq/min_freq
-    chmod 664 /sys/class/devfreq/ddrfreq/min_freq
-    chown system system /sys/class/devfreq/ddrfreq/ddr_bandwidth
-    chmod 664 /sys/class/devfreq/ddrfreq/ddr_bandwidth
-    chown system system /sys/class/devfreq/ddrfreq/cur_freq
-    chmod 664 /sys/class/devfreq/ddrfreq/cur_freq
-    chown system system /sys/class/devfreq/ddrfreq/available_frequencies
-    chmod 664 /sys/class/devfreq/ddrfreq/available_frequencies
-    chown system system /sys/class/devfreq/ddrfreq/polling_interval
-    chmod 664 /sys/class/devfreq/ddrfreq/polling_interval
-    chown system system /sys/kernel/set_hmp_thresholds/policy
-    chmod 0664 /sys/kernel/set_hmp_thresholds/policy
-    chown system system /sys/class/devfreq/ddrfreq_up_threshold/max_freq
-    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/max_freq
-    chown system system /sys/class/devfreq/ddrfreq_up_threshold/min_freq
-    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/min_freq
-    chown system system /sys/class/devfreq/ddrfreq_up_threshold/ddr_bandwidth
-    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/ddr_bandwidth
-    chown system system /sys/class/devfreq/ddrfreq_up_threshold/cur_freq
-    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/cur_freq
-    chown system system /sys/class/devfreq/ddrfreq_up_threshold/available_frequencies
-    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/available_frequencies
-    chown system system /sys/class/devfreq/ddrfreq_up_threshold/polling_interval
-    chmod 664 /sys/class/devfreq/ddrfreq_up_threshold/polling_interval
-
-    chown system system /sys/class/graphics/fb0/lcd_cabc_mode
-    chmod 664 /sys/class/graphics/fb0/lcd_cabc_mode
-
-    write /sys/kernel/mm/ksm/pages_to_scan 100
-    write /sys/kernel/mm/ksm/sleep_millisecs 500
-    write /sys/kernel/mm/ksm/run 1
-
-    chown system system /sys/kernel/hmp/task_fork_on_bigcluster
-    chmod 0664 /sys/kernel/hmp/task_fork_on_bigcluster
-
-    chown system system /sys/kernel/hmp/boost
-    chmod 0664 /sys/kernel/hmp/boost
-
-    chown system system /sys/kernel/perfhub/cpuaffinity
-    chmod 0660 /sys/kernel/perfhub/cpuaffinity
-
-#We are charging anyway - interactive govenor for main cores and on demand for boosted cores seems fine.
-on charger
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
-    restorecon_recursive /sys/devices/system/cpu/cpu0/cpufreq/interactive
-    chown system  system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
-    write /sys/kernel/set_hmp_thresholds/enable 0
-    write /sys/kernel/hmp/up_threshold 1020
-    write /sys/kernel/hmp/down_threshold 768
-    write /sys/kernel/set_hmp_thresholds/enable 1
-    write /sys/class/devfreq/ddrfreq/max_freq 800000000
-    write /sys/class/devfreq/ddrfreq/min_freq 800000000
-    write /sys/class/devfreq/ddrfreq/min_freq 0
-    write /sys/class/devfreq/ddrfreq/max_freq 0
-
-#On boot complete set the govenor to ondemand
-#It's not as agressive as interactive and a good point to start
 on property:sys.boot_completed=1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-    restorecon_recursive /sys/devices/system/cpu/cpu0/cpufreq/ondemand
-    chown system  system /sys/devices/system/cpu/cpu0/cpufreq/ondemand/boostpulse
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/ondemand/boostpulse
-    write /sys/kernel/hmp/boost 0
+    #Trigger the default profile after boot
+    setprop sys.perf.profile 1
 
-#Use the default vendor present.
-#We might need some decent performance in recovery as well.
 on property:init.svc.recovery=running
-    trigger vendor-pwr-default
+    #Trigger the default profile in recovery
+    setprop sys.perf.profile 1
 
 on property:dev.bootcomplete=1
     setprop sys.io.scheduler raw
