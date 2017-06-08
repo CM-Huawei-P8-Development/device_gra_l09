@@ -20,7 +20,6 @@ import /vendor.init.protocol.rc
 #To allow modifications
 import /custom.init.mods.rc
 import /custom.init.usb.rc
-import /custom.init.power.sh
 
 #init.trace.rc is provided by CM
 
