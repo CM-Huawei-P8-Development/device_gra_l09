@@ -293,10 +293,10 @@ service hw_cdma_service /system/bin/hw_cdmamodem_service /dev/acm_cdma_log /dev/
 #    disabled
 #    oneshot
 
-service thermal-daemon /system/bin/thermal-daemon
-    class main
-    user system 
-    group system
+#service thermal-daemon /system/bin/thermal-daemon
+#    class main
+#    user system 
+#    group system
 
 #service hwpged /system/bin/hwpged
 #    class main

@@ -453,6 +453,6 @@ service hdbd /sbin/hdbd --root_seclabel=u:r:su:s0
     disabled
     seclabel u:r:hdbd:s0
 
-service hw_ueventd /sbin/hw_ueventd
-    class main
-    user root
+#service hw_ueventd /sbin/hw_ueventd
+#    class main
+#    user root

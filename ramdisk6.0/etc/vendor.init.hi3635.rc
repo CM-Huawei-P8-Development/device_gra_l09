@@ -187,8 +187,8 @@ on charger
     write /sys/class/devfreq/ddrfreq/max_freq 0
     write /sys/devices/virtual/graphics/fb0/mode "U:1080x1920p-0"
     start charger_huawei
-    start hw_ueventd
     start oeminfo_nvm
+#    start hw_ueventd
 
 on fs
     export ANDROID_STORAGE ""
@@ -545,11 +545,11 @@ service kmsgcat_cp /sbin/kmsgcat -r 4096 -n 25 -i /dev/cshell_log -f /data/hwzd_
 #    disabled
 #    oneshot
 
-on property:sys.boot_completed=1 && property:ro.config.hw_perfhub=true
-    start perfhub
+#on property:sys.boot_completed=1 && property:ro.config.hw_perfhub=true
+#    start perfhub
 
-service perfhub /system/bin/perfhub
-    class late_start
-    user system
-    group system
-    disabled
+#service perfhub /system/bin/perfhub
+#    class late_start
+#    user system
+#    group system
+#    disabled
